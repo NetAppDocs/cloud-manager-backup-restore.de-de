@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: task-restore-vm-data.html 
+keywords: restore virtual machines 
+summary: Sie können Virtual Machines aus der Cloud in der lokalen SnapCenter wiederherstellen. 
+---
+= Wiederherstellung von Virtual Machines aus der Cloud
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können Virtual Machines aus der Cloud wieder in vCenter vor Ort wiederherstellen. Das Backup wird an genau demselben Ort wiederhergestellt, von wo aus das Backup durchgeführt wurde. Sie können das Backup nicht an einem anderen alternativen Speicherort wiederherstellen. Sie können Virtual Machines aus dem Datastore oder aus der VM-Ansicht wiederherstellen.
+
+
+NOTE: Sie können keine virtuellen Maschinen wiederherstellen, die von mehreren Datenspeichern verteilt sind.
+
+Stellen Sie sicher, dass Sie alle erfüllt haben link:concept-protect-vm-data.html#Requirements["Anforderungen"] Vor dem Wiederherstellen von virtuellen Maschinen aus der Cloud.
+
+.Schritte
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen* > *SnapCenter Plug-in für VMware vSphere* und wählen Sie das SnapCenter Plug-in für VMware vSphere aus, dessen virtuelle Maschine Sie wiederherstellen möchten.
+
+
+
+NOTE: Wenn die virtuelle Quellmaschine an einen anderen Speicherort (vMotion) verschoben wird und der Benutzer eine Wiederherstellung dieser virtuellen Maschine aus BlueXP auslöst, wird die Virtual Machine wieder auf dem ursprünglichen Quellspeicherort wiederhergestellt, von dem aus das Backup durchgeführt wurde.
+
+. So stellen Sie Daten aus dem Datastore wieder her:
++
+.. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend dem Datenspeicher, den Sie wiederherstellen möchten, und klicken Sie auf *Details anzeigen*.
+.. Klicken Sie auf *Wiederherstellen*, die der Sicherungskopie entsprechen, die Sie wiederherstellen möchten.
+.. Wählen Sie die virtuelle Maschine aus, die Sie aus dem Backup wiederherstellen möchten, und klicken Sie auf *Weiter*.
+.. Überprüfen Sie die Details und klicken Sie auf *Wiederherstellen*.
+
+
+. So stellen Sie Daten von virtuellen Maschinen wieder her:
++
+.. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend der virtuellen Maschine, die Sie wiederherstellen möchten, und klicken Sie auf *Wiederherstellen*.
+.. Wählen Sie das Backup aus, über das Sie die virtuelle Maschine wiederherstellen möchten, und klicken Sie auf *Weiter*.
+.. Überprüfen Sie die Details und klicken Sie auf *Wiederherstellen*.
+
+
+
+
+Die VM wird an demselben Ort wiederhergestellt, von dem das Backup durchgeführt wurde.

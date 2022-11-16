@@ -1,0 +1,135 @@
+---
+sidebar: sidebar 
+permalink: reference-backup-multi-account-azure.html 
+keywords: microsoft azure, azure, regions, blob, multiple accounts, multiple regions, backup 
+summary: Cloud Backup ermöglicht die Erstellung von Backup-Dateien in einem Azure-Konto, das sich von dem Speicherort Ihrer Quell-Cloud Volumes ONTAP-Volumes unterscheidet und sich von dem Konto des BlueXP Connectors unterscheidet. 
+---
+= Backup für Multi-Account-Zugriff in Azure konfigurieren
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Backup ermöglicht die Erstellung von Backup-Dateien in einem Azure Konto, das sich von dem der Quell-Cloud Volumes ONTAP Volumes unterscheidet. Und beide Konten können sich von dem Konto unterscheiden, in dem sich der BlueXP Connector befindet.
+
+Diese Schritte sind nur erforderlich, wenn Sie sich befinden https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-backup-to-azure.html["Sichern von Cloud Volumes ONTAP-Daten auf Azure Blob Storage"^].
+
+Befolgen Sie einfach die nachstehenden Schritte, um Ihre Konfiguration auf diese Weise einzurichten.
+
+
+
+== Vnet-Peering zwischen Konten einrichten
+
+Wenn Sie möchten, dass BlueXP Ihr Cloud Volumes ONTAP-System in einem anderen Konto/einer anderen Region verwaltet, müssen Sie vnet Peering einrichten. Vnet-Peering ist für die Konnektivität des Storage-Kontos nicht erforderlich.
+
+. Melden Sie sich beim Azure-Portal an, und wählen Sie dann von Zuhause aus Virtual Networks aus.
+. Wählen Sie das Abonnement aus, das Sie als Abonnement verwenden 1, und klicken Sie auf das vnet, wo Sie Peering einrichten möchten.
++
+image:screenshot_azure_peer1.png[""]
+
+. Wählen Sie *cbsnetzwerk* und klicken Sie im linken Bereich auf *Peerings* und dann auf *Add*.
++
+image:screenshot_azure_peer2.png[""]
+
+. Geben Sie die folgenden Informationen auf der Peering-Seite ein und klicken Sie dann auf *Hinzufügen*.
++
+** Peering-Linkname für dieses Netzwerk: Sie können einen beliebigen Namen angeben, um die Peering-Verbindung zu identifizieren.
+** Remote Virtual Network Peering Linkname: Geben Sie einen Namen ein, um das Remote vnet zu identifizieren.
+** Behalten Sie alle Auswahlen als Standardwerte bei.
+** Wählen Sie unter Abonnement das Abonnement 2 aus.
+** Virtuelles Netzwerk, wählen Sie das virtuelle Netzwerk in Abo 2 aus, zu dem Sie das Peering einrichten möchten.
++
+image:screenshot_azure_peer3.png[""]
+
+
+
+. Führen Sie die gleichen Schritte in Subskription 2 vnet aus und geben Sie die Abonnement- und Remote vnet-Details von Abo 1 an.
++
+image:screenshot_azure_peer4.png[""]
+
++
+Die Peering-Einstellungen werden hinzugefügt.
+
++
+image:screenshot_azure_peer5.png[""]
+
+
+
+
+
+== Erstellen eines privaten Endpunkts für das Storage-Konto
+
+Jetzt müssen Sie einen privaten Endpunkt für das Storage-Konto erstellen. In diesem Beispiel wird das Speicherkonto in Abo 1 erstellt und das Cloud Volumes ONTAP System wird in Abonnement 2 ausgeführt.
+
+
+NOTE: Sie benötigen die Berechtigung von Netzwerkbeitragenden, um die folgende Aktion auszuführen.
+
+[source, json]
+----
+{
+  "id": "/subscriptions/d333af45-0d07-4154-943dc25fbbce1b18/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+  "properties": {
+    "roleName": "Network Contributor",
+    "description": "Lets you manage networks, but not access to them.",
+    "assignableScopes": [
+      "/"
+    ],
+    "permissions": [
+      {
+        "actions": [
+          "Microsoft.Authorization/*/read",
+          "Microsoft.Insights/alertRules/*",
+          "Microsoft.Network/*",
+          "Microsoft.ResourceHealth/availabilityStatuses/read",
+          "Microsoft.Resources/deployments/*",
+          "Microsoft.Resources/subscriptions/resourceGroups/read",
+          "Microsoft.Support/*"
+        ],
+        "notActions": [],
+        "dataActions": [],
+        "notDataActions": []
+      }
+    ]
+  }
+}
+----
+. Wechseln Sie zum Storage-Konto > Networking > Verbindungen zu privaten Endpunkten und klicken Sie auf *+ Private Endpunkt*.
++
+image:screenshot_azure_networking1.png[""]
+
+. Auf der Seite Private Endpoint_Basics_:
++
+** Wählen Sie Subskription 2 (wo BlueXP Connector und Cloud Volumes ONTAP System bereitgestellt werden) und die Ressourcengruppe aus.
+** Geben Sie einen Endpunktnamen ein.
+** Wählen Sie die Region aus.
++
+image:screenshot_azure_networking2.png[""]
+
+
+
+. Wählen Sie auf der Seite _Ressource_ die Unterressource Ziel als *Blob* aus.
++
+image:screenshot_azure_networking3.png[""]
+
+. Auf der Konfigurationsseite:
++
+** Wählen Sie das virtuelle Netzwerk und das Subnetz aus.
+** Klicken Sie auf das Optionsfeld *Ja*, um "in private DNS-Zone integrieren".
++
+image:screenshot_azure_networking4.png[""]
+
+
+
+. Stellen Sie in der Liste Private DNS Zone sicher, dass die Private Zone aus der richtigen Region ausgewählt ist, und klicken Sie auf *Review + Create*.
++
+image:screenshot_azure_networking5.png[""]
+
++
+Nun hat das Speicherkonto (in Abo 1) Zugriff auf das Cloud Volumes ONTAP-System, das im Abonnement ausgeführt wird 2.
+
+. Versuchen Sie erneut, Cloud Backup auf dem Cloud Volumes ONTAP System zu aktivieren, und dieses Mal sollte es erfolgreich sein.
+

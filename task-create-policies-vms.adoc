@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: task-create-policies-vms.html 
+keywords: create policy, protection policies, predefined policies, custom policies 
+summary: Sichern Sie Ihre Datenspeicher von lokalen ONTAP Systemen auf AWS. 
+---
+= Erstellen einer Richtlinie zum Backup von Virtual Machines
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können eine Richtlinie erstellen oder eine der folgenden vordefinierten Richtlinien verwenden, die in BlueXP verfügbar sind.
+
+|===
+| Name Der Richtlinie | Etikett | Aufbewahrungswert 
+
+
+ a| 
+1 Jahr tägliche LTR
+ a| 
+Täglich
+ a| 
+366
+
+
+
+ a| 
+5 Jahre tägliche LTR
+ a| 
+Täglich
+ a| 
+1830
+
+
+
+ a| 
+7 Jahre wöchentlicher LTR
+ a| 
+Wöchentlich
+ a| 
+370
+
+
+
+ a| 
+10 Jahre Monatliche LTR
+ a| 
+Monatlich
+ a| 
+120
+
+|===
+Sie sollten Richtlinien erstellen, wenn Sie die vordefinierten Richtlinien nicht bearbeiten möchten.
+
+.Schritte
+. Wählen Sie auf der Seite Virtuelle Maschinen aus der Dropdown-Liste Einstellungen die Option *Richtlinien* aus.
+. Klicken Sie auf *Create Policy*.
+. Geben Sie einen Richtliniennamen an.
+. Geben Sie den Zeitplan und die Aufbewahrungsdetails an.
++
+Standardmäßig wird die Sicherungsquelle als primäre Quelle ausgewählt.
+
+. Klicken Sie Auf *Erstellen*.
+

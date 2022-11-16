@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: task-discover-applications.html 
+keywords: discover, admin role, service account, pre-canned policies 
+summary: Erkennung von Applikationen, die Richtlinien zuweisen und Backups erstellen 
+---
+= Erkennen Sie die Anwendungen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie sollten die Datenbanken auf dem Host erkennen, um Richtlinien zuzuweisen und Backups zu erstellen.
+
+*Was Sie brauchen*
+
+* Sie sollten die FSX für die Arbeitsumgebung ONTAP und den Connector erstellt haben.
+* Stellen Sie sicher, dass der Connector mit dem FSX für die ONTAP-Arbeitsumgebung und den Oracle-Datenbank-Hosts verbunden ist.
+* Stellen Sie sicher, dass der BlueXP-Benutzer über die Rolle „Account Admin“ verfügt.
+* Sie sollten das SnapCenter Plug-in für Oracle implementiert haben. link:reference-prereq-protect-cloud-native-app-data.html#deploy-snapcenter-plug-in-for-oracle["Weitere Informationen ."].
+
+
+*Schritte*
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Klicken Sie Auf Anwendungen Ermitteln.
+. Wählen Sie *Cloud Native* und klicken Sie auf *Next*.
++
+Ein Servicekonto mit der Rolle _SnapCenter System_ wird erstellt, um für alle Benutzer dieses Kontos geplante Datensicherungsvorgänge durchzuführen.
+
++
+** Klicken Sie auf *Konto* > *Konto verwalten* > *Mitglieder*, um das Servicekonto anzuzeigen.
++
+
+NOTE: Das Service-Konto (_SnapCenter-Account-<accountid>_) wird für die Ausführung der geplanten Backup-Vorgänge verwendet. Sie sollten das Dienstkonto niemals löschen.
+
+
+
+. Geben Sie auf der Seite Hostdetails angeben die Details des Oracle-Datenbank-Hosts ein, aktivieren Sie das Kontrollkästchen, um zu bestätigen, dass das Plug-in auf dem Host installiert ist, und klicken Sie auf *Entdecken*.
++
+** Zeigt alle Datenbanken auf dem Host an. Wenn die Betriebssystemauthentifizierung für die Datenbank deaktiviert ist, sollten Sie die Datenbankauthentifizierung konfigurieren, indem Sie auf *Configure* klicken. Weitere Informationen finden Sie unter  Oracle database credentials.
+** Klicken Sie auf *Anwendung verwalten*, wählen Sie *Hinzufügen*, um einen neuen Host hinzuzufügen, *Aktualisieren*, um neue Datenbanken zu entdecken, oder *Entfernen*, um einen Datenbank-Host zu entfernen.
+** Klicken Sie auf *Einstellungen* und wählen Sie *Richtlinien*, um die vordefinierten Richtlinien anzuzeigen. Überprüfen Sie die vordefinierten Richtlinien, und wenn Sie möchten, können Sie sie entweder bearbeiten, um Ihre Anforderung zu erfüllen, oder erstellen Sie eine neue Richtlinie.
+
+
+
+
+
+
+== Konfigurieren Sie die Anmeldedaten für die Oracle-Datenbank
+
+Sie sollten Anmeldedaten konfigurieren, die für Datensicherungsvorgänge in Oracle-Datenbanken verwendet werden.
+
+*Schritte*
+
+. Wenn die Betriebssystemauthentifizierung für die Datenbank deaktiviert ist, sollten Sie die Datenbankauthentifizierung konfigurieren, indem Sie auf *Configure* klicken.
+. Geben Sie den Benutzernamen, das Kennwort und die Anschlussdetails entweder im Abschnitt Datenbankeinstellungen oder ASM-Einstellungen an.
++
+Der Oracle-Benutzer sollte über sysdba-Berechtigungen verfügen, und ASM-Benutzer sollten sysmasm-Berechtigungen haben.
+
+. Klicken Sie Auf *Konfigurieren*.
+
+
+
+
+== Erstellen einer Richtlinie
+
+Sie können Richtlinien erstellen, wenn Sie die vordefinierten Richtlinien nicht bearbeiten möchten.
+
+*Schritte*
+
+. Wählen Sie auf der Seite Anwendungen aus der Dropdown-Liste Einstellungen die Option *Richtlinien* aus.
+. Klicken Sie auf *Create Policy*.
+. Geben Sie einen Richtliniennamen an.
+. (Optional) Bearbeiten Sie das Format des Backup-Namens.
+. Geben Sie den Zeitplan und die Aufbewahrungsdetails an.
+. Klicken Sie Auf *Erstellen*.
+

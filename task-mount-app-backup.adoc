@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: task-mount-app-backup.html 
+keywords: mount, mount application backups, Oracle database, SAP HANA database 
+summary: Sie können die Backups von SAP HANA und Oracle in die gegebene Datenbank einbinden 
+---
+= Binden Sie Backups von Applikationen ein
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+SnapCenter unterstützt die Wiederherstellung von Oracle und HANA Backups auf einem alternativen Host nicht. Damit können Sie mit Cloud Backup für Anwendungen die Oracle- und HANA-Backups auf den angegebenen Host mounten.
+
+*Was Sie brauchen*
+
+Wenn Sie ein Backup mounten möchten, das vom sekundären Storage in einen Objektspeicher verschoben wurde, sollten Sie die Details zur primären Arbeitsumgebung hinzufügen und den IP-Speicherplatz festlegen. Weitere Informationen finden Sie unter link:task-manage-app-backups.html#set-ip-space-of-the-primary-working-environment["Legen Sie IP-Speicherplatz für die primäre Arbeitsumgebung fest"].
+
+*Schritte*
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Wählen Sie im Feld Filtern nach die Option *Typ* aus und wählen Sie im Dropdown-Menü die Option *SAP HANA* oder *Oracle* aus.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der geschützten Anwendung und wählen Sie *Details anzeigen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Sicherung und wählen Sie *Mount*.
++
+.. Geben Sie eine der folgenden Optionen an:
++
+... Geben Sie in der NAS-Umgebung den FQDN oder die IP-Adresse des Hosts an, auf den aus dem Objektspeicher wiederhergestellte alternative Volumes exportiert werden sollen.
+... Geben Sie in der SAN-Umgebung die Initiatoren des Hosts an, denen aus dem Objektspeicher wiederhergestellte LUNs eines alternativen Volumes zugeordnet werden sollen.
+
+
+.. Geben Sie das Suffix an, das dem alternativen Volume-Namen hinzugefügt wird.
+.. Wenn sich der Snapshot im Archiv-Storage befindet, geben Sie die Priorität an, um Ihre Daten aus dem Archiv-Storage abzurufen.
+.. Klicken Sie Auf *Mount*.
+
+
+
+
+Dieser Vorgang bindet nur den Storage auf dem angegebenen Host ein. Sie sollten das Dateisystem manuell mounten und die Datenbank aufrufen. Nach Nutzung des alternativen Volumes kann der Storage-Administrator das Volume aus dem ONTAP-Cluster löschen.
+
+Weitere Informationen zum Einrichten der SAP HANA-Datenbank finden Sie unter: https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/sc-copy-clone-introduction.html["TR-4667: Automatisierung von SAP HANA Systemkopie und Klonvorgängen mit SnapCenter"^].

@@ -1,0 +1,176 @@
+---
+sidebar: sidebar 
+permalink: task-backup-kubernetes-to-gcp.html 
+keywords: backing up, back up, backup, back up kubernetes volumes, persistent volumes, PV, persistence volume claim, PVC, gcp, google cloud storage, back up volumes, cloud backup, gke, kubernetes 
+summary: Führen Sie einige Schritte aus, um Daten von Ihren persistenten Volumes auf GKE Kubernetes-Clustern auf Google Cloud Storage zu sichern. 
+---
+= Sichern Sie persistente Kubernetes-Volume-Daten auf Google Cloud Storage
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Führen Sie einige Schritte aus, um Daten von Ihren persistenten Volumes auf GKE Kubernetes-Clustern auf Google Cloud Storage zu sichern.
+
+
+
+== Schnellstart
+
+Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.
+
+.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"[] alt=„One“></span> Voraussetzungen prüfen
+* Sie haben den Kubernetes Cluster als BlueXP-Arbeitsumgebung erkannt.
++
+** Trident muss auf dem Cluster installiert sein, und die Trident Version muss mindestens 21.1 sein.
+** Alle PVCs, die verwendet werden sollen, um persistente Volumes zu erstellen, die Sie sichern möchten, müssen „Snapshot Policy“ auf „Standard“ gesetzt sein.
+** Der Cluster muss für seinen Back-End Storage Cloud Volumes ONTAP auf GCP verwenden.
+** Das Cloud Volumes ONTAP System muss ONTAP 9.7P5 oder höher ausführen.
+
+
+* Sie verfügen über ein gültiges GCP-Abonnement für den Speicherplatz, in dem sich Ihre Backups befinden.
+* Sie verfügen über ein Service-Konto in Ihrem Google Cloud Projekt, das über die vordefinierte Rolle „Storage Admin“ verfügt.
+* Sie haben sich für das angemeldet https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["BlueXP Marketplace Backup-Angebot"^], Oder Sie haben gekauft link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Und aktiviert"^] Eine Cloud Backup BYOL-Lizenz von NetApp
+
+
+[role="quick-margin-para"]
+Wählen Sie die Arbeitsumgebung aus, und klicken Sie auf *Aktivieren* neben dem Backup & Restore-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
+
+[role="quick-margin-para"]
+image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+[role="quick-margin-para"]
+Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Wechseln Sie zu stündlichen, täglichen, wöchentlichen oder monatlichen Backups oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.
+
+[role="quick-margin-para"]
+image:screenshot_backup_policy_k8s_azure.png["Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie Ihren Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."]
+
+[role="quick-margin-para"]
+Legen Sie fest, welche Volumes Sie in der Seite Volumes auswählen sichern möchten. Die Backup-Dateien werden in einem Google Cloud Storage Bucket gespeichert, der dasselbe GCP-Abonnement und dieselbe Region wie das Cloud Volumes ONTAP System verwendet.
+
+
+
+== Anforderungen
+
+Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen, bevor Sie mit dem Backup persistenter Kubernetes-Volumes in Google Cloud-Storage beginnen.
+
+Die folgende Abbildung zeigt die einzelnen Komponenten und die Verbindungen, die zwischen den Komponenten vorbereitet werden müssen:
+
+image:diagram_cloud_backup_k8s_cvo_gcp.png["Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
+
+Beachten Sie, dass der private Endpunkt optional ist.
+
+Kubernetes-Cluster-Anforderungen::
++
+--
+* Sie haben den Kubernetes Cluster als BlueXP-Arbeitsumgebung erkannt. https://docs.netapp.com/us-en/cloud-manager-kubernetes/task/task-kubernetes-discover-gke.html["Erkennung des Kubernetes-Clusters"^].
+* Trident muss auf dem Cluster installiert werden, und die Trident Version muss mindestens 21.1 sein. Siehe https://docs.netapp.com/us-en/cloud-manager-kubernetes/task/task-k8s-manage-trident.html["Anleitung zur Installation von Trident"^] Oder https://docs.netapp.com/us-en/trident/trident-managing-k8s/upgrade-trident.html["So aktualisieren Sie die Trident Version"^].
+* Der Cluster muss für seinen Back-End Storage Cloud Volumes ONTAP auf GCP verwenden.
+* Das Cloud Volumes ONTAP System muss sich in derselben GCP-Region wie der Kubernetes-Cluster befinden. Es muss ONTAP 9.7P5 oder höher ausgeführt werden (ONTAP 9.8P11 und höher wird empfohlen).
++
+Beachten Sie, dass Kubernetes-Cluster an On-Premises-Standorten nicht unterstützt werden. Es werden nur Kubernetes-Cluster in Cloud-Implementierungen unterstützt, die Cloud Volumes ONTAP Systeme nutzen.
+
+* Für alle Persistent Volume Claim-Objekte, die zum Erstellen der persistenten Volumes verwendet werden sollen, die Sie sichern möchten, muss „Snapshot Policy“ auf „Standard“ gesetzt sein.
++
+Sie können dies für einzelne VES tun, indem Sie hinzufügen `snapshotPolicy` Unter Anmerkungen:
+
++
+[source, json]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: full
+  annotations:
+    trident.netapp.io/snapshotPolicy: "default"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1000Mi
+  storageClassName: silver
+----
++
+Sie können dies für alle VES, die mit einem bestimmten Back-End-Speicher verknüpft sind, tun, indem Sie die hinzufügen `snapshotPolicy` Feld unter den Standardeinstellungen im `backend.json` Datei:
+
++
+[source, json]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas-advanced
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: 10.0.0.1
+  dataLIF: 10.0.0.2
+  backendName: tbc-ontap-nas-advanced
+  svm: trident_svm
+  credentials:
+    name: backend-tbc-ontap-nas-advanced-secret
+  limitAggregateUsage: 80%
+  limitVolumeSize: 50Gi
+  nfsMountOptions: nfsvers=4
+  defaults:
+    spaceReserve: volume
+    exportPolicy: myk8scluster
+    snapshotPolicy: default
+    snapshotReserve: '10'
+  deletionPolicy: retain
+----
+
+
+--
+Unterstützte GCP-Regionen:: Cloud Backup wird in allen GCP-Regionen unterstützt https://cloud.netapp.com/cloud-volumes-global-regions["Wobei Cloud Volumes ONTAP unterstützt wird"^].
+Lizenzanforderungen:: Für Cloud Backup PAYGO-Lizenzen ist ein Abonnement über das verfügbar https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["GCP Marketplace"^] Ist erforderlich, bevor Sie Cloud Backup aktivieren. Die Abrechnung für Cloud Backup erfolgt über dieses Abonnement. https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-gcp.html["Sie können sich auf der Seite Details  Credentials des Assistenten für die Arbeitsumgebung anmelden"^].
++
+--
+Für die BYOL-Lizenzierung von Cloud Backup benötigen Sie die Seriennummer von NetApp, mit der Sie den Service für die Dauer und die Kapazität der Lizenz nutzen können. link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Erfahren Sie, wie Sie Ihre BYOL-Lizenzen managen"].
+
+Und Sie benötigen ein Google-Abonnement für den Speicherplatz, in dem Ihre Backups zu finden sind.
+
+--
+GCP-Service-Konto:: Sie benötigen ein Servicekonto in Ihrem Google Cloud Projekt, das über die vordefinierte Rolle „Storage Admin“ verfügt. https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-creating-gcp-service-account.html["Erfahren Sie, wie Sie ein Servicekonto erstellen"^].
+
+
+
+
+== Unterstützung Von Cloud Backup
+
+Cloud-Backup kann jederzeit direkt aus der Kubernetes-Arbeitsumgebung aktiviert werden.
+
+.Schritte
+. Wählen Sie die Arbeitsumgebung aus, und klicken Sie neben dem Backup & Restore Service im rechten Fenster auf *Aktivieren.
++
+image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Geben Sie die Backup Policy Details ein und klicken Sie auf *Weiter*.
++
+Sie können den Backup-Zeitplan festlegen und die Anzahl der zu behaltenden Backups auswählen.
+
++
+image:screenshot_backup_policy_k8s_azure.png["Ein Screenshot, der die Cloud Backup Einstellungen zeigt, in denen Sie Ihren Zeitplan und Ihre Backup-Aufbewahrung auswählen können."]
+
+. Wählen Sie die persistenten Volumes aus, die Sie sichern möchten.
++
+** Um alle Volumes zu sichern, aktivieren Sie das Kontrollkästchen in der Titelzeile (image:button_backup_all_volumes.png[""]).
+** Um einzelne Volumes zu sichern, aktivieren Sie das Kontrollkästchen für jedes Volume (image:button_backup_1_volume.png[""]).
++
+image:screenshot_backup_select_volumes_k8s.png["Ein Screenshot, wie Sie die persistenten Volumes auswählen, die gesichert werden."]
+
+
+
+. Wenn Sie möchten, dass alle aktuellen und zukünftigen Volumes Backups aktiviert sind, lassen Sie einfach das Kontrollkästchen „zukünftige Volumes automatisch sichern…​“ aktiviert. Wenn Sie diese Einstellung deaktivieren, müssen Sie manuell Backups für zukünftige Volumes aktivieren.
+. Klicken Sie auf *Activate Backup* und Cloud Backup beginnt die Erstellung der ersten Backups jedes ausgewählten Volumes.
+
+
+Die Backup-Dateien werden in einem Google Cloud Storage Bucket gespeichert, der dasselbe GCP-Abonnement und dieselbe Region wie das Cloud Volumes ONTAP System verwendet.
+
+Das Kubernetes Dashboard wird angezeigt, damit Sie den Status der Backups überwachen können.
+
+Das können Sie link:task-manage-backups-kubernetes.html["Starten und Stoppen von Backups für Volumes oder Ändern des Backup-Zeitplans"^]. Das können Sie auch link:task-restore-backups-kubernetes.html#restoring-volumes-from-a-kubernetes-backup-file["Wiederherstellung vollständiger Volumes aus einer Backup-Datei"^] Für ein neues Volume im selben oder einem anderen Kubernetes Cluster in GCP (in derselben Region).

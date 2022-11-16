@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: concept-protect-app-data-to-cloud.html 
+keywords: backing up, back up, backup, backup application data, Azure, Amazon Web services, Cloud Backup, Oracle database, Microsoft SQL Server database, policy, requirements, SAP HANA database, Cloud Manager, BlueXP 
+summary: Integrieren Sie Cloud-Backup für Applikationen in BlueXP und On-Premises-SnapCenter, um applikationskonsistente Snapshots aus lokalen ONTAP in der Cloud zu sichern. 
+---
+= Sichern Sie Ihre lokalen Applikationsdaten
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können Cloud Backup für Applikationen in BlueXP (früher Cloud Manager) und On-Premises-SnapCenter integrieren und so die applikationskonsistenten Snapshots aus lokalen ONTAP in die Cloud sichern. Bei Bedarf können Sie die Daten aus der Cloud auf lokalen SnapCenter Server wiederherstellen.
+
+Sie können Backups von Oracle, Microsoft SQL und SAP HANA Applikationsdaten von lokalen ONTAP Systemen auf Amazon Web Services, Microsoft Azure, Google Cloud Platform und StorageGRID erstellen.
+
+
+NOTE: Sie sollten die SnapCenter-Software 4.6 oder höher verwenden.
+
+Weitere Informationen zu Cloud-Backup für Applikationen finden Sie unter:
+
+* https://cloud.netapp.com/blog/cbs-cloud-backup-and-snapcenter-integration["Applikationsorientiertes Backup mit Cloud Backup und SnapCenter"^]
+* https://soundcloud.com/techontap_podcast/episode-322-cloud-backup-for-applications["Podcast zum Thema Cloud Backup für Applikationen"^]
+
+
+
+
+== Anforderungen
+
+Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen, bevor Sie mit dem Backup von Applikationsdaten in Cloud-Services beginnen.
+
+* ONTAP 9.8 oder höher
+* BlueXP 3.9
+* SnapCenter Server 4.6 oder höher Sie sollten SnapCenter Server 4.7 verwenden, wenn Sie die folgenden Funktionen nutzen möchten:
++
+** Sichern von Backups vor Ort aus sekundärem Storage
+** Schutz von SAP HANA Applikationen
+** Sichern Sie Oracle und SQL Applikationen auf VMware Umgebung
+** Mount-Backups
+** Backups deaktivieren
+** SnapCenter-Server nicht registrieren
+
+
+* Mindestens ein Backup pro Applikation sollte auf dem SnapCenter-Server verfügbar sein
+* Mindestens eine Tages-, Wochen- oder Monatsrichtlinie in SnapCenter ohne Etikett oder dieselbe Bezeichnung wie die der Cloud Backup for Applications-Richtlinie in BlueXP.
+
+
+
+NOTE: Cloud Backup für Applikationen unterstützt keinen Schutz von Applikationen, die sich auf SVMs befinden, die mit FQDN oder IP-Adresse hinzugefügt wurden.
+
+Die folgende Abbildung zeigt die einzelnen Komponenten beim Backup in der Cloud und die Verbindungen, die zwischen ihnen vorbereitet werden müssen:
+
+image:diagram_cloud_backup_app.png["Eine Grafik zeigt, wie Cloud Backup mit den On-Premises-Applikationen und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
+
+Die folgende Abbildung zeigt jede Komponente beim Backup in StorageGRID und die Verbindungen, die zwischen ihnen vorbereitet werden müssen:
+
+image:diagram_cloud_backup_onprem_storagegrid.png["Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]

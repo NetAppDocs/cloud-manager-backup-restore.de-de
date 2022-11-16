@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: task-register-snapcenter-server.html 
+keywords: SnapCenter Server, register 
+summary: Führen Sie einige Schritte durch, um den SnapCenter-Server zu registrieren. 
+---
+= Registrieren Sie den SnapCenter-Server
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Nur ein Benutzer mit SnapCenterAdmin-Rolle kann den Host registrieren, auf dem SnapCenter Server 4.6 oder höher ausgeführt wird. Sie können mehrere SnapCenter-Server-Hosts registrieren.
+
+*Schritte*
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Klicken Sie im Dropdown-Menü *Einstellungen* auf *SnapCenter Server*.
+. Klicken Sie auf *SnapCenter-Server registrieren*.
+. Geben Sie folgende Details an:
++
+.. Geben Sie im Feld SnapCenter-Server den FQDN oder die IP-Adresse des SnapCenter-Serverhosts an.
+.. Geben Sie im Feld Port die Portnummer an, auf der der SnapCenter-Server ausgeführt wird.
++
+Sie sollten sicherstellen, dass der Port offen ist, damit die Kommunikation zwischen SnapCenter Server und Cloud Backup for Applications erfolgen kann.
+
+.. Geben Sie im Feld Tags einen Standortnamen, einen Städtenamen oder einen benutzerdefinierten Namen an, mit dem der SnapCenter-Server markiert werden soll.
++
+Die Tags sind durch Komma getrennt.
+
+.. Geben Sie im Feld Benutzername und Kennwort die Anmeldeinformationen des Benutzers mit der Rolle SnapCenterAdmin an.
+
+
+. Klicken Sie Auf *Registrieren*.
+
+
+*Nach Ihrer Beendigung*
+
+Klicken Sie auf *Backup & Restore* > *Anwendungen*, um alle Anwendungen anzuzeigen, die mit dem registrierten SnapCenter Server-Host geschützt sind.
+
+Standardmäßig werden die Anwendungen automatisch jeden Tag um Mitternacht erkannt. Sie können den Zeitplan so konfigurieren, dass die Anwendungen ermittelt werden.
+
+
+NOTE: Bei SQL Server-Datenbanken zeigt die Spalte Anwendungsname den Namen im Format _Application_Name (Instanzname)_ an.
+
+Folgende Applikationen und ihre Konfigurationen werden unterstützt:
+
+* Oracle Datenbank:
++
+** Vollständige Backups (Daten + Protokoll) werden mit mindestens einem täglichen, wöchentlichen oder monatlichen Zeitplan erstellt
+** SAN, NFS, VMDK-SAN, VMDK-NFS UND RDM
+
+
+* Microsoft SQL Server Datenbank:
++
+** Standalone, Failover-Cluster-Instanzen und Verfügbarkeitsgruppen
+** Vollständige Backups, die mit mindestens einem täglichen, wöchentlichen oder monatlichen Zeitplan erstellt wurden
+** SAN, VMDK-SAN, VMDK-NFS UND RDM
+
+
+* SAP HANA Datenbank:
++
+** Einzelner Container 1.x
+** Mehrere Datenbank-Container 2.x
+** HANA System Replication (HSR)
++
+Sie sollten mindestens ein Backup am primären und sekundären Standort haben. Sie können entscheiden, einen pro-aktiven Ausfall oder einen verzögerten Failover auf das sekundäre zu tun.
+
+** Nicht-Daten-Volumes (NDV) Ressourcen wie HANA-Binärdateien, HANA Archiv-Log-Volume, HANA Shared Volume usw.
+
+
+
+
+Die folgenden Datenbanken werden nicht angezeigt:
+
+* Datenbanken ohne Backups
+* Datenbanken mit nur bedarfsgerechter oder stündlicher Richtlinie
+* Oracle-Datenbanken auf NVMe
+

@@ -1,0 +1,100 @@
+---
+sidebar: sidebar 
+permalink: task-restore-oracle-data.html 
+keywords: restore, Azure, Amazon Web services, Oracle database 
+summary: Sie können Oracle Datenbanken aus der Cloud auf dem lokalen SnapCenter Server wiederherstellen. 
+---
+= Oracle Datenbank wiederherstellen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Die Oracle-Datenbank kann nur auf demselben SnapCenter-Serverhost, derselben SVM oder demselben Datenbank-Host wiederhergestellt werden. Bei einer RAC-Datenbank werden die Daten auf dem On-Premises-Node, an dem das Backup erstellt wurde, wiederhergestellt.
+
+
+NOTE: Die Wiederherstellung von sekundären Backups über primären Server wird unterstützt.
+
+Es wird nur eine vollständige Datenbank mit Wiederherstellung der Kontrolldatei unterstützt. Wenn die Archivprotokolle nicht im AFS vorhanden sind, müssen Sie den Speicherort angeben, der die für die Wiederherstellung erforderlichen Archivprotokolle enthält.
+
+
+IMPORTANT: Single File Restore (SFR) wird nicht unterstützt.
+
+*Was Sie brauchen*
+
+Wenn Sie ein Backup wiederherstellen möchten, das vom sekundären Storage in einen Objektspeicher verschoben wurde, sollten Sie die Details zur primären Arbeitsumgebung hinzufügen und den IP-Speicherplatz festlegen. Weitere Informationen finden Sie unter link:task-manage-app-backups.html#set-ip-space-of-the-primary-working-environment["Legen Sie IP-Speicherplatz für die primäre Arbeitsumgebung fest"].
+
+*Schritte*
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Wählen Sie im Feld *Filtern nach* den Filter *Typ* aus und wählen Sie aus der Dropdown-Liste *Oracle* aus.
+. Klicken Sie auf *Details anzeigen*, die der Datenbank entsprechen, die Sie wiederherstellen möchten, und klicken Sie auf *Wiederherstellen*.
+. Führen Sie auf der Seite Wiederherstellungstyp die folgenden Aktionen durch:
++
+.. Wählen Sie *Datenbankstatus* aus, wenn Sie den Status der Datenbank in den Zustand ändern möchten, der für die Wiederherstellung und Wiederherstellung erforderlich ist.
++
+Die verschiedenen Status einer Datenbank von höher bis niedriger sind offen, montiert, gestartet und heruntergefahren. Sie müssen dieses Kontrollkästchen aktivieren, wenn sich die Datenbank in einem höheren Zustand befindet, der Status jedoch in einen niedrigeren Zustand geändert werden muss, um einen Wiederherstellungsvorgang durchzuführen. Wenn sich die Datenbank in einem niedrigeren Zustand befindet, aber der Status in einen höheren Zustand geändert werden muss, um den Wiederherstellungsvorgang auszuführen, wird der Datenbankstatus automatisch geändert, auch wenn Sie das Kontrollkästchen nicht aktivieren.
+
++
+Wenn sich eine Datenbank im Status „offen“ befindet und die Datenbank für die Wiederherstellung im Status „angehängt“ befinden muss, wird der Datenbankzustand nur geändert, wenn Sie dieses Kontrollkästchen aktivieren.
+
+.. Wählen Sie *Kontrolldateien* aus, wenn Sie Steuerdatei zusammen mit der vollständigen Datenbank wiederherstellen möchten.
+.. Wenn sich der Snapshot im Archiv-Speicher befindet, geben Sie die Priorität an, um Ihre Daten aus dem Archiv-Speicher wiederherzustellen.
+
+
+. Führen Sie auf der Seite „Recovery Scope“ die folgenden Schritte aus:
++
+.. Geben Sie den Recovery-Umfang an.
++
+|===
+| Sie suchen... | Tun Sie das... 
+
+
+ a| 
+Möchten Sie die letzte Transaktion wiederherstellen
+ a| 
+Wählen Sie *Alle Protokolle*.
+
+
+
+ a| 
+Wiederherstellen einer bestimmten Systemänderungsnummer (SCN)
+ a| 
+Wählen Sie *bis SCN (Systemänderungsnummer)*.
+
+
+
+ a| 
+Möchten Sie Daten zu einer bestimmten Zeit wiederherstellen
+ a| 
+Wählen Sie *Datum und Uhrzeit*.
+
+Sie müssen Datum und Uhrzeit der Zeitzone des Datenbank-Hosts angeben.
+
+
+
+ a| 
+Möchten Sie nicht wiederherstellen
+ a| 
+Wählen Sie *Keine Wiederherstellung*.
+
+
+
+ a| 
+Soll beliebige externe Archiv-Log-Speicherorte angeben
+ a| 
+Wenn die Archivprotokolle nicht im AFS vorhanden sind, müssen Sie den Speicherort angeben, der die für die Wiederherstellung erforderlichen Archivprotokolle enthält.
+
+|===
+.. Aktivieren Sie das Kontrollkästchen, wenn Sie die Datenbank nach der Wiederherstellung öffnen möchten.
++
+In einem RAC-Setup wird nach der Wiederherstellung nur die RAC-Instanz geöffnet, die für die Wiederherstellung verwendet wird.
+
+
+
+. Überprüfen Sie die Details und klicken Sie auf *Wiederherstellen*.
+

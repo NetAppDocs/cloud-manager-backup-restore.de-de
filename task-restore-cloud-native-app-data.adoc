@@ -1,0 +1,100 @@
+---
+sidebar: sidebar 
+permalink: task-restore-cloud-native-app-data.html 
+keywords: cloud native, application data, restore, data files, control files, recovery 
+summary: Stellen Sie die Datendateien, Kontrolldateien oder beides wieder her, und stellen Sie dann die Datenbank wieder her. 
+---
+= Stellen Sie Cloud-native Applikationsdaten wieder her
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Im Falle eines Datenverlustes können Sie die Datendateien, Kontrolldateien oder beides wiederherstellen. Anschließend können Sie die Datenbank wiederherstellen.
+
+*Schritte*
+
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Datenbank, die Sie wiederherstellen möchten, und klicken Sie auf *Details anzeigen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Datensicherung, die Sie für die Wiederherstellung verwenden möchten, und klicken Sie auf *Restore*.
+. Führen Sie im Abschnitt „Umfang wiederherstellen“ die folgenden Aktionen durch:
++
+|===
+| Sie suchen... | Tun Sie das... 
+
+
+ a| 
+Möchten nur die Datendateien wiederherstellen
+ a| 
+Wählen Sie *Alle Datendateien*.
+
+
+
+ a| 
+Möchten nur die Kontrolldateien wiederherstellen
+ a| 
+Wählen Sie *Steuerdateien*
+
+
+
+ a| 
+Kunden möchten sowohl Datendateien als auch Kontrolldateien wiederherstellen
+ a| 
+Wählen Sie *Alle Datendateien* und *Kontrolldateien* aus.
+
+|===
++
+
+NOTE: Die Wiederherstellung von Datendateien mit Kontrolldateien oder nur Kontrolldateien wird für iSCSI im ASM-Layout nicht unterstützt.
+
++
+Sie können auch das Kontrollkästchen *in-Place-Wiederherstellung erzwingen* aktivieren.
+
++
+Die Option *Kraft in-Place Restore* überschreibt die Datei spfile, Password file und Archivprotokolldateien aus der Diskgroup der Datendateien. Sie sollten das neueste Backup verwenden, wenn die Option *in-Place Restore* erzwingen ausgewählt ist.
+
+. Führen Sie im Abschnitt „Recovery Scope“ die folgenden Schritte aus:
++
+|===
+| Sie suchen... | Tun Sie das... 
+
+
+ a| 
+Möchten Sie die letzte Transaktion wiederherstellen
+ a| 
+Wählen Sie *Alle Protokolle*.
+
+
+
+ a| 
+Wiederherstellen einer bestimmten Systemänderungsnummer (SCN)
+ a| 
+Wählen Sie *bis Systemänderungsnummer* und geben Sie das SCN an.
+
+
+
+ a| 
+Sie möchten ein Recovery zu einem bestimmten Datum und einer bestimmten Zeit durchführen
+ a| 
+Wählen Sie *Datum und Uhrzeit*.
+
+
+
+ a| 
+Möchten Sie nicht wiederherstellen
+ a| 
+Wählen Sie *Keine Wiederherstellung*.
+
+|===
++
+Für den ausgewählten Wiederherstellungsbereich können Sie im Feld *Archiv Log Files Locations* optional den Speicherort angeben, der die für die Wiederherstellung erforderlichen Archivprotokolle enthält.
+
++
+Aktivieren Sie das Kontrollkästchen, wenn Sie die Datenbank nach der Wiederherstellung im LESE-SCHREIB-Modus öffnen möchten.
+
+. Klicken Sie auf *Weiter* und prüfen Sie die Details.
+. Klicken Sie Auf *Wiederherstellen*.
+

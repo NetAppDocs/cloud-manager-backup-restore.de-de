@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: task-backup-vm-data-to-azure.html 
+keywords: back up, backup, backup virtual machine data, Microsoft Azure, cloud backup, backup datastores 
+summary: Sichern Sie Ihre Datenspeicher von On-Premises ONTAP nach Azure. 
+---
+= Sichern Sie Datastores in Microsoft Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Durch Integration des SnapCenter Plug-ins für VMware vSphere mit BlueXP können Sie ein oder mehrere Datastores in Microsoft Azure sichern. So können VM-Administratoren Daten für Storage-Effizienz einfach und schnell sichern und archivieren und die Cloud-Transition beschleunigen.
+
+
+NOTE: Stellen Sie sicher, dass Sie alle erfüllt haben link:concept-protect-vm-data.html#Requirements["Anforderungen"] Vor dem Backup von Datastores in der Cloud.
+
+.Schritte
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen*.
+. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend dem Datastore, den Sie sichern möchten, und klicken Sie auf *Backup aktivieren*.
+. Wählen Sie auf der Seite Richtlinie zuweisen die Richtlinie aus und klicken Sie auf *Weiter*.
+. Fügen Sie die Arbeitsumgebung hinzu.
++
+Konfigurieren Sie die ONTAP-Cluster, die BlueXP zum Sichern Ihrer Datenspeicher entdecken soll. Nachdem Sie die Arbeitsumgebung für einen der Datenspeicher hinzugefügt haben, können Sie sie für alle anderen Datenspeicher im selben ONTAP Cluster verwenden.
+
++
+.. Klicken Sie auf *Arbeitsumgebung hinzufügen* der SVM.
+.. Im Assistenten „Arbeitsumgebung hinzufügen“:
++
+... Geben Sie die IP-Adresse des ONTAP-Clusters an.
+... Geben Sie die Anmeldedaten des ONTAP-Cluster-Benutzers an.
+
+
+.. Klicken Sie Auf *Arbeitsumgebung Hinzufügen*.
+
+
+. Wählen Sie *Microsoft Azure* aus, um es als Cloud-Provider zu konfigurieren.
++
+.. Geben Sie die Azure Abonnement-ID an.
+.. Wählen Sie den Bereich aus, in dem Sie die Backups erstellen möchten.
+.. Erstellen Sie eine neue Ressourcengruppe oder verwenden Sie eine vorhandene Ressourcengruppe.
+.. Geben Sie die IP-Adressen der ONTAP-Cluster an, die als Arbeitsumgebung hinzugefügt wurden.
+
+
+. Überprüfen Sie die Details und klicken Sie auf *Backup aktivieren*.
+

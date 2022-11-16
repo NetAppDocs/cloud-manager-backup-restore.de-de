@@ -1,0 +1,196 @@
+---
+sidebar: sidebar 
+permalink: concept-kubernetes-backup-to-cloud.html 
+keywords: backing up, restoring, back up, backup, restore, aws, azure, s3, blob, google cloud, back up volumes, cloud backup, restore volumes, billing, cost, kubernetes 
+summary: Cloud Backup bietet Backup- und Restore-Funktionen zur Sicherung und zum langfristigen Archiv Ihrer Kubernetes-Cluster-Daten. Backups werden automatisch erstellt und in einem Objektspeicher in Ihrem Public oder Private Cloud-Konto gespeichert. 
+---
+= Kubernetes-Cluster-Daten mit Cloud Backup schützen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Backup bietet Backup- und Restore-Funktionen zur Sicherung und zum langfristigen Archiv Ihrer Kubernetes-Cluster-Daten. Backups werden automatisch erstellt und in einem Objektspeicher in Ihrem Public oder Private Cloud-Konto gespeichert.
+
+Bei Bedarf können Sie ein ganzes _Volume_ von einem Backup in dieselbe oder andere Arbeitsumgebung wiederherstellen.
+
+
+
+== Funktionen
+
+Backup-Funktionen:
+
+* Sichern Sie unabhängige Kopien Ihrer persistenten Volumes auf kostengünstigem Objekt-Storage.
+* Anwendung einer einzelnen Backup-Richtlinie auf alle Volumes in einem Cluster oder Zuweisen verschiedener Backup-Richtlinien zu Volumes mit eindeutigen Recovery-Punkten
+* Backup-Daten werden mit AES-256-Bit-Verschlüsselung im Ruhezustand und TLS 1.2 HTTPS-Verbindungen im Übertragungsprozess gesichert.
+* Unterstützung für bis zu 4,000 Backups eines einzelnen Volumes.
+
+
+Wiederherstellungsfunktionen:
+
+* Wiederherstellung von Daten aus einem bestimmten Zeitpunkt
+* Stellen Sie ein Volume auf dem Quellsystem oder einem anderen System wieder her.
+* Stellt Daten auf Blockebene wieder her, indem die Daten direkt an dem von Ihnen angegebenen Speicherort platziert werden, während gleichzeitig die ursprünglichen ACLs beibehalten werden.
+
+
+
+
+== Unterstützte Kubernetes-Arbeitsumgebungen und Objekt-Storage-Provider
+
+Cloud Backup ermöglicht die Erstellung von Kubernetes Volumes aus den folgenden Arbeitsumgebungen in Objekt-Storage bei folgenden Public- und Private-Cloud-Providern:
+
+[cols="45,40"]
+|===
+| Quelle Arbeitsumgebung | Ziel der Backup-Datei ifdef::aws[] 
+
+
+| Kubernetes-Cluster in AWS | Amazon S3 endif::aws[] ifdef::Azure[] 
+
+
+| Kubernetes-Cluster in Azure | Azure Blob endif::Azure[] ifdef::gcp[] 
+
+
+| Kubernetes-Cluster in Google | Google Cloud Storage endif::gcp[] 
+|===
+Sie können ein Volume aus einer Kubernetes-Backup-Datei in den folgenden Arbeitsumgebungen wiederherstellen:
+
+[cols="40,45"]
+|===
+| Speicherort Der Sicherungsdatei | Zielarbeitsumgebung ifdef::aws[] 
+
+
+| Amazon S3 | Kubernetes Cluster in AWS endif::AWS[] ifdef::Azure[] 
+
+
+| Azure Blob | Kubernetes Cluster in Azure endif::Azure[] ifdef::gcp[] 
+
+
+| Google Cloud Storage | Kubernetes Cluster in Google endif::gcp[] 
+|===
+
+
+== Kosten
+
+Mit Cloud Backup fallen zwei Kostenarten in Verbindung: Ressourcengebühren und Servicegebühren.
+
+*Ressourcengebühren*
+
+Ressourcengebühren werden beim Cloud-Provider für Objekt-Storage-Kapazität in der Cloud gezahlt. Da Cloud Backup die Storage-Effizienzfunktionen des Quell-Volume beibehalten, bezahlen Sie die Objekt-Storage-Kosten des Cloud-Providers für die Daten _nach_ ONTAP-Effizienz (für die geringere Datenmenge, die nach der Deduplizierung und Komprimierung angewendet wurde).
+
+*Servicegebühren*
+
+Servicegebühren werden an NetApp gezahlt und decken sowohl die Kosten für die Erstellung _Backups_ Backups und _Wiederherstellung_ Volumes aus diesen Backups ab. Sie bezahlen nur die Daten, die Sie sichern, berechnet anhand der verwendeten logischen Quellkapazität (_before_ ONTAP-Effizienzfunktionen) der Volumes, die im Objekt-Storage gesichert werden. Diese Kapazität wird auch als Front-End Terabyte (FETB) bezeichnet.
+
+Es gibt zwei Möglichkeiten, für den Backup-Service zu bezahlen. Als erste Option können Sie Ihren Cloud-Provider abonnieren, sodass Sie monatlich bezahlen können. Die zweite Option besteht darin, Lizenzen direkt von NetApp zu erwerben. Lesen Sie die ,Lizenzierung Weitere Informationen finden Sie in diesem Abschnitt.
+
+
+
+== Lizenzierung
+
+Cloud Backup ist in zwei Lizenzoptionen erhältlich: Pay-as-you-go (PAYGO) und Bring-Your-Own-License (BYOL). Eine kostenlose 30-Tage-Testversion ist verfügbar, wenn Sie keine Lizenz haben.
+
+
+
+=== Kostenlose Testversion
+
+Wenn Sie die kostenlose 30-Tage-Testversion verwenden, werden Sie über die Anzahl der kostenlosen Testtage informiert, die noch verbleiben. Am Ende Ihrer kostenlosen Testversion werden Backups nicht mehr erstellt. Sie müssen den Service abonnieren oder eine Lizenz erwerben, um den Service weiterhin nutzen zu können.
+
+Sicherungsdateien werden nicht gelöscht, wenn der Dienst deaktiviert ist. Cloud-Provider stellen weiterhin die Kosten für Objekt-Storage für die von Ihren Backups verwendete Kapazität in Rechnung, es sei denn, die Backups werden gelöscht.
+
+
+
+=== Pay-as-you-go-Abonnement
+
+Cloud Backup bietet eine nutzungsbasierte Lizenzierung in einem Pay-as-you-go-Modell. Nachdem Sie sich über den Marktplatz Ihres Cloud-Providers registriert haben, zahlen Sie pro GB für gesicherte Daten – ​there keine Vorauszahlung. Die Abrechnung erfolgt von Ihrem Cloud-Provider über Ihre monatliche Abrechnung.
+
+Sie sollten sich auch dann abonnieren, wenn Sie eine kostenlose Testversion haben oder Ihre eigene Lizenz mitbringen (BYOL):
+
+* Das Abonnieren sorgt dafür, dass es keine Serviceunterbrechung gibt, nachdem Ihre kostenlose Testversion endet.
++
+Wenn die Studie endet, werden Sie stündlich nach der Menge der Daten, die Sie sichern berechnet.
+
+* Wenn Sie mehr Daten als mit Ihrer BYOL-Lizenz zulässig sichern, wird das Daten-Backup über Ihr Pay-as-you-go-Abonnement fortgesetzt.
++
+Wenn Sie beispielsweise eine 10-TB-BYOL-Lizenz haben, wird die gesamte Kapazität über 10 TB hinaus über das PAYGO Abonnement abgerechnet.
+
+
+
+Sie werden nicht von Ihrem Pay-as-you-go-Abonnement während der kostenlosen Testversion oder wenn Sie nicht überschritten haben Ihre Byol-Lizenz.
+
+link:task-licensing-cloud-backup.html#use-a-cloud-backup-paygo-subscription["Erfahren Sie, wie Sie ein Pay-as-you-go-Abonnement einrichten"].
+
+
+
+=== Mit Ihrer eigenen Lizenz
+
+Byol ist nach Terminus basiert (12, 24 oder 36 Monate) _und_ kapazitätsbasiert in Schritten von 1 TB. Sie bezahlen NetApp für einen Zeitraum, sagen wir, 1 Jahr und für eine maximale Kapazität, sagen wir 10 TB.
+
+Sie erhalten eine Seriennummer, die Sie auf der Seite BlueXP Digital Wallet eingeben, um den Dienst zu aktivieren. Wenn eine der beiden Limits erreicht ist, müssen Sie die Lizenz erneuern. Die BYOL-Lizenz für Backup gilt für alle mit dem verbundenen Quellsysteme https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-netapp-accounts.html["BlueXP-Konto"^].
+
+link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Erfahren Sie, wie Sie Ihre BYOL-Lizenzen managen"].
+
+
+
+== Funktionsweise von Cloud Backup
+
+Wenn Sie Cloud-Backup auf einem Kubernetes-System aktivieren, führt der Service ein vollständiges Backup Ihrer Daten durch. Nach dem ersten Backup sind alle weiteren Backups inkrementell, das heißt, dass nur geänderte Blöcke und neue Blöcke gesichert werden. Dadurch wird der Netzwerkverkehr auf ein Minimum reduziert.
+
+
+CAUTION: Alle Aktionen, die direkt aus Ihrer Cloud-Provider-Umgebung zum Verwalten oder Ändern von Backup-Dateien übernommen werden, können die Dateien beschädigen und führen zu einer nicht unterstützten Konfiguration.
+
+Die folgende Abbildung zeigt die Beziehung zwischen den einzelnen Komponenten:
+
+image:diagram_cloud_backup_general_k8s.png["Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Objekt-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
+
+
+
+=== Unterstützte Storage-Klassen oder Zugriffsebenen
+
+ifdef::aws[]
+
+* In AWS beginnen Backups in der Klasse „ _Standard_ Storage“ und wechseln nach 30 Tagen in die Storage-Klasse „ _Standard-infrequent Access_“.
+
+
+endif::aws[]
+
+ifdef::azure[]
+
+* In Azure werden Backups im Zusammenhang mit der _Cool_ Zugriffsebene durchgeführt.
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+* In GCP werden Backups standardmäßig der Storage-Klasse _Standard_ zugeordnet.
+
+
+endif::gcp[]
+
+
+
+=== Individuell anpassbare Backup-Zeitpläne und Aufbewahrungseinstellungen pro Cluster
+
+Wenn Sie Cloud-Backup für eine Arbeitsumgebung aktivieren, werden alle Volumes, die Sie anfangs auswählen, mithilfe der definierten Standard-Backup-Richtlinie gesichert. Um bestimmten Volumes mit verschiedenen Recovery Point Objectives (RPOs) unterschiedliche Backup-Richtlinien zuzuweisen, können Sie zusätzliche Richtlinien für diesen Cluster erstellen und diese Richtlinien anderen Volumes zuweisen.
+
+Es steht eine Kombination aus stündlichen, täglichen, wöchentlichen und monatlichen Backups aller Volumes zur Verfügung.
+
+Sobald Sie die maximale Anzahl von Backups für eine Kategorie oder ein Intervall erreicht haben, werden ältere Backups entfernt, sodass Sie immer über die aktuellsten Backups verfügen.
+
+
+
+== Unterstützte Volumes
+
+Cloud Backup unterstützt persistente Volumes (PVS).
+
+
+
+== Einschränkungen
+
+* Wenn eine Backup-Richtlinie erstellt oder bearbeitet wird, wenn dieser Richtlinie keine Volumes zugewiesen werden, kann die Anzahl der zurückbehaltenen Backups maximal 1018 sein. Als Workaround können Sie die Anzahl der Backups zur Erstellung der Richtlinie verringern. Anschließend können Sie die Richtlinie bearbeiten, um bis zu 4000 Backups zu erstellen, nachdem Sie der Richtlinie Volumes zugewiesen haben.
+* Ad-hoc-Volume-Backups mit dem Button *Backup Now* werden auf Kubernetes-Volumes nicht unterstützt.
+

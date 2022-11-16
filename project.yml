@@ -1,0 +1,288 @@
+---
+settings:
+  name: Cloud Backup
+  platform: cloud
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  rss_page: whats-new.html
+  filter:
+    label: Cloud-Provider
+    default: Alle Cloud-Provider
+    options:
+    - name: Amazon Web Services
+      alias: AWS
+      id: aws
+    - name: Google Cloud
+      alias: Google Cloud
+      id: gcp
+    - name: Microsoft Azure
+      alias: Azure
+      id: azure
+  langs: de-de,us-en,ja-jp,zh-cn,zh-tw,ko-kr,fr-fr
+sidebar:
+  entries:
+  - title: Cloud Backup Dokumentation
+    url: "/index.html"
+  - title: Versionshinweise
+    url: "/whats-new.html"
+  - title: Los geht's
+    entries:
+    - title: Weitere Informationen zu Cloud Backup
+      url: "/concept-backup-to-cloud.html"
+    - title: Lizenzierung einrichten
+      url: "/task-licensing-cloud-backup.html"
+    - title: Überwachen des Status von Backup- und Wiederherstellungsjobs
+      url: "/task-monitor-backup-jobs.html"
+  - title: Backup und Restore von ONTAP Daten
+    entries:
+    - title: Sichern Sie Ihre ONTAP Daten
+      url: "/concept-ontap-backup-to-cloud.html"
+    - title: Cloud Volumes ONTAP in Amazon S3 sichern
+      flavor: aws
+      url: "/task-backup-to-s3.html"
+    - title: Backup von Cloud Volumes ONTAP in Azure Blob
+      flavor: azure
+      url: "/task-backup-to-azure.html"
+    - title: Backup von Cloud Volumes ONTAP in der Google Cloud
+      flavor: gcp
+      url: "/task-backup-to-gcp.html"
+    - title: Backup von On-Premises-ONTAP in Amazon S3
+      flavor: aws
+      url: "/task-backup-onprem-to-aws.html"
+    - title: Backup von On-Premises-ONTAP zu Azure Blob
+      flavor: azure
+      url: "/task-backup-onprem-to-azure.html"
+    - title: Sichern Sie Ihre lokale ONTAP in der Google Cloud
+      flavor: gcp
+      url: "/task-backup-onprem-to-gcp.html"
+    - title: Sichern Sie Ihre lokale ONTAP auf StorageGRID
+      url: "/task-backup-onprem-private-cloud.html"
+    - title: ONTAP-Backups managen
+      url: "/task-manage-backups-ontap.html"
+    - title: Management von Backup-Einstellungen auf Cluster-Ebene
+      url: "/task-manage-backup-settings-ontap.html"
+    - title: Restore aus ONTAP-Backups
+      url: "/task-restore-backups-ontap.html"
+  - title: Backup und Wiederherstellung von Kubernetes-Daten
+    entries:
+    - title: Sicherung von Kubernetes-Daten
+      url: "/concept-kubernetes-backup-to-cloud.html"
+    - title: Backup in Amazon S3
+      flavor: aws
+      url: "/task-backup-kubernetes-to-s3.html"
+    - title: Backup auf Azure Blob
+      flavor: azure
+      url: "/task-backup-kubernetes-to-azure.html"
+    - title: Backups in der Google Cloud
+      flavor: gcp
+      url: "/task-backup-kubernetes-to-gcp.html"
+    - title: Kubernetes-Backups managen
+      url: "/task-manage-backups-kubernetes.html"
+    - title: Wiederherstellung aus Kubernetes-Backups
+      url: "/task-restore-backups-kubernetes.html"
+  - title: Backup und Restore von Applikationsdaten
+    entries:
+    - title: Backup und Restore von On-Premises-Applikationsdaten
+      entries:
+      - title: Sichern Sie Ihre lokalen Applikationsdaten
+        url: "/concept-protect-app-data-to-cloud.html"
+      - title: Registrieren Sie den SnapCenter-Server
+        url: "/task-register-snapcenter-server.html"
+      - title: Erstellen einer Richtlinie für das Backup von Applikationen
+        url: "/task-create-policies-apps.html"
+      - title: Sichern Sie On-Premises-Applikationsdaten in Amazon Web Services
+        flavor: aws
+        url: "/task-backup-app-data-to-aws.html"
+      - title: Sichern Sie On-Premises-Applikationsdaten in Microsoft Azure
+        flavor: azure
+        url: "/task-backup-app-data-to-azure.html"
+      - title: On-Premises-Applikationsdaten in Google Cloud sichern
+        flavor: gcp
+        url: "/task-backup-app-data-to-gcp.html"
+      - title: Sichern Sie On-Premises-Applikationsdaten in StorageGRID
+        url: "/task-backup-app-data-to-storagegrid.html"
+      - title: Management der Sicherung von Applikationen
+        url: "/task-manage-app-backups.html"
+      - title: Wiederherstellung von Applikationsdaten
+        entries:
+        - title: Oracle Datenbank wiederherstellen
+          url: "/task-restore-oracle-data.html"
+        - title: SQL Server Datenbank wiederherstellen
+          url: "/task-restore-sql-data.html"
+      - title: Binden Sie Backups von Applikationen ein
+        url: "/task-mount-app-backup.html"
+    - title: Backup und Restore von Cloud-nativen Applikationsdaten
+      entries:
+      - title: Sichern Sie Ihre Daten aus Cloud-nativen Applikationen
+        url: "/concept-protect-cloud-app-data-to-cloud.html"
+      - title: Voraussetzungen
+        url: "/reference-prereq-protect-cloud-native-app-data.html"
+      - title: Backup von Cloud-nativen Applikationsdaten
+        entries:
+        - title: Erkennen Sie die Anwendungen
+          url: "/task-discover-applications.html"
+        - title: Backup der Cloud-nativen Applikationsdaten
+          url: "/task-backup-cloud-native-app-data.html"
+      - title: Sicherung von Cloud-nativen Applikationsdaten managen
+        url: "/task-manage-cloud-native-app-data.html"
+      - title: Stellen Sie Cloud-native Applikationsdaten wieder her
+        url: "/task-restore-cloud-native-app-data.html"
+  - title: Daten von Virtual Machines sichern und wiederherstellen
+    entries:
+    - title: Sichern Sie Ihre Daten von Virtual Machines
+      url: "/concept-protect-vm-data.html"
+    - title: Registrieren Sie das SnapCenter Plug-in für VMware vSphere
+      url: "/task-register-snapCenter-plug-in-for-vmware-vsphere.html"
+    - title: Erstellen einer Richtlinie zum Backup von Virtual Machines
+      url: "/task-create-policies-vms.html"
+    - title: Erstellen Sie Backups von Datastores in Amazon Web Services
+      flavor: aws
+      url: "/task-backup-vm-data-to-aws.html"
+    - title: Sichern Sie Datastores in Microsoft Azure
+      flavor: azure
+      url: "/task-backup-vm-data-to-azure.html"
+    - title: Sichern Sie Datenspeicher in StorageGRID
+      url: "/task-backup-vm-data-to-storagegrid.html"
+    - title: Management der Sicherung von Virtual Machines
+      url: "/task-manage-vm-data-in-cloud.html"
+    - title: Daten von Virtual Machines wiederherstellen
+      url: "/task-restore-vm-data.html"
+  - title: Mit DER REST-API automatisieren
+    url: "/api-backup-restore.html"
+  - title: Referenz
+    entries:
+    - title: Richtlinieneinstellungen für Cloud-Backup
+      url: "/concept-cloud-backup-policies.html"
+    - title: Unterstützte AWS Archiv-Storage Tiers
+      url: "/reference-aws-backup-tiers.html"
+    - title: Unterstützte Azure-Archiv-Zugriffsebenen
+      url: "/reference-azure-backup-tiers.html"
+    - title: Backup für Multi-Account-Zugriff in Azure konfigurieren
+      url: "/reference-backup-multi-account-azure.html"
+  - title: Wissen und Support
+    entries:
+    - title: Für den Support anmelden
+      url: "/task-support-registration.html"
+    - title: Holen Sie sich Hilfe
+      url: "/task-get-help.html"
+  - title: Rechtliche Hinweise
+    url: "/legal-notices.html"
+homepage:
+  tiles:
+  - title: Los geht's
+    links:
+    - title: Weitere Informationen zu Cloud Backup
+      url: concept-backup-to-cloud.html
+    - title: Was ist neu
+      url: whats-new.html
+    - title: Lizenzierung einrichten
+      url: task-licensing-cloud-backup.html
+    - title: Überwachen des Status von Backup- und Wiederherstellungsjobs
+      url: task-monitor-backup-jobs.html
+  - title: Sichern Sie Ihre ONTAP Daten in der Cloud
+    links:
+    - title: Cloud Volumes ONTAP zu Amazon S3
+      url: task-backup-to-s3.html
+      flavor: aws
+    - title: Cloud Volumes ONTAP zu Azure Blob
+      url: task-backup-to-azure.html
+      flavor: azure
+    - title: Von Cloud Volumes ONTAP zu Google Cloud
+      url: task-backup-to-gcp.html
+      flavor: gcp
+    - title: On-Premises-ONTAP zu Amazon S3
+      url: task-backup-onprem-to-aws.html
+      flavor: aws
+    - title: On-Premises-ONTAP zu Azure Blob
+      url: task-backup-onprem-to-azure.html
+      flavor: azure
+    - title: On-Premises von ONTAP zu Google Cloud
+      url: task-backup-onprem-to-gcp.html
+      flavor: gcp
+    - title: On-Premises-ONTAP zu StorageGRID
+      url: task-backup-onprem-private-cloud.html
+  - title: Sichern Sie Kubernetes-Daten in der Cloud
+    links:
+    - title: Kubernetes-Cluster zu Amazon S3
+      url: task-backup-kubernetes-to-s3.html
+      flavor: aws
+    - title: Kubernetes Cluster zu Azure Blob
+      url: task-backup-kubernetes-to-azure.html
+      flavor: azure
+    - title: Kubernetes Cluster zu Google Cloud erstellen
+      url: task-backup-kubernetes-to-gcp.html
+      flavor: gcp
+  - title: Backup und Restore von Applikationsdaten
+    links:
+    - title: Sichern Sie On-Premises-Applikationsdaten in Amazon Web Services
+      flavor: aws
+      url: "/task-backup-app-data-to-aws.html"
+    - title: Sichern Sie On-Premises-Applikationsdaten in Microsoft Azure
+      flavor: azure
+      url: "/task-backup-app-data-to-azure.html"
+    - title: On-Premises-Applikationsdaten in Google Cloud sichern
+      flavor: gcp
+      url: "/task-backup-app-data-to-gcp.html"
+    - title: Sichern Sie On-Premises-Applikationsdaten in StorageGRID
+      url: "/task-backup-app-data-to-storagegrid.html"
+    - title: Wiederherstellung von Oracle Datenbanken aus der Cloud in On-Premises-Umgebungen
+      url: task-restore-oracle-data.html
+    - title: Wiederherstellung der SQL Server Datenbank aus der Cloud in On-Premises-Umgebungen
+      url: task-restore-sql-data.html
+    - title: Backup von Cloud-nativen Applikationsdaten
+      url: task-backup-cloud-native-app-data.html
+    - title: Stellen Sie Daten nativer Cloud-Applikationen wieder her
+      url: task-restore-cloud-native-app-data.html
+  - title: Daten von Virtual Machines sichern und wiederherstellen
+    links:
+    - title: Erstellen Sie Backups von Datastores in Amazon Web Services
+      flavor: aws
+      url: "/task-backup-vm-data-to-aws.html"
+    - title: Sichern Sie Datastores in Microsoft Azure
+      flavor: azure
+      url: "/task-backup-vm-data-to-azure.html"
+    - title: Sichern Sie Datenspeicher in StorageGRID
+      url: "/task-backup-vm-data-to-storagegrid.html"
+    - title: Wiederherstellung von Virtual Machines aus der Cloud
+      url: task-restore-vm-data.html
+  - title: Wiederherstellung von Daten aus ONTAP Backup-Dateien
+    links:
+    - title: Wiederherstellung von ONTAP Volumes
+      url: task-restore-backups-ontap.html
+    - title: Wiederherstellung von Dateien und Ordnern aus ONTAP Volumes
+      url: task-restore-backups-ontap.html
+    - title: Wiederherstellung von Kubernetes Volumes
+      url: task-restore-backups-kubernetes.html
+  - title: Managen Sie ONTAP Backup Files
+    links:
+    - title: Aktivieren und Deaktivieren von Volume-Backups
+      url: task-manage-backups-ontap.html#enabling-and-disabling-backups-of-volumes
+    - title: Bearbeiten einer vorhandenen Backup-Richtlinie
+      url: task-manage-backups-ontap.html#editing-an-existing-backup-policy
+    - title: Fügen Sie eine neue Backup-Richtlinie hinzu
+      url: task-manage-backups-ontap.html#adding-a-new-backup-policy
+    - title: Ändern Sie die Richtlinie, die vorhandenen Volumes zugewiesen ist
+      url: task-manage-backups-ontap.html#changing-the-policy-assigned-to-existing-volumes
+    - title: Erstellung einer manuellen Volume-Sicherung
+      url: task-manage-backups-ontap.html#creating-a-manual-volume-backup-at-any-time
+    - title: Sehen Sie sich die Liste der Backups für jedes Volume an
+      url: task-manage-backups-ontap.html#viewing-the-list-of-backups-for-each-volume
+    - title: Backups löschen
+      url: task-manage-backups-ontap.html#deleting-backups
+  - title: Blogs Community
+    links:
+    - title: NetApp Community
+      url: https://community.netapp.com/t5/Cloud-Data-Services/ct-p/CDS
+    - title: BlueXP-Blog
+      url: https://cloud.netapp.com/blog
+    - title: Anwendungsfälle für BlueXP
+      url: https://cloud.netapp.com/cloud-backup
+    - title: Cloud-Webinare
+      url: https://cloud.netapp.com/events
+product-family:
+  name: BlueXP
+  repo: cloud-manager-family
+  sidebar_label: Alle BlueXP-Dokumentationen

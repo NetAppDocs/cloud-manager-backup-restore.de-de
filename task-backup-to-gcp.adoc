@@ -1,0 +1,196 @@
+---
+sidebar: sidebar 
+permalink: task-backup-to-gcp.html 
+keywords: backing up, back up, backup, backup cloud volumes ontap, back up cloud volumes ontap, cloud volumes ontap, gcp, google cloud, back up volumes, cloud backup 
+summary: Führen Sie einige Schritte durch, um die Datensicherung von Cloud Volumes ONTAP auf Google Cloud Storage zu starten. 
+---
+= Sichern von Cloud Volumes ONTAP Daten auf Google Cloud Storage –
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Führen Sie einige Schritte durch, um die Datensicherung von Cloud Volumes ONTAP auf Google Cloud Storage zu starten.
+
+
+
+== Schnellstart
+
+Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.
+
+.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"[] alt=„One“></span> Überprüfen Sie den Support für Ihre Konfiguration
+* In GCP wird Cloud Volumes ONTAP 9.7P5 oder höher verwendet.
+* Sie verfügen über ein gültiges GCP-Abonnement für den Speicherplatz, in dem sich Ihre Backups befinden.
+* Sie verfügen über ein Service-Konto in Ihrem Google Cloud Projekt, das über die vordefinierte Rolle „Storage Admin“ verfügt.
+* Sie haben sich für das angemeldet https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["BlueXP Marketplace Backup-Angebot"^], Oder Sie haben gekauft link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Und aktiviert"^] Eine Cloud Backup BYOL-Lizenz von NetApp
+
+
+.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"[] alt=„zwei“></span> Cloud-Sicherung auf Ihrem neuen oder vorhandenen System aktivieren
+* Neue Systeme: Cloud Backup kann aktiviert werden, wenn Sie den Assistenten für die neue Arbeitsumgebung abschließen.
+* Bestehende Systeme: Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren* neben dem Backup & Restore Service im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
++
+image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+
+
+[role="quick-margin-para"]
+Wählen Sie das Google Cloud Projekt aus, in dem der Google Cloud Storage-Bucket für Backups erstellt werden soll.
+
+[role="quick-margin-para"]
+image:screenshot_backup_provider_settings_gcp.png["In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."]
+
+[role="quick-margin-para"]
+Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.
+
+[role="quick-margin-para"]
+image:screenshot_backup_policy_gcp.png["Ein Screenshot, der die Cloud Backup-Einstellungen zeigt, in denen Sie das Feature aktivieren oder deaktivieren und dann Ihre Backup-Aufbewahrung auswählen können."]
+
+[role="quick-margin-para"]
+Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.
+
+
+
+== Anforderungen
+
+Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen, bevor Sie mit dem Backup von Volumes in Google Cloud Storage beginnen.
+
+Die folgende Abbildung zeigt die einzelnen Komponenten und die Verbindungen, die zwischen den Komponenten vorbereitet werden müssen:
+
+image:diagram_cloud_backup_cvo_google.png["Eine Grafik zeigt, wie Cloud Backup mit den Volumes im Quellsystem und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
+
+Unterstützte ONTAP-Versionen:: Minimum ONTAP 9.7P5; ONTAP 9.8P13 und höher wird empfohlen.
+Lizenzanforderungen:: Für Cloud Backup PAYGO-Lizenzen ist ein BlueXP-Abonnement über das verfügbar https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["GCP Marketplace"^] Ist erforderlich, bevor Sie Cloud Backup aktivieren. Die Abrechnung für Cloud Backup erfolgt über dieses Abonnement. https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-gcp.html["Sie können sich auf der Seite Details  Credentials des Assistenten für die Arbeitsumgebung anmelden"^].
++
+--
+Für die BYOL-Lizenzierung von Cloud Backup benötigen Sie die Seriennummer von NetApp, mit der Sie den Service für die Dauer und die Kapazität der Lizenz nutzen können. link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Erfahren Sie, wie Sie Ihre BYOL-Lizenzen managen"^].
+
+Und Sie benötigen ein Google-Abonnement für den Speicherplatz, in dem Ihre Backups zu finden sind.
+
+--
+Unterstützte GCP-Regionen:: Cloud Backup wird in allen GCP-Regionen unterstützt https://cloud.netapp.com/cloud-volumes-global-regions["Wobei Cloud Volumes ONTAP unterstützt wird"^].
+GCP-Service-Konto:: Sie benötigen ein Servicekonto in Ihrem Google Cloud Projekt, das über die vordefinierte Rolle „Storage Admin“ verfügt. https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-creating-gcp-service-account.html["Erfahren Sie, wie Sie ein Servicekonto erstellen"^].
+Überprüfen oder Hinzufügen von Berechtigungen zum Konnektor:: Um die Funktionalität Cloud Backup Search & Restore verwenden zu können, benötigen Sie spezifische Berechtigungen in der Rolle für den Connector, damit er auf den Google Cloud BigQuery Service zugreifen kann. Lesen Sie die unten stehenden Berechtigungen, und befolgen Sie die Schritte, wenn Sie die Richtlinie ändern müssen.
++
+--
+. In https://console.cloud.google.com["Cloud Console"^], Gehen Sie zur Seite *Rollen*.
+. Wählen Sie in der Dropdown-Liste oben auf der Seite das Projekt oder die Organisation aus, das die Rolle enthält, die Sie bearbeiten möchten.
+. Klicken Sie auf eine benutzerdefinierte Rolle.
+. Klicken Sie auf *Rolle bearbeiten*, um die Berechtigungen der Rolle zu aktualisieren.
+. Klicken Sie auf *Berechtigungen hinzufügen*, um der Rolle folgende neue Berechtigungen hinzuzufügen.
++
+[source, json]
+----
+bigquery.jobs.get
+bigquery.jobs.list
+bigquery.jobs.listAll
+bigquery.datasets.create
+bigquery.datasets.get
+bigquery.jobs.create
+bigquery.tables.get
+bigquery.tables.getData
+bigquery.tables.list
+bigquery.tables.create
+----
+. Klicken Sie auf *Aktualisieren*, um die bearbeitete Rolle zu speichern.
+
+
+--
+
+
+
+
+== Aktivierung von Cloud Backup auf einem neuen System
+
+Cloud Backup kann aktiviert werden, wenn Sie den Assistenten für die Arbeitsumgebung zur Erstellung eines neuen Cloud Volumes ONTAP Systems abschließen.
+
+Sie müssen bereits ein Servicekonto konfiguriert haben. Wenn Sie nicht wählen Sie ein Service-Konto, wenn Sie das Cloud Volumes ONTAP-System erstellen, dann müssen Sie das System ausschalten und den Service-Konto zu Cloud Volumes ONTAP von der GCP-Konsole hinzufügen.
+
+Siehe https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-gcp.html["Einführung von Cloud Volumes ONTAP in GCP"^] Anforderungen und Details für die Erstellung Ihres Cloud Volumes ONTAP Systems.
+
+.Schritte
+. Klicken Sie auf der Seite Arbeitsumgebungen auf *Arbeitsumgebung hinzufügen* und folgen Sie den Anweisungen.
+. *Wählen Sie einen Standort*: Wählen Sie *Google Cloud Platform*.
+. *Typ* wählen: Wählen Sie *Cloud Volumes ONTAP* (entweder Single-Node oder Hochverfügbarkeit).
+. *Details & Anmeldeinformationen*: Geben Sie die folgenden Informationen ein:
++
+.. Klicken Sie auf *Projekt bearbeiten* und wählen Sie ein neues Projekt aus, wenn sich das Projekt, das Sie verwenden möchten, von dem Standardprojekt unterscheidet (in dem sich der Connector befindet).
+.. Geben Sie den Cluster-Namen an.
+.. Aktivieren Sie den Schalter *Service Account* und wählen Sie das Servicekonto aus, das über die vordefinierte Rolle Storage Admin verfügt. Dies ist für die Aktivierung von Backups und Tiering erforderlich.
+.. Geben Sie die Anmeldeinformationen an.
++
+Stellen Sie sicher, dass ein GCP Marketplace Abonnement besteht.
+
++
+image:screenshot_backup_to_gcp_new_env.png["Screenshot, der zeigt, wie ein Servicekonto im Assistenten für die Arbeitsumgebung aktiviert wird."]
+
+
+
+. *Leistungen*: Lassen Sie den Cloud Backup Service aktiviert und klicken Sie auf *Weiter*.
++
+image:screenshot_backup_to_gcp.png["Zeigt die Option Cloud-Backup im Assistenten für die Arbeitsumgebung."]
+
+. Führen Sie die Seiten im Assistenten aus, um das System bereitzustellen, wie in beschrieben https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-gcp.html["Einführung von Cloud Volumes ONTAP in GCP"^].
+
+
+Cloud Backup ist auf dem System aktiviert und sichert das täglich erstellte Volume und speichert die letzten 30 Backup-Kopien.
+
+
+
+== Aktivierung von Cloud Backup auf einem vorhandenen System
+
+Sie können Cloud Backup jederzeit direkt aus der Arbeitsumgebung aktivieren.
+
+.Schritte
+. Wählen Sie die Arbeitsumgebung aus, und klicken Sie neben dem Backup & Restore Service im rechten Fenster auf *Aktivieren.
++
+Wenn das Ziel von Google Cloud Storage für Ihre Backups als Arbeitsumgebung auf dem Canvas existiert, können Sie den Cluster auf die Google Cloud Storage Arbeitsumgebung ziehen, um den Setup-Assistenten zu starten.
+
++
+image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Wählen Sie das Google Cloud Projekt und die Region aus, in der der Google Cloud Storage Bucket für Backups erstellt werden soll, und klicken Sie auf *Weiter*.
++
+image:screenshot_backup_provider_settings_gcp.png["In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."]
+
++
+Beachten Sie, dass das Projekt über ein Servicekonto verfügt, das über die vordefinierte Rolle „Speicheradministrator“ verfügt.
+
+. Geben Sie die Backup Policy Details ein, die für Ihre Standard Policy verwendet werden, und klicken Sie auf *Weiter*. Sie können eine vorhandene Richtlinie auswählen oder eine neue Richtlinie erstellen, indem Sie in den einzelnen Abschnitten Ihre Auswahl eingeben:
++
+.. Geben Sie den Namen für die Standardrichtlinie ein. Sie müssen den Namen nicht ändern.
+.. Legen Sie den Backup-Zeitplan fest und wählen Sie die Anzahl der zu behaltenden Backups aus. link:concept-ontap-backup-to-cloud.html#customizable-backup-schedule-and-retention-settings["Die Liste der vorhandenen Richtlinien, die Sie auswählen können, wird angezeigt"^].
++
+image:screenshot_backup_policy_gcp.png["Ein Screenshot, der die Cloud Backup-Einstellungen zeigt, in denen Sie das Feature aktivieren oder deaktivieren und dann Ihre Backup-Aufbewahrung auswählen können."]
+
+
+
+. Wählen Sie auf der Seite Volumes auswählen die Volumes aus, für die ein Backup mit der definierten Backup-Richtlinie gesichert werden soll. Falls Sie bestimmten Volumes unterschiedliche Backup-Richtlinien zuweisen möchten, können Sie später zusätzliche Richtlinien erstellen und auf diese Volumes anwenden.
++
+** Um alle bestehenden Volumes und Volumes zu sichern, die in der Zukunft hinzugefügt wurden, markieren Sie das Kontrollkästchen „Alle bestehenden und zukünftigen Volumen sichern...“. Wir empfehlen diese Option, damit alle Ihre Volumes gesichert werden und Sie nie vergessen müssen, Backups für neue Volumes zu aktivieren.
+** Um nur vorhandene Volumes zu sichern, aktivieren Sie das Kontrollkästchen in der Titelzeile (image:button_backup_all_volumes.png[""]).
+** Um einzelne Volumes zu sichern, aktivieren Sie das Kontrollkästchen für jedes Volume (image:button_backup_1_volume.png[""]).
++
+image:screenshot_backup_select_volumes.png["Ein Screenshot, wie die Volumes ausgewählt werden, die gesichert werden."]
+
+** Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.
+
+
+. Klicken Sie auf *Activate Backup* und Cloud Backup beginnt die Erstellung der ersten Backups jedes ausgewählten Volumes.
+
+
+Ein Google Cloud Storage-Bucket wird automatisch in dem Servicekonto erstellt, das durch den von Ihnen eingegebenen Zugriffsschlüssel und den geheimen Schlüssel von Google angegeben wird und die Backup-Dateien dort gespeichert sind. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen link:task-monitor-backup-jobs.html["Fenster Job-Überwachung"^].
+
+Backups sind standardmäßig mit der Storage-Klasse _Standard_ verknüpft. Sie können die preisgünstigeren Storage-Klassen _Nearline_, _Coldline_ oder _Archive_ verwenden. Sie konfigurieren die Speicherklasse jedoch über Google, nicht über die Benutzeroberfläche von Cloud Backup. Siehe das Thema Google https://cloud.google.com/storage/docs/changing-default-storage-class["Ändern der Standard-Storage-Klasse eines Buckets"^] Entsprechende Details.
+
+
+
+== Was kommt als Nächstes?
+
+* Das können Sie link:task-manage-backups-ontap.html["Management von Backup Files und Backup-Richtlinien"^]. Dies umfasst das Starten und Stoppen von Backups, das Löschen von Backups, das Hinzufügen und Ändern des Backup-Zeitplans und vieles mehr.
+* Das können Sie link:task-manage-backup-settings-ontap.html["Management von Backup-Einstellungen auf Cluster-Ebene"^]. Dies umfasst unter anderem die Änderung der verfügbaren Netzwerkbandbreite für das Hochladen von Backups in den Objekt-Storage, die Änderung der automatischen Backup-Einstellung für zukünftige Volumes.
+* Das können Sie auch link:task-restore-backups-ontap.html["Wiederherstellung von Volumes, Ordnern oder einzelnen Dateien aus einer Sicherungsdatei"^] Einem Cloud Volumes ONTAP System in Google oder einem lokalen ONTAP System übertragen.
+

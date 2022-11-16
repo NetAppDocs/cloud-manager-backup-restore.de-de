@@ -1,0 +1,88 @@
+---
+sidebar: sidebar 
+permalink: task-restore-sql-data.html 
+keywords: restore, Azure, Amazon Web services, Microsoft SQL Server database 
+summary: Sie können eine SQL Server Datenbank aus der Cloud auf dem lokalen SnapCenter Server wiederherstellen. 
+---
+= SQL Server Datenbank wiederherstellen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können eine SQL Server-Datenbank auf demselben Host oder auf dem alternativen Host wiederherstellen. Das Recovery von Protokoll-Backups und das erneute Seeding von Verfügbarkeitsgruppen wird nicht unterstützt.
+
+
+NOTE: WICHTIG: Die Wiederherstellung von sekundären Backups über Primärsystem wird unterstützt.
+
+
+IMPORTANT: Single File Restore (SFR) wird nicht unterstützt.
+
+*Was Sie brauchen*
+
+Wenn Sie ein Backup wiederherstellen möchten, das vom sekundären Storage in einen Objektspeicher verschoben wurde, sollten Sie die Details zur primären Arbeitsumgebung hinzufügen und den IP-Speicherplatz festlegen. Weitere Informationen finden Sie unter link:task-manage-app-backups.html#set-ip-space-of-the-primary-working-environment["Legen Sie IP-Speicherplatz für die primäre Arbeitsumgebung fest"].
+
+*Schritte*
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Wählen Sie im Feld *Filtern nach* den Filter *Typ* aus und wählen Sie aus dem Dropdown-Menü *SQL* aus.
+. Klicken Sie auf *Details anzeigen*, um alle verfügbaren Backups anzuzeigen.
+. Wählen Sie das Backup aus und klicken Sie auf *Wiederherstellen*.
+. Wählen Sie den Speicherort aus, an dem die Datenbankdateien wiederhergestellt werden sollen.
++
+|===
+| Option | Beschreibung 
+
+
+ a| 
+Stellen Sie die Datenbank auf demselben Host wieder her, auf dem das Backup erstellt wurde
+ a| 
+Wählen Sie diese Option aus, wenn Sie die Datenbank auf demselben SQL-Server wiederherstellen möchten, auf dem die Backups erstellt werden.
+
+
+
+ a| 
+Wiederherstellung der Datenbank auf einem alternativen Host
+ a| 
+Wählen Sie diese Option aus, wenn die Datenbank auf einem anderen SQL-Server auf demselben oder einem anderen Host wiederhergestellt werden soll, auf dem Backups erstellt werden.
+
+Wählen Sie einen Hostnamen aus, geben Sie einen Datenbanknamen ein (optional), wählen Sie eine Instanz aus und geben Sie die Wiederherstellungspfade an.
+
+
+NOTE: Die im alternativen Pfad angegebene Dateierweiterung muss mit der Dateiendung der ursprünglichen Datenbankdatei identisch sein.
+
+Wenn die Option *Datenbank auf alternativen Host* wiederherstellen nicht auf der Seite „Bereich wiederherstellen“ angezeigt wird, löschen Sie den Browser-Cache.
+
+|===
+. Wenn sich der Snapshot im Archiv-Speicher befindet, geben Sie die Priorität an, um Ihre Daten aus dem Archiv-Speicher wiederherzustellen.
+. Wählen Sie auf der Seite *Pre Restore Options* eine der folgenden Optionen aus:
++
+** Wählen Sie *Überschreiben Sie die Datenbank mit demselben Namen während der Wiederherstellung* aus, um die Datenbank mit dem gleichen Namen wiederherzustellen.
+** Wählen Sie *SQL-Datenbankreplikationseinstellungen beibehalten* aus, um die Datenbank wiederherzustellen und die vorhandenen Replikationseinstellungen beizubehalten.
+
+
+. Wählen Sie auf der Seite *Optionen zur Wiederherstellung nach der Wiederherstellung* den Datenbankstatus für die Wiederherstellung weiterer Transaktionsprotokolle aus, eine der folgenden Optionen aus:
++
+** Wählen Sie *Operational, aber nicht verfügbar* aus, wenn Sie jetzt alle notwendigen Backups wiederherstellen.
++
+Dies ist das Standardverhalten, das die Datenbank durch ein Rollback der nicht gesicherten Transaktionen einsatzbereit macht. Sie können erst dann weitere Transaktionsprotokolle wiederherstellen, wenn Sie ein Backup erstellen.
+
+** Wählen Sie * nicht betriebsbereit, aber verfügbar* aus, um die Datenbank nicht betriebsbereit zu lassen, ohne die nicht gesicherten Transaktionen zurückzurollen.
++
+Zusätzliche Transaktions-Logs können wiederhergestellt werden. Sie können die Datenbank erst verwenden, wenn sie wiederhergestellt ist.
+
+** Wählen Sie *schreibgeschützter Modus und verfügbar*, um die Datenbank im schreibgeschützten Modus zu belassen.
++
+Mit dieser Option werden nicht gesicherte Transaktionen rückgängig gemacht, die nicht rückgängig gemachte Aktionen werden jedoch in einer Standby-Datei gespeichert, sodass Recovery-Effekte rückgängig gemacht werden können.
+
++
+Wenn die Option „Verzeichnis aufheben“ aktiviert ist, werden mehr Transaktionsprotokolle wiederhergestellt. Wenn der Wiederherstellungsvorgang für das Transaktionsprotokoll nicht erfolgreich ist, können die Änderungen zurückgesetzt werden. Die SQL Server-Dokumentation enthält weitere Informationen.
+
+
+
+. Überprüfen Sie die Details und klicken Sie auf *Wiederherstellen*.
+

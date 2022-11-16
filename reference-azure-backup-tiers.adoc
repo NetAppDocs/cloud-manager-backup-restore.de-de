@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+permalink: reference-azure-backup-tiers.html 
+keywords: microsoft azure, azure, cool, access tier, archive 
+summary: Cloud Backup unterstützt eine Azure-ArchivierungszugriffTier und die meisten Regionen. 
+---
+= Azure-Archivierungsebenen und Wiederherstellungszeiten
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Backup unterstützt eine Azure-ArchivierungszugriffTier und die meisten Regionen.
+
+
+
+== Unterstützte Azure Blob-Zugriffsebenen für Cloud Backup
+
+Beim ersten Erstellen von Sicherungsdateien werden sie in der Zugriffsebene _Cool_ gespeichert. Diese Tier ist für die Speicherung von Daten optimiert, auf die selten zugegriffen wird. Bei Bedarf kann jedoch sofort zugegriffen werden.
+
+Wenn in Ihren Quellclustern ONTAP 9.10.1 oder neuer ausgeführt wird, können Sie zur weiteren Kostenoptimierung Backups von _Cool_ zu _Azure Archive_ Storage nach einer bestimmten Anzahl von Tagen (normalerweise über 30 Tage) abstufen. Auf die Daten in dieser Tier kann nicht unmittelbar bei Bedarf zugegriffen werden und sind mit höheren Abrufkosten verbunden. Daher müssen Sie bedenken, wie oft Sie Daten aus diesen archivierten Backup-Dateien wiederherstellen müssen. Weitere Informationen finden Sie im nächsten Abschnitt  data from archival storage,Wiederherstellen von Daten aus Archiv-Storage.
+
+Beachten Sie, dass Sie beim Konfigurieren von Cloud Backup mit dieser Lebenszyklusregel keine Lebenszyklusregeln konfigurieren müssen, wenn Sie den Container in Ihrem Azure-Konto einrichten.
+
+https://docs.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview["Erfahren Sie mehr über Azure Blob Zugriffsebenen"^].
+
+
+
+== Wiederherstellen von Daten aus Archiv-Storage
+
+Das Speichern älterer Backup-Dateien im Archiv-Storage ist viel günstiger als Cool Storage. Der Zugriff auf Daten aus einer Backup-Datei im Azure Archiv für Restore-Vorgänge dauert etwas länger und kostet mehr Geld.
+
+Wie viel kostet die Wiederherstellung von Daten aus dem Azure-Archiv?:: Beim Abrufen von Daten aus dem Azure Archiv stehen zwei Wiederherstellungsprioritäten zur Verfügung:
++
+--
+* *Hoch*: Schnellster Abruf, höhere Kosten
+* *Standard*: Langsamer Abruf, niedrigere Kosten
+
+
+Jede Methode hat eine andere Abrufgebühr pro GB und eine andere Gebühr pro Anfrage. Detaillierte Informationen zu den Azure Archivpreisen nach Azure Region finden Sie im https://azure.microsoft.com/en-us/pricing/details/storage/blobs/["Azure-Preisseite"^].
+
+--
+Wie lange wird es dauern, bis meine im Azure-Archiv archivierten Daten wiederhergestellt sind?:: Die Wiederherstellungszeit besteht aus zwei Teilen:
++
+--
+* *Retrieval Time*: Der Zeitpunkt, um die archivierte Backup-Datei aus dem Azure Archiv abzurufen und in Cool Storage zu platzieren. Dies wird manchmal als die "Rehydrierung" Zeit bezeichnet. Die Abrufzeit ist je nach gewählter Wiederherstellungspriorität unterschiedlich:
++
+** *Hoch*: < 1 Stunde
+** *Standard*: < 15 Stunden
+
+
+* *Restore Time*: Der Zeitpunkt, um die Daten aus der Sicherungsdatei in Cool Storage wiederherzustellen. Diese Zeit unterscheidet sich nicht von dem typischen Restore-Vorgang direkt von Cool Storage, wenn kein Archivtier verwendet wird.
+
+
+Weitere Informationen zu Abruffoptionen für Azure Archive finden Sie unter https://azure.microsoft.com/en-us/pricing/details/storage/blobs/#faq["Diese Azure FAQ"^].
+
+--
+

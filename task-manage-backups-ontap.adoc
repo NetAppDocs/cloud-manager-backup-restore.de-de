@@ -1,0 +1,446 @@
+---
+sidebar: sidebar 
+permalink: task-manage-backups-ontap.html 
+keywords: cloud backup, cloud backup service, backup schedule, change schedule, change backup schedule, modify schedule, modify backup schedule, retention, backup retention, delete, delete backups, deleting, deleting backups, disable, disable backups, turn off backups, disable cloud backup, turn off cloud backup 
+summary: Sie können die Backups für Ihre Cloud Volumes ONTAP und lokalen ONTAP Systeme verwalten, indem Sie den Backup-Zeitplan ändern, neue Backup-Richtlinien erstellen, Volume-Backups aktivieren/deaktivieren, Backups anhalten, Backups löschen und vieles mehr. 
+---
+= Verwalten von Backups für Ihre ONTAP Systeme
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können die Backups für Ihre Cloud Volumes ONTAP und lokalen ONTAP Systeme verwalten, indem Sie den Backup-Zeitplan ändern, neue Backup-Richtlinien erstellen, Volume-Backups aktivieren/deaktivieren, Backups anhalten, Backups löschen und vieles mehr.
+
+
+CAUTION: Backup-Dateien lassen sich nicht direkt in der Umgebung Ihrer Cloud-Provider managen oder ändern. Dies kann die Dateien beschädigen und zu einer nicht unterstützten Konfiguration führen.
+
+
+
+== Anzeigen der Volumes, die gesichert werden
+
+Sie können eine Liste aller Volumes anzeigen, die derzeit im Backup Dashboard gesichert werden.
+
+.Schritte
+. Wählen Sie im Menü BlueXP die Option *Schutz > Sicherung und Wiederherstellung*.
+. Klicken Sie auf die Registerkarte *Volumes*, um eine Liste der gesicherten Volumes für Cloud Volumes ONTAP und On-Premises ONTAP Systeme anzuzeigen.
++
+image:screenshot_backup_dashboard.png["Ein Screenshot zeigt alle Arbeitsumgebungen und Volumes, die Sicherungsdateien haben."]
+
+
+
+Wenn Sie in bestimmten Arbeitsumgebungen nach bestimmten Volumes suchen, können Sie die Liste nach Arbeitsumgebung und Volumen verfeinern, oder Sie können den Suchfilter verwenden.
+
+
+
+== Aktivieren und Deaktivieren von Backups von Volumes
+
+Sie können Backups für neue Volumes aktivieren, wenn diese derzeit nicht gesichert werden. Darüber hinaus können Sie Backups auch für Volumes aktivieren, die Sie zuvor deaktiviert hatten.
+
+Sie können Backups für Volumes deaktivieren, sodass keine weiteren Backups erstellt werden. Dadurch wird auch die Möglichkeit deaktiviert, Volume-Daten aus einer Sicherungsdatei wiederherzustellen. So können Sie im Prinzip alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten. Alle bestehenden Backups werden nicht gelöscht, so dass Sie weiterhin von Ihrem Cloud-Provider für Objekt-Storage-Kosten für die Kapazität, die Ihre Backups verwenden, es sei denn, Sie link:deleting-all-backup-files-for-a-volume["Löschen Sie die Backups"].
+
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, der die Schaltfläche Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Klicken Sie auf der Seite „ Backup Settings “ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für die Arbeitsumgebung *Volumes verwalten* aus.
++
+image:screenshot_backup_manage_volumes.png["Ein Screenshot, in dem die Schaltfläche Volumes verwalten auf der Seite Backup Settings angezeigt wird."]
+
+. Aktivieren Sie das Kontrollkästchen für ein Volume oder ein Volume, das Sie ändern möchten, und klicken Sie dann auf *Aktivieren* oder *Deaktivieren*, je nachdem, ob Sie Backups für das Volume starten oder beenden möchten.
++
+image:screenshot_backup_manage_volumes_page.png["Die Seite Volumes managen, auf der Sie Volumes auswählen oder deaktivieren können."]
+
+. Klicken Sie auf *Speichern*, um Ihre Änderungen zu speichern.
+
+
+
+
+== Bearbeiten einer vorhandenen Backup-Richtlinie
+
+Sie können die Attribute für eine Backup-Richtlinie ändern, die derzeit auf Volumes in einer Arbeitsumgebung angewendet wird. Die Änderung der Backup-Richtlinie wirkt sich auf alle vorhandenen Volumes aus, die diese Richtlinie verwenden.
+
+[NOTE]
+====
+* Wenn Sie bei der Aktivierung von Cloud Backup für diesen Cluster _DataLock und Ransomware Protection_ aktiviert haben, müssen alle Richtlinien, die Sie bearbeiten, mit derselben DataLock-Einstellung (Governance oder Compliance) konfiguriert werden. Und wenn Sie _DataLock und Ransomware Protection_ bei der Aktivierung von Cloud Backup nicht aktiviert haben, können Sie DataLock jetzt nicht aktivieren.
+* Wenn Sie bei der Erstellung von Backups auf AWS _S3 Glacier_ oder _S3 Glacier Deep Archive_ in Ihrer ersten Backup-Richtlinie bei der Aktivierung von Cloud Backup ausgewählt haben, ist dieser Tier die einzige Archiv-Tier, die bei der Bearbeitung von Backup-Richtlinien verfügbar ist. Falls Sie in Ihrer ersten Backup-Richtlinie keine Archivebene ausgewählt haben, ist _S3 Glacier_ die einzige Archivoption beim Bearbeiten einer Richtlinie.
+
+
+====
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, in dem die Schaltfläche Backup Settings auf der Registerkarte Volumes angezeigt wird."]
+
+. Klicken Sie auf der Seite „ Backup Settings_“ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für die Arbeitsumgebung, in der Sie die Richtlinieneinstellungen ändern möchten, und wählen Sie *Richtlinien verwalten*.
++
+image:screenshot_backup_modify_policy.png["Ein Screenshot, in dem die Option Richtlinien verwalten auf der Seite Backup Settings angezeigt wird."]
+
+. Klicken Sie auf der Seite _Policies verwalten_ auf *Bearbeiten* für die Backup-Policy, die Sie in dieser Arbeitsumgebung ändern möchten.
++
+Hinweis: Klicken Sie auf image:button_down_caret.png[""] Um die vollständigen Details für die Richtlinie anzuzeigen.
+
++
+image:screenshot_backup_manage_policy_page_edit.png["Ein Screenshot, in dem die Schaltfläche „Richtlinie bearbeiten“ auf der Seite „Richtlinien managen“ angezeigt wird."]
+
+. Klicken Sie auf der Seite _Edit Policy_ auf image:button_down_caret.png[""] Erweitern Sie den Abschnitt _Labels & Retention_, um den Zeitplan und/oder die Backup-Aufbewahrung zu ändern, und klicken Sie auf *Speichern*.
++
+image:screenshot_backup_edit_policy.png["Ein Screenshot, der die Einstellungen für die Backup-Richtlinien zeigt, in dem Sie den Backup-Zeitplan und die Einstellung für die Backup-Aufbewahrung ändern können."]
+
++
+Wenn in Ihrem Cluster ONTAP 9.10.1 oder höher ausgeführt wird, haben Sie außerdem die Möglichkeit, das Tiering von Backups in Archiv-Storage nach einer bestimmten Anzahl von Tagen zu aktivieren oder zu deaktivieren.
+
++
+ifdef::aws[]
+
+
+
+link:reference-aws-backup-tiers.html["Erfahren Sie mehr über die Verwendung von AWS Archiv-Storage"].
+
+endif::aws[]
+
+ifdef::azure[]
+
+link:reference-azure-backup-tiers.html["Erfahren Sie mehr über den Azure Archiv-Storage"].
+
+endif::azure[]
+
++image:screenshot_backup_modify_policy_page2.png["Ein Screenshot, der das Tiering in die Archiv-Storage-Einstellungen für Cloud Backup zeigt."]
+
++ Beachten Sie, dass alle Backup-Dateien, die in einen Archiv-Storage verschoben wurden, in diesem Tier belassen werden, wenn Sie die Tiering-Backups zur Archivierung anhalten - sie werden nicht automatisch zurück in die Standard-Tier verschoben.
+
+
+
+== Hinzufügen einer neuen Backup-Richtlinie
+
+Wenn Sie Cloud-Backup für eine Arbeitsumgebung aktivieren, werden alle ausgewählten Volumes mit der von Ihnen definierten Standard-Backup-Richtlinie gesichert. Um bestimmten Volumes mit verschiedenen Recovery Point Objectives (RPOs) unterschiedliche Backup-Richtlinien zuzuweisen, können Sie zusätzliche Richtlinien für diesen Cluster erstellen und diese Richtlinien anderen Volumes zuweisen.
+
+Wenn Sie eine neue Sicherungsrichtlinie auf bestimmte Volumes in einer Arbeitsumgebung anwenden möchten, müssen Sie zunächst die Sicherungsrichtlinie zur Arbeitsumgebung hinzufügen. Dann können Sie das  the policy assigned to existing volumes,Wenden Sie die Richtlinie auf Volumes in dieser Arbeitsumgebung an.
+
+[NOTE]
+====
+* Wenn Sie bei der Aktivierung von Cloud Backup für diesen Cluster _DataLock und Ransomware Protection_ aktiviert haben, müssen alle von Ihnen erstellten zusätzlichen Richtlinien mit derselben DataLock-Einstellung (Governance oder Compliance) konfiguriert werden. Und wenn Sie bei der Aktivierung von Cloud Backup _DataLock und Ransomware Protection_ nicht aktiviert haben, können Sie keine neuen Richtlinien erstellen, die DataLock verwenden.
+* Wenn Sie bei der Erstellung von Backups auf AWS _S3 Glacier_ oder _S3 Glacier Deep Archive_ in Ihrer ersten Backup-Richtlinie bei der Aktivierung von Cloud Backup ausgewählt haben, wird dieser Tier die einzige Archiv-Tier sein, die für zukünftige Backup-Richtlinien für diesen Cluster verfügbar ist. Falls Sie in Ihrer ersten Backup-Richtlinie keine Archiv-Tier ausgewählt haben, ist _S3 Glacier_ die einzige Archivoption für zukünftige Richtlinien.
+
+
+====
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, in dem die Schaltfläche Backup Settings auf der Registerkarte Volumes angezeigt wird."]
+
+. Klicken Sie auf der Seite „ Backup Settings_“ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für die Arbeitsumgebung, in der Sie die neue Richtlinie hinzufügen möchten, und wählen Sie *Richtlinien verwalten*.
++
+image:screenshot_backup_modify_policy.png["Ein Screenshot, in dem die Option Richtlinien verwalten auf der Seite Backup Settings angezeigt wird."]
+
+. Klicken Sie auf der Seite _Policies verwalten_ auf *Neue Richtlinie hinzufügen*.
++
+image:screenshot_backup_manage_policy_page_add.png["Ein Screenshot, in dem die Schaltfläche Neue Richtlinie hinzufügen auf der Seite Richtlinien managen angezeigt wird."]
+
+. Klicken Sie auf der Seite „ Neue Richtlinie hinzufügen_“ auf image:button_down_caret.png[""] Erweitern Sie den Abschnitt _Labels & Retention_, um den Zeitplan und die Backup-Aufbewahrung zu definieren, und klicken Sie auf *Speichern*.
++
+image:screenshot_backup_add_new_policy.png["Ein Screenshot, der die Einstellungen für die Backup-Richtlinien zeigt, in denen Sie den Backup-Zeitplan und die Einstellung für die Backup-Aufbewahrung hinzufügen können."]
+
++
+Wenn in Ihrem Cluster ONTAP 9.10.1 oder höher ausgeführt wird, haben Sie außerdem die Möglichkeit, das Tiering von Backups in Archiv-Storage nach einer bestimmten Anzahl von Tagen zu aktivieren oder zu deaktivieren.
+
++
+ifdef::aws[]
+
+
+
+link:reference-aws-backup-tiers.html["Erfahren Sie mehr über die Verwendung von AWS Archiv-Storage"].
+
+endif::aws[]
+
+ifdef::azure[]
+
+link:reference-azure-backup-tiers.html["Erfahren Sie mehr über den Azure Archiv-Storage"].
+
+endif::azure[]
+
++image:screenshot_backup_modify_policy_page2.png["Ein Screenshot, der das Tiering in die Archiv-Storage-Einstellungen für Cloud Backup zeigt."]
+
+
+
+== Ändern der Richtlinie, die vorhandenen Volumes zugewiesen ist
+
+Sie können die Ihrer vorhandenen Volumes zugewiesene Backup-Richtlinie ändern, wenn Sie die Häufigkeit der Durchführung von Backups ändern möchten oder den Aufbewahrungswert ändern möchten.
+
+Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss.  a new backup policy,Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen.
+
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, der die Schaltfläche Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Klicken Sie auf der Seite „ Backup Settings “ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für die Arbeitsumgebung, in der die Volumina vorhanden sind, *Volumes verwalten* aus.
++
+image:screenshot_backup_manage_volumes.png["Ein Screenshot, in dem die Schaltfläche Volumes verwalten auf der Seite Backup Settings angezeigt wird."]
+
+. Aktivieren Sie das Kontrollkästchen für ein Volume oder Volumes, für das Sie die Richtlinie ändern möchten, und klicken Sie dann auf *Richtlinie ändern*.
++
+image:screenshot_backup_manage_volumes_page_change.png["Die Seite Volumes managen, auf der Sie Volumes auswählen oder deaktivieren können."]
+
+. Wählen Sie auf der Seite _Richtlinie ändern_ die Richtlinie aus, die Sie auf die Volumes anwenden möchten, und klicken Sie auf *Richtlinie ändern*.
++
+image:screenshot_backup_change_policy.png["Ein Screenshot zeigt, wie eine neue Richtlinie für ausgewählte Volumes ausgewählt wird."]
+
++
+
+NOTE: Wenn Sie _DataLock und Ransomware Protection_ in der ursprünglichen Richtlinie aktiviert haben, wenn Sie Cloud Backup für diesen Cluster aktivieren, sehen Sie nur andere Richtlinien, die mit DataLock konfiguriert wurden. Und wenn Sie bei der Aktivierung von Cloud Backup _DataLock und Ransomware Protection_ nicht aktiviert haben, werden nur andere Richtlinien angezeigt, die DataLock nicht konfiguriert haben.
+
+. Klicken Sie auf *Speichern*, um Ihre Änderungen zu speichern.
+
+
+
+
+== Erstellung einer manuellen Volume-Sicherung zu jeder Zeit
+
+Sie können jederzeit ein On-Demand-Backup erstellen, um den aktuellen Status des Volumes zu erfassen. Dies kann hilfreich sein, wenn auf einem Volume sehr wichtige Änderungen vorgenommen wurden und Sie nicht darauf warten möchten, dass das nächste geplante Backup zur Sicherung dieser Daten gesichert wird oder wenn das Volume nicht aktuell gesichert wird und Sie den aktuellen Zustand erfassen möchten.
+
+Der Backup-Name enthält den Zeitstempel, sodass Sie Ihr On-Demand Backup aus anderen geplanten Backups identifizieren können.
+
+Wenn Sie _DataLock and Ransomware Protection_ aktiviert haben, wenn Sie Cloud Backup für diesen Cluster aktivieren, wird das On-Demand-Backup auch mit DataLock konfiguriert, und die Aufbewahrungsfrist beträgt 30 Tage. Ransomware-Scans werden für Ad-hoc-Backups nicht unterstützt. link:concept-cloud-backup-policies.html#datalock-and-ransomware-protection["Erfahren Sie mehr über DataLock und Ransomware-Schutz"^].
+
+Beachten Sie, dass beim Erstellen eines Ad-hoc-Backups ein Snapshot auf dem Quell-Volume erstellt wird. Da dieser Snapshot nicht Teil eines normalen Snapshot-Zeitplans ist, wird er nicht rotiert. Nach Abschluss des Backups kann dieser Snapshot manuell vom Quell-Volume gelöscht werden. Dadurch werden Blöcke freigegeben, die mit diesem Snapshot verbunden sind. Der Name des Snapshots beginnt mit `cbs-snapshot-adhoc-`. https://docs.netapp.com/us-en/ontap/san-admin/delete-all-existing-snapshot-copies-volume-task.html["Informationen zum Löschen eines Snapshots mit der ONTAP-CLI finden Sie unter"^].
+
+
+NOTE: Volume-Backups werden auf Datensicherungs-Volumes nicht unterstützt.
+
+.Schritte
+. Klicken Sie auf der Registerkarte *Volumes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Volume die Option *Jetzt sichern* aus.
++
+image:screenshot_backup_now_button.png["Ein Screenshot, der die Schaltfläche Jetzt sichern anzeigt, die nach der Auswahl eines Volumes verfügbar ist."]
+
+
+
+In der Spalte Backup Status für dieses Volume wird „in progress“ angezeigt, bis das Backup erstellt wird.
+
+
+
+== Anzeigen der Liste der Backups für jedes Volume
+
+Sie können eine Liste aller Backup-Dateien anzeigen, die für jedes Volume vorhanden sind. Auf dieser Seite werden Details zum Quell-Volume, zum Zielort und zu Backup-Details wie zum Beispiel zum letzten Backup, zur aktuellen Backup-Richtlinie, zur Größe der Sicherungsdatei und mehr angezeigt.
+
+Auf dieser Seite können Sie außerdem die folgenden Aufgaben ausführen:
+
+* Löschen Sie alle Sicherungsdateien für das Volume
+* Löschen einzelner Backup-Dateien für das Volume
+* Backup-Bericht für das Volume herunterladen
+
+
+.Schritte
+. Klicken Sie auf der Registerkarte *Volumes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Quellvolume *Details & Sicherungsliste* aus.
++
+image:screenshot_backup_view_backups_button.png["Ein Screenshot, der die Schaltfläche Details  Backup List anzeigt, die für ein einzelnes Volume verfügbar ist."]
+
++
+Die Liste aller Sicherungsdateien wird zusammen mit Details zum Quell-Volume, dem Zielspeicherort und Backup-Details angezeigt.
+
++
+image:screenshot_backup_view_backups.png["Ein Screenshot, der die Liste aller Sicherungsdateien für ein einzelnes Volume anzeigt."]
+
+
+
+
+
+== Durchführung eines Ransomware-Scans bei einem Volume-Backup
+
+NetApp Software zur Ransomware-Sicherung scannt Ihre Backup-Dateien, um nach einem Ransomware-Angriff zu suchen, wenn eine Backup-Datei erstellt wird und wenn Daten aus einer Backup-Datei wiederhergestellt werden. Darüber hinaus können Sie jederzeit einen Ransomware-Sicherungsscan bei Bedarf ausführen und die Usability einer bestimmten Backup-Datei überprüfen. Die Folgen sind besonders dann hilfreich, wenn Ransomware-Probleme auf einem bestimmten Volume gehabt haben und man überprüfen möchte, ob die Backups für das Volume nicht betroffen sind.
+
+Diese Funktion ist nur verfügbar, wenn die Volume-Sicherung von einem System mit ONTAP 9.11.1 oder höher erstellt wurde und wenn Sie _DataLock und Ransomware Protection_ in der Backup-Policy aktiviert haben.
+
+
+NOTE: Bei einem Ransomware-Scan muss die Sicherungsdatei in Ihre BlueXP-Umgebung (wo der Connector installiert ist) heruntergeladen werden. Bei der Implementierung des Connectors vor Ort können zusätzliche Kosten für den ausgehenden Datenverkehr von Ihrem Cloud-Provider anfallen. Daher empfehlen wir Ihnen, den Connector in der Cloud zu implementieren und sich in derselben Region wie der Bucket zu befinden, in der Ihre Backups gespeichert werden.
+
+.Schritte
+. Klicken Sie auf der Registerkarte *Volumes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Quellvolume *Details & Sicherungsliste* aus.
++
+image:screenshot_backup_view_backups_button.png["Ein Screenshot, der die Schaltfläche Details  Backup List anzeigt, die für ein einzelnes Volume verfügbar ist."]
+
++
+Die Liste aller Sicherungsdateien wird angezeigt.
+
+. Klicken Sie Auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Für die Volume Backup Datei möchten Sie scannen und klicken Sie *Ransomware Scan*.
++
+image:screenshot_scan_one_backup.png["Ein Screenshot, der zeigt, wie ein Ransomware-Scan auf einer einzelnen Backup-Datei ausgeführt wird"]
+
++
+Die Spalte Ransomware Scan zeigt, dass der Scan gerade läuft.
+
+
+
+
+
+== Backups werden gelöscht
+
+Mit Cloud Backup können Sie eine einzelne Backup-Datei löschen, alle Backups für ein Volume löschen oder alle Backups aller Volumes in einer Arbeitsumgebung löschen. Sie möchten eventuell alle Backups löschen, wenn Sie die Backups nicht mehr benötigen, oder wenn Sie das Quell-Volume gelöscht haben und alle Backups entfernen möchten.
+
+Beachten Sie, dass Sie keine Sicherungsdateien löschen können, die Sie mit DataLock und Ransomware-Schutz gesperrt haben. Die Option „Löschen“ ist in der Benutzeroberfläche nicht verfügbar, wenn Sie eine oder mehrere gesperrte Sicherungsdateien ausgewählt haben.
+
+
+CAUTION: Wenn Sie planen, eine Arbeitsumgebung oder ein Cluster mit Backups zu löschen, müssen Sie die Backups *löschen, bevor Sie das System löschen. Cloud Backup nicht automatisch löschen Backups, wenn Sie ein System löschen, und es gibt keine aktuelle Unterstützung in der UI, die Backups zu löschen, nachdem das System gelöscht wurde. Für alle verbleibenden Backups werden weiterhin die Kosten für Objekt-Storage in Rechnung gestellt.
+
+
+
+=== Löschen aller Sicherungsdateien für eine Arbeitsumgebung
+
+Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren  Cloud Backup for a working environment,Wie hier beschrieben.
+
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, der die Schaltfläche Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Klicken Sie Auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Für die Arbeitsumgebung, in der Sie alle Backups löschen und *Alle Backups löschen* auswählen möchten.
++
+image:screenshot_delete_all_backups.png["Ein Screenshot mit der Auswahl der Schaltfläche Alle Backups löschen, um alle Backups für eine Arbeitsumgebung zu löschen."]
+
+. Geben Sie im Bestätigungsdialogfeld den Namen der Arbeitsumgebung ein und klicken Sie auf *Löschen*.
+
+
+
+
+=== Löschen aller Sicherungsdateien für ein Volume
+
+Durch das Löschen aller Backups für ein Volume werden auch künftige Backups für dieses Volume deaktiviert.
+
+Das können Sie  and disabling backups of volumes,Starten Sie neu, um Backups für das Volume zu erstellen Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.
+
+.Schritte
+. Klicken Sie auf der Registerkarte *Volumes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Quellvolume *Details & Sicherungsliste* aus.
++
+image:screenshot_backup_view_backups_button.png["Ein Screenshot, der die Schaltfläche Details  Backup List anzeigt, die für ein einzelnes Volume verfügbar ist."]
+
++
+Die Liste aller Sicherungsdateien wird angezeigt.
+
++
+image:screenshot_backup_view_backups.png["Ein Screenshot, der die Liste aller Sicherungsdateien für ein einzelnes Volume anzeigt."]
+
+. Klicken Sie auf *Aktionen* > *Alle Backups löschen*.
++
+image:screenshot_delete_we_backups.png["Ein Screenshot, der zeigt, wie alle Sicherungsdateien für ein Volume gelöscht werden."]
+
+. Geben Sie im Bestätigungsdialogfeld den Namen des Datenträgers ein und klicken Sie auf *Löschen*.
+
+
+
+
+=== Löschen einer einzelnen Backup-Datei für ein Volume
+
+Sie können eine einzelne Sicherungsdatei löschen. Diese Funktion ist nur verfügbar, wenn das Volume Backup aus einem System mit ONTAP 9.8 oder neuer erstellt wurde.
+
+.Schritte
+. Klicken Sie auf der Registerkarte *Volumes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Quellvolume *Details & Sicherungsliste* aus.
++
+image:screenshot_backup_view_backups_button.png["Ein Screenshot, der die Schaltfläche Details  Backup List anzeigt, die für ein einzelnes Volume verfügbar ist."]
+
++
+Die Liste aller Sicherungsdateien wird angezeigt.
+
++
+image:screenshot_backup_view_backups.png["Ein Screenshot, der die Liste aller Sicherungsdateien für ein einzelnes Volume anzeigt."]
+
+. Klicken Sie Auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Für die Sicherungsdatei des Datenträgers, die Sie löschen möchten, klicken Sie auf *Löschen*.
++
+image:screenshot_delete_one_backup.png["Ein Screenshot, der zeigt, wie eine einzelne Sicherungsdatei gelöscht wird."]
+
+. Klicken Sie im Bestätigungsdialogfeld auf *Löschen*.
+
+
+
+
+== Löschen von Volume-Backup-Beziehungen
+
+Wenn Sie die Backup-Beziehung für ein Volume löschen, erhalten Sie einen Archivierungsmechanismus, wenn Sie die Erstellung neuer Backup-Dateien beenden und das Quell-Volume löschen möchten, aber alle bestehenden Backup-Dateien behalten möchten. So können Sie das Volume bei Bedarf später aus der Backup-Datei wiederherstellen und gleichzeitig Speicherplatz aus dem Quell-Storage-System löschen.
+
+Das Quell-Volume muss nicht unbedingt gelöscht werden. Sie können die Backup-Beziehung für ein Volume löschen und das Quell-Volume behalten. In diesem Fall können Sie die Backups auf dem Volume zu einem späteren Zeitpunkt „aktivieren“. Die ursprüngliche Backup-Kopie des Basisplans wird in diesem Fall weiterhin verwendet. Eine neue Basis-Backup-Kopie wird nicht erstellt und in die Cloud exportiert. Beachten Sie, dass beim Reaktivieren einer Backup-Beziehung dem Volume die standardmäßige Backup-Richtlinie zugewiesen wird.
+
+Diese Funktion ist nur verfügbar, wenn Ihr System ONTAP 9.12.1 oder höher ausführt.
+
+Sie können das Quell-Volume nicht aus der Cloud Backup Benutzeroberfläche löschen. Sie können jedoch die Seite Volume Details auf dem Bildschirm öffnen, und https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-manage-volumes.html#manage-volumes["Löschen Sie das Volume von dort"].
+
+
+NOTE: Sie können einzelne Sicherungsdateien des Volumes nicht löschen, sobald die Beziehung gelöscht wurde. Sie können es jedoch link:task-manage-backups-ontap.html#deleting-all-backup-files-for-a-volume["Löschen Sie alle Backups für das Volume"] Wenn Sie alle Sicherungsdateien entfernen möchten.
+
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, der die Schaltfläche Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Klicken Sie auf der Seite „ Backup Settings “ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für die Arbeitsumgebung *Volumes verwalten* aus.
++
+image:screenshot_backup_manage_volumes.png["Ein Screenshot, in dem die Schaltfläche Volumes verwalten auf der Seite Backup Settings angezeigt wird."]
+
+. Aktivieren Sie das Kontrollkästchen für ein Volume oder Volumes, das Sie die Sicherungsbeziehung löschen möchten, und klicken Sie dann auf *Beziehung löschen*.
++
+image:screenshot_delete_relationship.png["Ein Screenshot, der zeigt, wie die Sicherungsbeziehung für mehrere Volumes gelöscht wird."]
+
+. Klicken Sie auf *Speichern*, um Ihre Änderungen zu speichern.
+
+
+Beachten Sie, dass Sie die Backup-Beziehung für ein einzelnes Volume auch von der Seite Volumes löschen können.
+
+image:screenshot_delete_relationship_single.png["Ein Screenshot, der zeigt, wie die Backup-Beziehung für ein einzelnes Volume gelöscht wird."]
+
+Wenn Sie die Liste der Backups für jedes Volume anzeigen, wird der „Beziehungsstatus“ als *Beziehung gelöscht* aufgeführt.
+
+image:screenshot_backup_view_no_relationship.png["Ein Screenshot, der den Status „gelöscht“ der Beziehung anzeigt, nachdem Sie eine Backup-Beziehung eines Volumes gelöscht haben."]
+
+
+
+== Deaktivieren von Cloud Backup für eine Arbeitsumgebung
+
+Durch die Deaktivierung von Cloud Backup für eine funktionierende Umgebung werden Backups von jedem Volume im System deaktiviert und es wird auch die Möglichkeit zur Wiederherstellung eines Volumes deaktiviert. Vorhandene Backups werden nicht gelöscht. Dadurch wird die Registrierung des Backup-Service in dieser Arbeitsumgebung nicht aufgehoben. Im Grunde können Sie alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten.
+
+Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich  all backup files for a working environment,Löschen Sie die Backups.
+
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, der die Schaltfläche Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Klicken Sie auf der Seite „ Backup Settings “ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Für die Arbeitsumgebung, in der Sie Backups deaktivieren und *Sicherung deaktivieren* auswählen möchten.
++
+image:screenshot_disable_backups.png["Ein Screenshot der Schaltfläche „Sicherung deaktivieren“ für eine Arbeitsumgebung."]
+
+. Klicken Sie im Bestätigungsdialogfeld auf *Deaktivieren*.
+
+
+
+NOTE: Für diese Arbeitsumgebung wird während der Sicherung eine *Sicherung aktivieren*-Schaltfläche angezeigt. Sie können auf diese Schaltfläche klicken, wenn Sie die Backup-Funktion in dieser Arbeitsumgebung erneut aktivieren möchten.
+
+
+
+== Registrieren von Cloud Backup für eine Arbeitsumgebung wird aufgehoben
+
+Sie können Cloud Backup für eine Arbeitsumgebung unregistrieren, wenn Sie die Backup-Funktion nicht mehr verwenden möchten, und Sie nicht mehr mit dem Aufladen von Backups in dieser Arbeitsumgebung belastet werden möchten. Diese Funktion wird normalerweise verwendet, wenn Sie planen, eine Arbeitsumgebung zu löschen, und Sie möchten den Backup-Service abbrechen.
+
+Sie können diese Funktion auch verwenden, wenn Sie den Zielobjektspeicher ändern möchten, in dem Ihre Cluster-Backups gespeichert werden. Nachdem Sie Cloud Backup für die Arbeitsumgebung registriert haben, können Sie Cloud Backup für diesen Cluster mithilfe der neuen Cloud-Provider-Informationen aktivieren.
+
+Bevor Sie die Registrierung von Cloud Backup aufheben können, müssen Sie die folgenden Schritte in der folgenden Reihenfolge durchführen:
+
+* Deaktivieren Sie Cloud Backup für die Arbeitsumgebung
+* Löschen Sie alle Backups für die Arbeitsumgebung
+
+
+Die Option zum Aufheben der Registrierung ist erst verfügbar, wenn diese beiden Aktionen abgeschlossen sind.
+
+.Schritte
+. Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
++
+image:screenshot_backup_settings_button.png["Ein Screenshot, der die Schaltfläche Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+
+. Klicken Sie auf der Seite „ Backup Settings “ auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Für die Arbeitsumgebung, in der Sie die Registrierung des Backup-Dienstes aufheben möchten, und wählen Sie *Registrierung aufheben* aus.
++
+image:screenshot_backup_unregister.png["Ein Screenshot der Schaltfläche „Registrieren“ für eine Arbeitsumgebung."]
+
+. Klicken Sie im Bestätigungsdialogfeld auf *Registrierung aufheben*.
+

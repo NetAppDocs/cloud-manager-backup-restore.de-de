@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task-backup-vm-data-to-aws.html 
+keywords: back up, backup, backup virtual machine data, aws, Amazon Web Services, cloud backup, backup datastores 
+summary: Sichern Sie Ihre Datenspeicher von lokalen ONTAP Systemen auf AWS. 
+---
+= Erstellen Sie Backups von Datastores in Amazon Web Services
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Durch Integration des SnapCenter Plug-ins für VMware vSphere mit BlueXP können Sie ein oder mehrere Datastores in Amazon Web Services sichern. So können VM-Administratoren Daten für Storage-Effizienz einfach und schnell sichern und archivieren und die Cloud-Transition beschleunigen.
+
+
+NOTE: Stellen Sie sicher, dass Sie alle erfüllt haben link:concept-protect-vm-data.html#Requirements["Anforderungen"] Vor dem Backup von Datastores in der Cloud.
+
+.Schritte
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen*.
+. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend dem Datastore, den Sie sichern möchten, und klicken Sie auf *Backup aktivieren*.
+. Wählen Sie auf der Seite Richtlinie zuweisen die Richtlinie aus und klicken Sie auf *Weiter*.
+. Fügen Sie die Arbeitsumgebung hinzu.
++
+Konfigurieren Sie die ONTAP-Cluster, die BlueXP zum Sichern Ihrer Datenspeicher entdecken soll. Nachdem Sie die Arbeitsumgebung für einen der Datenspeicher hinzugefügt haben, können Sie sie für alle anderen Datenspeicher im selben ONTAP Cluster verwenden.
+
++
+.. Klicken Sie auf *Arbeitsumgebung hinzufügen* der SVM.
+.. Im Assistenten „Arbeitsumgebung hinzufügen“:
++
+... Geben Sie die IP-Adresse des ONTAP-Clusters an.
+... Geben Sie die Anmeldedaten des ONTAP-Cluster-Benutzers an.
+
+
+.. Klicken Sie Auf *Arbeitsumgebung Hinzufügen*.
+
+
+. Wählen Sie *Amazon Web Services*, um es als Cloud-Provider zu konfigurieren.
++
+.. Geben Sie den AWS Account an.
+.. Geben Sie im Feld AWS Access Key den Schlüssel für die Datenverschlüsselung an.
+.. Geben Sie im Feld AWS Secret Key das Passwort für die Datenverschlüsselung an.
+.. Wählen Sie den Bereich aus, in dem Sie die Backups erstellen möchten.
+.. Geben Sie die IP-Adressen der ONTAP-Cluster an, die als Arbeitsumgebung hinzugefügt wurden.
+
+
+. Überprüfen Sie die Details und klicken Sie auf *Backup aktivieren*.
+

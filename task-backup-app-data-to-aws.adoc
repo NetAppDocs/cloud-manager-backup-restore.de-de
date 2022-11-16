@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: task-backup-app-data-to-aws.html 
+keywords: backing up, back up, backup, backup application data, Amazon Web services, AWS, Cloud Backup, cloud backup service, Oracle database, Microsoft SQL Server database, SAP HANA database 
+summary: Führen Sie einige Schritte durch, um Applikationsdaten von ONTAP in AWS zu sichern. 
+---
+= Sichern Sie On-Premises-Applikationsdaten in Amazon Web Services
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Durch die Integration von Cloud Backup für Applikationen in BlueXP und On-Premises SnapCenter können Sie Backups der Applikationsdaten von ONTAP in Amazon Web Services erstellen.
+
+Sie können eine oder mehrere Applikationen gleichzeitig mit einer einzigen Richtlinie in der Cloud sichern.
+
+
+IMPORTANT: Sie können nur eine Anwendung gleichzeitig schützen, wenn Sie die BlueXP-GUI verwenden. Wenn SIE JEDOCH REST-APIs verwenden, können Sie mehrere Applikationen gleichzeitig sichern.
+
+*Schritte*
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Anwendung und klicken Sie auf *Backup aktivieren*.
+. Wählen Sie auf der Seite Richtlinie zuweisen die Richtlinie aus und klicken Sie auf *Weiter*.
+. Fügen Sie die Arbeitsumgebung hinzu.
++
+Konfigurieren Sie den ONTAP-Cluster, der die SVM hostet, auf dem die Applikation ausgeführt wird. Nach dem Hinzufügen der Arbeitsumgebung für eine der Applikationen kann sie für alle anderen Applikationen in demselben ONTAP Cluster wiederverwendet werden.
+
++
+.. Wählen Sie die SVM aus und klicken Sie auf *Arbeitsumgebung hinzufügen*.
+.. Im Assistenten „Arbeitsumgebung hinzufügen“:
++
+... Geben Sie die IP-Adresse des ONTAP-Clusters an.
+... Geben Sie die Admin-Anmeldedaten an.
++
+Cloud Backup für Applikationen unterstützt nur Cluster-Administratoren.
+
+
+
+.. Klicken Sie Auf *Arbeitsumgebung Hinzufügen*.
+
+
+. Wählen Sie als Cloud-Provider * Amazon Web Services* aus.
++
+.. Geben Sie den AWS Account an.
+.. Geben Sie im Feld AWS Access Key den Schlüssel an.
+.. Geben Sie im Feld AWS Secret Key das Passwort an.
+.. Wählen Sie den Bereich aus, in dem Sie die Backups erstellen möchten.
+.. Geben Sie den IP-Speicherplatz an.
+.. Wählen Sie die Archivebene aus.
++
+Es wird empfohlen, die Archivebene einzustellen, da dies eine einmalige Aktivität ist und Sie sie später nicht einrichten können.
+
+
+
+. Überprüfen Sie die Details und klicken Sie auf *Backup aktivieren*.
+

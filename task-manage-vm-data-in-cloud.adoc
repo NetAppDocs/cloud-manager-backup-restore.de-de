@@ -1,0 +1,88 @@
+---
+sidebar: sidebar 
+permalink: task-manage-vm-data-in-cloud.html 
+keywords: manage backups, virtual machines, view datastores, view virtual machines, edit 
+summary: Sie können die Datastores und Virtual Machines anzeigen und das SnapCenter Plug-in für VMware vSphere Instanzen bearbeiten. 
+---
+= Management der Sicherung von Virtual Machines
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können Richtlinien, Datastores und Virtual Machines anzeigen, bevor Sie Daten sichern und wiederherstellen. Abhängig von der Änderung in der Datenbank, Richtlinien oder Ressourcengruppen können Sie die Updates über die BlueXP-Benutzeroberfläche aktualisieren.
+
+
+
+== Anzeigen von Richtlinien
+
+Sie können alle vordefinierten Standardrichtlinien anzeigen. Wenn Sie die Details anzeigen, werden für jede dieser Richtlinien alle zugehörigen Cloud Backup für Virtual Machines und alle zugehörigen Virtual Machines aufgelistet.
+
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen*.
+. Klicken Sie im Dropdown-Menü *Einstellungen* auf *Richtlinien*.
+. Klicken Sie auf *Details anzeigen* entsprechend der Richtlinie, deren Details Sie anzeigen möchten.
+
+
+Die zugehörigen Richtlinien für Cloud Backup für Virtual Machines und alle Virtual Machines werden aufgelistet.
+
+
+
+== Sehen Sie sich die Datenspeicher und Virtual Machines an
+
+Es werden die Datenspeicher und Virtual Machines angezeigt, die mit dem registrierten SnapCenter Plug-in für VMware vSphere gesichert sind.
+
+*Über diese Aufgabe*
+
+* Nur NFS-Datastores werden angezeigt.
+* Es werden nur Datastores angezeigt, für die mindestens eine erfolgreiche Sicherung im SnapCenter-Plug-in für VMware vSphere erfolgt ist.
+
+
+.Schritte
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen* > *Einstellungen* > *SnapCenter Plug-in für VMware vSphere*.
+. Klicken Sie auf das SnapCenter-Plug-in für VMware vSphere, dessen Datenspeicher und Virtual Machines angezeigt werden sollen.
+
+
+
+
+== Bearbeiten Sie das SnapCenter Plug-in für die VMware vSphere-Instanz
+
+Die Details zum SnapCenter Plug-in für VMware vSphere können Sie unter BlueXP bearbeiten
+
+.Schritte
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen* > *Einstellungen* > *SnapCenter Plug-in für VMware vSphere*.
+. Klicken Sie auf und wählen Sie *Bearbeiten*
+. Ändern Sie die Details nach Bedarf
+. Klicken Sie Auf *Speichern*.
+
+
+
+
+== Aktualisieren Sie Den Sicherungsstatus
+
+Wenn der Datenbank neue Volumes hinzugefügt werden oder sich die Richtlinie oder Ressourcengruppe ändert, sollten Sie den Schutz aktualisieren.
+
+. Klicken Sie auf *Backup und Wiederherstellung* > *Virtuelle Maschinen*.
+. Klicken Sie im Dropdown-Menü *Einstellungen* auf *SnapCenter Plug-in für VMware vSphere*.
+. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend dem SnapCenter Plug-in für VMware vSphere, das die virtuelle Maschine hostet, und klicken Sie auf *Aktualisieren*.
++
+Die neuen Änderungen werden ermittelt.
+
+. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend dem Datastore und klicken Sie auf *Refresh Protection*, um den Cloud-Schutz für die Änderungen zu aktivieren.
+
+
+
+
+== Überwachen Von Jobs
+
+Für alle Cloud-Backup-Vorgänge werden Jobs erstellt. Sie können alle Jobs und alle Unteraufgaben, die als Teil jeder Aufgabe ausgeführt werden, überwachen.
+
+. Klicken Sie auf *Sicherung und Wiederherstellung* > *Jobüberwachung*.
++
+Wenn Sie einen Vorgang starten, wird ein Fenster angezeigt, in dem Sie angeben, dass der Job gestartet wird. Sie können auf den Link klicken, um den Job zu überwachen.
+
+. Klicken Sie auf die primäre Aufgabe, um die Unteraufgaben und den Status der einzelnen Unteraufgaben anzuzeigen.
+

@@ -1,0 +1,173 @@
+---
+sidebar: sidebar 
+permalink: task-manage-cloud-native-app-data.html 
+keywords: manage, view backup, monitor jobs, monitor 
+summary: Zeigen Sie die Backup-Details an und überwachen Sie den Status aller Jobs. 
+---
+= Sicherung von Cloud-nativen Applikationsdaten managen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+
+
+== Überwachen von Jobs
+
+Sie können den Status der Jobs überwachen, die in Ihren Arbeitsumgebungen initiiert wurden. Auf diese Weise können Sie die Aufträge sehen, die erfolgreich abgeschlossen wurden, die derzeit in Bearbeitung sind und die, die nicht erfolgreich abgeschlossen wurden, damit Sie Probleme diagnostizieren und beheben können.
+
+Sie können eine Liste aller Vorgänge und deren Status anzeigen. Jeder Vorgang oder Job hat eine eindeutige ID und einen Status. Der Status kann lauten:
+
+* Erfolgreich
+* In Bearbeitung
+* Warteschlange
+* Warnung
+* Fehlgeschlagen
+
+
+*Schritte*
+
+. Klicken Sie auf *Backup und Recovery*.
+. Klicken Sie Auf *Jobüberwachung*
++
+Sie können auf den Namen eines Jobs klicken, um die entsprechenden Details anzuzeigen. Wenn Sie nach einer bestimmten Stelle suchen, können Sie:
+
++
+** Verwenden Sie die Zeitauswahl oben auf der Seite, um Jobs für einen bestimmten Zeitraum anzuzeigen
+** Geben Sie einen Teil des Jobnamens in das Suchfeld ein
+** Sortieren Sie die Ergebnisse mithilfe des Filters in jeder Spaltenüberschrift
+
+
+
+
+
+
+== Zeigen Sie Backup-Details an
+
+Sie können die Gesamtzahl der erstellten Backups, die Richtlinien zum Erstellen von Backups, die Datenbankversion und die Agenten-ID anzeigen.
+
+. Klicken Sie auf *Backup und Recovery* > *Anwendungen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Anwendung und klicken Sie auf *Details anzeigen*.
+
+
+
+IMPORTANT: Die Agent-ID ist dem Konnektor zugeordnet. Wenn ein Connector, der bei der Registrierung des Oracle-Datenbank-Hosts verwendet wurde, nicht mehr vorhanden ist, schlagen die nachfolgenden Backups dieser Anwendung fehl, da die Agent-ID des neuen Connectors anders ist. Sie sollten die API *Connector-Update* ausführen, um die Agenten-ID zu ändern.
+
+
+
+== Aktualisieren Sie die Verbindungsdetails
+
+Wenn ein Connector, der bei der Registrierung des Oracle-Datenbank-Hosts verwendet wurde, nicht mehr existiert oder in AWS beschädigt ist, sollten Sie einen neuen Konnektor bereitstellen. Nach der Bereitstellung des neuen Connectors sollten Sie die *Connector-Update* API ausführen, um die Connector-Details zu aktualisieren.
+
+[listing]
+----
+curl --location --request PATCH 'https://snapcenter.cloudmanager.cloud.netapp.com/api/oracle/databases/connector-update' \
+--header 'x-account-id: <CM account-id>' \
+--header 'x-agent-id: <connector Agent ID >' \
+--header 'Authorization: Bearer token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"old_connector_id": "Old connector id that no longer exist",
+"new_connector_id": "New connector Id"
+}
+----
+Nach dem Aktualisieren der Connector-Details sollten Sie eine Verbindung zum Oracle-Datenbank-Host herstellen und die folgenden Schritte durchführen:
+
+. Holen Sie die Plug-in-Informationen ab, die auf dem Oracle Database Host ausgeführt werden.
+`rpm -qi netapp-snapcenter-plugin-oracle`
+. Deinstallieren Sie das Plug-in.
+`sudo /opt/NetApp/snapcenter/spl/installation/plugins/uninstall`
+. Überprüfen Sie, ob das Plug-in erfolgreich deinstalliert wurde.
+`rpm -qi netapp-snapcenter-plugin-oracle`
+
+
+Nachdem Sie das Plug-in deinstalliert haben, können Sie das Plug-in bereitstellen. link:reference-prereq-protect-cloud-native-app-data.html#deploy-snapcenter-plug-in-for-oracle["Weitere Informationen ."].
+
+
+
+== Konfigurieren Sie das Zertifikat der Zertifizierungsstelle
+
+Sie können ein Zertifikat mit Zertifizierungsstelle konfigurieren, wenn Sie zusätzliche Sicherheit in Ihre Umgebung aufnehmen möchten.
+
+
+
+=== Konfigurieren Sie das Zertifikat einer Zertifizierungsstelle für die Authentifizierung des Clientzertifikats
+
+Der Anschluss verwendet ein selbstsigniertes Zertifikat, um mit dem Plug-in zu kommunizieren. Das selbstsignierte Zertifikat wird vom Installationsskript in den Schlüsselspeicher importiert. Sie können die folgenden Schritte durchführen, um das selbstsignierte Zertifikat durch CA-signiertes Zertifikat zu ersetzen.
+
+*Was Sie brauchen*
+
+Sie können den folgenden Befehl ausführen, um _<base_Mount_path>_ zu erhalten:
+`sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint`
+
+*Schritte*
+
+. Melden Sie sich bei Connector an.
+. Löschen Sie alle vorhandenen Dateien unter _<base_Mount_PATH>/Client/Certificate_ in der virtuellen Connector-Maschine.
+. Kopieren Sie das von der Zertifizierungsstelle signierte Zertifikat und die Schlüsseldatei in die virtuelle Konnektor-Maschine _<base_Mount_PATH>/Client/Certificate_.
++
+Der Dateiname sollte Certificate.pem und key.pem sein. Das Zertifikat.pem sollte die gesamte Kette der Zertifikate wie Zwischenzertifikat und Root CA haben.
+
+. Erstellen Sie das PKCS12-Format des Zertifikats mit dem Namen Certificate.p12 und behalten Sie _<base_Mount_path>/Client/Certificate_.
+. Kopieren Sie das Zertifikat.p12 und die Zertifikate für alle Zwischenkatopie und Root-CA auf den Plug-in-Host unter _/var/opt/snapcenter/spl/etc/_.
+. Melden Sie sich beim Plug-in-Host an.
+. Navigieren Sie zu _/var/opt/snapcenter/spl/etc_ und führen Sie den keytool-Befehl aus, um die Datei Certificate.p12 zu importieren.
+`keytool -v -importkeystore -srckeystore certificate.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS -srcstorepass snapcenter -deststorepass snapcenter -srcalias agentcert -destalias agentcert -noprompt`
+. Importieren Sie die Stammzertifizierungsstelle und die Zwischenzertifikate.
+`keytool -import -trustcacerts -keystore keystore.jks -storepass snapcenter -alias trustedca -file <certificate.crt>`
++
+
+NOTE: Die certfile.crt bezieht sich auf die Zertifikate der Root CA sowie der Zwischenzertifizierungsstelle.
+
+. SPL neu starten: `systemctl restart spl`
+
+
+
+
+=== Konfigurieren Sie das CA-Zertifikat für das Server-Zertifikat des Plug-ins
+
+Das CA-Zertifikat sollte den genauen Namen des Oracle-Plug-in-Hosts haben, mit dem die virtuelle Connector-Maschine kommuniziert.
+
+*Was Sie brauchen*
+
+Sie können den folgenden Befehl ausführen, um _<base_Mount_path>_ zu erhalten:
+`sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint`
+
+*Schritte*
+
+. Führen Sie auf dem Plug-in-Host folgende Schritte durch:
++
+.. Navigieren Sie zum Ordner mit dem SPL-Schlüsselspeicher _/var/opt/snapcenter/spl/etc_.
+.. Erstellen Sie das PKCS12-Format des Zertifikats, das sowohl ein Zertifikat als auch einen Schlüssel mit dem Alias _splkeystore_ hat.
+.. Fügen Sie das CA-Zertifikat hinzu.
+`keytool -importkeystore -srckeystore <CertificatePathToImport> -srcstoretype pkcs12 -destkeystore keystore.jks -deststoretype JKS -srcalias splkeystore -destalias splkeystore -noprompt`
+.. Überprüfen Sie die Zertifikate.
+`keytool -list -v -keystore keystore.jks`
+.. SPL neu starten: `systemctl restart spl`
+
+
+. Führen Sie die folgenden Schritte auf dem Konnektor aus:
++
+.. Melden Sie sich beim Connector als nicht-Root-Benutzer an.
+.. Kopieren Sie die gesamte Kette der CA-Zertifikate auf das persistente Volume unter _<base_Mount_PATH>/Server_.
++
+Erstellen Sie den Serverordner, falls er nicht vorhanden ist.
+
+.. Verbinden Sie sich mit dem cloudmanager_scs_Cloud und ändern Sie den *enableCACert* in _config.yml_ an *true*.
+`sudo docker exec -t cloudmanager_scs_cloud sed -i 's/enableCACert: false/enableCACert: true/g' /opt/netapp/cloudmanager-scs-cloud/config/config.yml`
+.. Starten Sie den Cloud-Manager_scs_Cloud-Container neu.
+`sudo docker restart cloudmanager_scs_cloud`
+
+
+
+
+
+
+== Zugriff auf REST-APIs
+
+ES sind DIE REST-APIs zum Schutz der Applikationen in der Cloud verfügbar https://snapcenter.cloudmanager.cloud.netapp.com/api-doc/["Hier"].
+
+Sie sollten das Benutzer-Token mit gebündelter Authentifizierung erhalten, um auf DIE REST-APIs zuzugreifen. Informationen zum Abrufen des Benutzer-Tokens finden Sie unter https://docs.netapp.com/us-en/cloud-manager-automation/platform/create_user_token.html#create-a-user-token-with-federated-authentication["Erstellen Sie ein Benutzer-Token mit gebündelter Authentifizierung"].

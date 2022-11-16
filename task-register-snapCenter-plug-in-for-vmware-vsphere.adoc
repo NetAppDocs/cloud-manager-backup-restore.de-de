@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: task-register-snapCenter-plug-in-for-vmware-vsphere.html 
+keywords: register, registration, SnapCenter Plug-in for VMware vSphere 
+summary: Registrieren Sie das SnapCenter Plug-in für VMware vSphere in BlueXP. 
+---
+= Registrieren Sie das SnapCenter Plug-in für VMware vSphere
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie sollten das SnapCenter-Plug-in für VMware vSphere in BlueXP registrieren, damit die Datenspeicher und virtuellen Maschinen in BlueXP angezeigt werden. Das SnapCenter Plug-in für VMware vSphere kann nur von Benutzern mit Administratorzugriff registriert werden.
+
+
+NOTE: Sie können mehrere SnapCenter Plug-in für VMware vSphere registrieren. Nach der Registrierung können Sie jedoch das SnapCenter-Plug-in für VMware vSphere nicht mehr entfernen.
+
+.Schritte
+. Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen*.
+. Klicken Sie im Dropdown-Menü *Einstellungen* auf *SnapCenter Plug-in für VMware vSphere*.
+. Klicken Sie auf *Registrieren SnapCenter Plug-in für VMware vSphere*.
+. Geben Sie folgende Details an:
++
+.. Geben Sie im Feld SnapCenter-Plug-in für VMware vSphere den FQDN oder die IP-Adresse des SnapCenter-Plug-ins für VMware vSphere an.
+.. Geben Sie im Feld Port die Portnummer an, auf der das SnapCenter Plug-in für VMware vSphere ausgeführt wird.
++
+Sie sollten sicherstellen, dass der Port für die Kommunikation zwischen SnapCenter Plug-in für VMware vSphere und Cloud Backup für virtuelle Maschinen offen ist.
+
+.. Geben Sie im Feld Benutzername und Kennwort die Anmeldeinformationen des Benutzers mit der Administratorrolle an.
+
+
+. Klicken Sie Auf *Registrieren*.
+
+
+*Nach Ihrer Beendigung*
+
+Klicken Sie auf *Sicherung und Wiederherstellung* > *Virtuelle Maschinen*, um alle Datastores und virtuellen Maschinen anzuzeigen, die mit dem registrierten SnapCenter Plug-in für VMware vSphere geschützt werden können.
