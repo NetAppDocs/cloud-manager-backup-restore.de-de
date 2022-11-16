@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head class="at-element-marker">
+  <title>Sichern von lokalen ONTAP Daten in StorageGRID | NetApp Documentation</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Sichern von lokalen ONTAP Daten in StorageGRID | NetApp Documentation" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/de-de/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" />
+	<meta property="og:description" content="Unternehmen Sie einige Schritte, um den Backup von Daten von ONTAP On-Premises-Systemen auf Objekt-Storage in NetApp StorageGRID Systemen durchzuführen." />
+  <meta property="og:image" content="https://docs.netapp.com/de-de/cloud-manager-backup-restore/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Unternehmen Sie einige Schritte, um den Backup von Daten von ONTAP On-Premises-Systemen auf Objekt-Storage in NetApp StorageGRID Systemen durchzuführen.">
+  <meta name="keywords" content=" backing up, back up, backup, backup on-prem ontap, on-prem, on-premises, back up volumes, cloud backup, StorageGRID"><!-- Icons -->
+  <link rel="icon" href="/de-de/cloud-manager-backup-restore/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="NetApp Documentation" href="/de-de/cloud-manager-backup-restore/feed.xml"><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/de-de/cloud-manager-backup-restore/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/de-de/cloud-manager-backup-restore/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/de-de/cloud-manager-backup-restore/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  
+    
+    <link rel="canonical" href="https://docs.netapp.com/de-de/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" />
+  <link rel='stylesheet' href='/de-de/cloud-manager-backup-restore/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/de-de/cloud-manager-backup-restore/js/na-search.js'></script><script src='/de-de/cloud-manager-backup-restore/js/na-pagenav.js'></script><script src='/de-de/cloud-manager-backup-restore/js/na-utility.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/clouddocs.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/toc.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/de-de/cloud-manager-backup-restore"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/de-de/cloud-manager-backup-restore/js/custom-dropdown.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/FileSaver.min.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/jszip-utils.min.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/jszip.min.js'></script>
+  <script src='/de-de/cloud-manager-backup-restore/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="aws">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar">
+<div id="flavor-dropdown" class="custom-dropdown" data-url="/de-de/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html">
+  
+  
+  <div class="custom-dropdown-select selected" title="AWS">
+    <label>Cloud-Provider</label>
+    <div>AWS</div>  
+    <img src="/de-de/cloud-manager-backup-restore/images/filter.svg" class="custom-icon selected" alt="" />
+    <img src="/de-de/cloud-manager-backup-restore/images/dismiss.svg" class="custom-icon selected" id="remove-flavor" alt="" />
+  </div>
+  
+
+  <ul class="custom-dropdown-menu">
+    
+    
+    <li data-value="aws" data-url="/de-de/cloud-manager-backup-restore/aws/task-backup-onprem-private-cloud.html">
+      <img alt="" src="/de-de/cloud-manager-backup-restore/images/aws-ico.svg" onerror="this.src='/de-de/cloud-manager-backup-restore/images/blank-ico.png'" class="custom-icon" />Amazon Web Services
+    </li>
+    
+    
+    
+    <li data-value="gcp" data-url="/de-de/cloud-manager-backup-restore/gcp/task-backup-onprem-private-cloud.html">
+      <img alt="" src="/de-de/cloud-manager-backup-restore/images/gcp-ico.svg" onerror="this.src='/de-de/cloud-manager-backup-restore/images/blank-ico.png'" class="custom-icon" />Google Cloud
+    </li>
+    
+    
+    
+    <li data-value="azure" data-url="/de-de/cloud-manager-backup-restore/azure/task-backup-onprem-private-cloud.html">
+      <img alt="" src="/de-de/cloud-manager-backup-restore/images/azure-ico.svg" onerror="this.src='/de-de/cloud-manager-backup-restore/images/blank-ico.png'" class="custom-icon" />Microsoft Azure
+    </li>
+    
+    
+  </ul>
+</div>
+<div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/cloud-manager-backup-restore/issues/new?body=Page%3A%20[Sichern von lokalen ONTAP Daten in StorageGRID](https://docs.netapp.com/de-de/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/de-de/cloud-manager-backup-restore/images/discuss-sm.svg" alt="" class="github-icon" />Dokumentationsänderungen beantragen</a><a target="_blank" href="https://github.com/NetAppDocs/cloud-manager-backup-restore/blob/main/task-backup-onprem-private-cloud.adoc" class="page-nav-contribute-link" role="button"><img src="/de-de/cloud-manager-backup-restore/images/edit-sm.svg" alt="" class="github-icon" />In GitHub bearbeiten</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/de-de/cloud-manager-backup-restore/images/article-sm.svg" alt="" class="github-icon" />Leitfaden für Beitragende</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">AUF DIESER SEITE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Produkt und Lösungen</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support und Schulung</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Community</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Kundenberichte</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Kontakt</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Kontakt</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/de-de/cloud-manager-backup-restore/aws/search.html"
+          data-type="widget" 
+          data-placeholder="Dokumentation durchsuchen"
+          data-no-results-found="Keine Ergebnisse für {query} gefunden"
+          data-did-you-mean="Nach {suggestion} suchen."
+          data-no-results-found-did-you-mean="Keine Ergebnisse für {query} gefunden. Meinten Sie {suggestion}?"
+          data-results-found="{hitCount} Ergebnisse gefunden"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor="aws"></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Deutsch</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/de-de/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/fr-fr/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/de-de/cloud-manager-backup-restore/images/collapse.png" alt="Navigationsbereich reduzieren"></button>
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>verfügbare PDFs<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/de-de/cloud-manager-backup-restore/pdfs/aws/fullsite-sidebar/Dokumentation_für_Cloud_Backup.pdf" >
+          <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>PDF dieser Dokumentationsseite</a>
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Los_geht_s.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Los geht's
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Backup_und_Restore_von_ONTAP_Daten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Backup und Restore von ONTAP Daten
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Backup_und_Wiederherstellung_von_Kubernetes_Daten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Backup und Wiederherstellung von Kubernetes-Daten
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Backup_und_Restore_von_Applikationsdaten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Backup und Restore von Applikationsdaten
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Backup_und_Restore_von_On_Premises_Applikationsdaten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Backup und Restore von On-Premises-Applikationsdaten
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Wiederherstellung_von_Applikationsdaten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Wiederherstellung von Applikationsdaten
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Backup_und_Restore_von_Cloud_nativen_Applikationsdaten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Backup und Restore von Cloud-nativen Applikationsdaten
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Backup_von_Cloud_nativen_Applikationsdaten.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Backup von Cloud-nativen Applikationsdaten
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Daten_von_Virtual_Machines_sichern_und_wiederherstellen.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Daten von Virtual Machines sichern und wiederherstellen
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Referenz.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Referenz
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/cloud-manager-backup-restore/pdfs/aws/sidebar/Wissen_und_Support.pdf" 
+            
+          >
+            <img src="/de-de/cloud-manager-backup-restore/images/pdf.png" alt="" width="16" height="16"/>
+            Wissen und Support
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/de-de/cloud-manager-backup-restore/images/pdf-zip.png" alt="" width="16" height="16"/>
+      <pre>Sammlung separater PDF-Dokumente<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="prod-nav" id="product-nav">
+  <a target="_self" class="prod-fam-nav" href="https://docs.netapp.com/de-de/cloud-manager-family/"><img src="/de-de/cloud-manager-backup-restore/images/left_arrow.png" alt=""><pre>Alle BlueXP-Dokumentationen</pre></a>
+</div><div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Backup Dokumentation"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/index.html">
+        Cloud Backup Dokumentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Versionshinweise"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/whats-new.html">
+        Versionshinweise
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Los geht's"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Los geht's</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Weitere Informationen zu Cloud Backup"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-backup-to-cloud.html">
+        Weitere Informationen zu Cloud Backup
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lizenzierung einrichten"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-licensing-cloud-backup.html">
+        Lizenzierung einrichten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Überwachen des Status von Backup- und Wiederherstellungsjobs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-monitor-backup-jobs.html">
+        Überwachen des Status von Backup- und Wiederherstellungsjobs
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup und Restore von ONTAP Daten"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Backup und Restore von ONTAP Daten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie Ihre ONTAP Daten"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-ontap-backup-to-cloud.html">
+        Sichern Sie Ihre ONTAP Daten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes ONTAP in Amazon S3 sichern"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-to-s3.html">
+        Cloud Volumes ONTAP in Amazon S3 sichern
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup von On-Premises-ONTAP in Amazon S3"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-onprem-to-aws.html">
+        Backup von On-Premises-ONTAP in Amazon S3
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie Ihre lokale ONTAP auf StorageGRID"
+      data-li-level="2#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-onprem-private-cloud.html">
+        Sichern Sie Ihre lokale ONTAP auf StorageGRID
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ONTAP-Backups managen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-manage-backups-ontap.html">
+        ONTAP-Backups managen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Management von Backup-Einstellungen auf Cluster-Ebene"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-manage-backup-settings-ontap.html">
+        Management von Backup-Einstellungen auf Cluster-Ebene
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Restore aus ONTAP-Backups"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-restore-backups-ontap.html">
+        Restore aus ONTAP-Backups
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup und Wiederherstellung von Kubernetes-Daten"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Backup und Wiederherstellung von Kubernetes-Daten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sicherung von Kubernetes-Daten"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-kubernetes-backup-to-cloud.html">
+        Sicherung von Kubernetes-Daten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup in Amazon S3"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-kubernetes-to-s3.html">
+        Backup in Amazon S3
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes-Backups managen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-manage-backups-kubernetes.html">
+        Kubernetes-Backups managen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Wiederherstellung aus Kubernetes-Backups"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-restore-backups-kubernetes.html">
+        Wiederherstellung aus Kubernetes-Backups
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup und Restore von Applikationsdaten"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Backup und Restore von Applikationsdaten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup und Restore von On-Premises-Applikationsdaten"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Backup und Restore von On-Premises-Applikationsdaten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie Ihre lokalen Applikationsdaten"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-protect-app-data-to-cloud.html">
+        Sichern Sie Ihre lokalen Applikationsdaten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Registrieren Sie den SnapCenter-Server"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-register-snapcenter-server.html">
+        Registrieren Sie den SnapCenter-Server
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erstellen einer Richtlinie für das Backup von Applikationen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-create-policies-apps.html">
+        Erstellen einer Richtlinie für das Backup von Applikationen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie On-Premises-Applikationsdaten in Amazon Web Services"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-app-data-to-aws.html">
+        Sichern Sie On-Premises-Applikationsdaten in Amazon Web Services
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie On-Premises-Applikationsdaten in StorageGRID"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-app-data-to-storagegrid.html">
+        Sichern Sie On-Premises-Applikationsdaten in StorageGRID
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Management der Sicherung von Applikationen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-manage-app-backups.html">
+        Management der Sicherung von Applikationen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Wiederherstellung von Applikationsdaten"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Wiederherstellung von Applikationsdaten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Oracle Datenbank wiederherstellen"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-restore-oracle-data.html">
+        Oracle Datenbank wiederherstellen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="SQL Server Datenbank wiederherstellen"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-restore-sql-data.html">
+        SQL Server Datenbank wiederherstellen
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Binden Sie Backups von Applikationen ein"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-mount-app-backup.html">
+        Binden Sie Backups von Applikationen ein
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup und Restore von Cloud-nativen Applikationsdaten"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Backup und Restore von Cloud-nativen Applikationsdaten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie Ihre Daten aus Cloud-nativen Applikationen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-protect-cloud-app-data-to-cloud.html">
+        Sichern Sie Ihre Daten aus Cloud-nativen Applikationen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Voraussetzungen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-prereq-protect-cloud-native-app-data.html">
+        Voraussetzungen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup von Cloud-nativen Applikationsdaten"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Backup von Cloud-nativen Applikationsdaten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erkennen Sie die Anwendungen"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-discover-applications.html">
+        Erkennen Sie die Anwendungen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup der Cloud-nativen Applikationsdaten"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-cloud-native-app-data.html">
+        Backup der Cloud-nativen Applikationsdaten
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sicherung von Cloud-nativen Applikationsdaten managen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-manage-cloud-native-app-data.html">
+        Sicherung von Cloud-nativen Applikationsdaten managen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stellen Sie Cloud-native Applikationsdaten wieder her"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-restore-cloud-native-app-data.html">
+        Stellen Sie Cloud-native Applikationsdaten wieder her
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Daten von Virtual Machines sichern und wiederherstellen"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Daten von Virtual Machines sichern und wiederherstellen</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie Ihre Daten von Virtual Machines"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-protect-vm-data.html">
+        Sichern Sie Ihre Daten von Virtual Machines
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Registrieren Sie das SnapCenter Plug-in für VMware vSphere"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-register-snapCenter-plug-in-for-vmware-vsphere.html">
+        Registrieren Sie das SnapCenter Plug-in für VMware vSphere
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erstellen einer Richtlinie zum Backup von Virtual Machines"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-create-policies-vms.html">
+        Erstellen einer Richtlinie zum Backup von Virtual Machines
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erstellen Sie Backups von Datastores in Amazon Web Services"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-vm-data-to-aws.html">
+        Erstellen Sie Backups von Datastores in Amazon Web Services
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie Datenspeicher in StorageGRID"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-backup-vm-data-to-storagegrid.html">
+        Sichern Sie Datenspeicher in StorageGRID
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Management der Sicherung von Virtual Machines"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-manage-vm-data-in-cloud.html">
+        Management der Sicherung von Virtual Machines
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Daten von Virtual Machines wiederherstellen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-restore-vm-data.html">
+        Daten von Virtual Machines wiederherstellen
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mit DER REST-API automatisieren"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/api-backup-restore.html">
+        Mit DER REST-API automatisieren
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Referenz"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Referenz</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Richtlinieneinstellungen für Cloud-Backup"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/concept-cloud-backup-policies.html">
+        Richtlinieneinstellungen für Cloud-Backup
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte AWS Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-aws-backup-tiers.html">
+        Unterstützte AWS Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Azure-Archiv-Zugriffsebenen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-azure-backup-tiers.html">
+        Unterstützte Azure-Archiv-Zugriffsebenen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-backup-multi-account-azure.html">
+        Backup für Multi-Account-Zugriff in Azure konfigurieren
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Wissen und Support"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Wissen und Support</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Für den Support anmelden"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-support-registration.html">
+        Für den Support anmelden
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Holen Sie sich Hilfe"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/task-get-help.html">
+        Holen Sie sich Hilfe
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rechtliche Hinweise"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/legal-notices.html">
+        Rechtliche Hinweise
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/de-de/cloud-manager-backup-restore/images/expand.png" alt="Navigationsbereich erweitern"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com/us-en/cloud/">Cloud-Dokumentation</a>
+        </li>
+        
+
+        
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com/de-de/cloud-manager-family/">BlueXP</a>
+        </li>
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/de-de/cloud-manager-backup-restore/">Cloud&nbsp;Backup</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> Die deutsche Sprachversion wurde als Serviceleistung für Sie durch maschinelle Übersetzung erstellt. Bei eventuellen Unstimmigkeiten hat die englische Sprachversion Vorrang. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Sichern von lokalen ONTAP Daten in StorageGRID</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    
+  
+
+<span>Beitragende
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Unternehmen Sie einige Schritte, um den Backup von Daten von ONTAP On-Premises-Systemen auf Objekt-Storage in NetApp StorageGRID Systemen durchzuführen.</p>
+</div>
+<div class="paragraph">
+<p>Zu beachten ist, dass „On-Premises ONTAP Systeme“ FAS, AFF und ONTAP Select Systeme umfassen.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schnellstart">Schnellstart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.</p>
+</div>
+<div class="ulist">
+<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"</a> alt=„One“&gt;&lt;/span&gt; Überprüfen Sie den Support für Ihre Konfiguration</div>
+<ul>
+<li>
+<p>Sie haben den lokalen Cluster erkannt und zu einer Arbeitsumgebung in BlueXP hinzugefügt. Siehe <a href="https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html" target="_blank" rel="noopener">"Erkennung von ONTAP Clustern"</a> Entsprechende Details.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Auf dem Cluster läuft ONTAP 9.7P5 oder höher.</p>
+</li>
+<li>
+<p>Das Cluster verfügt über eine SnapMirror Lizenz – es ist im Premium Bundle oder in der Datensicherungs-Bundle enthalten.</p>
+</li>
+<li>
+<p>Der Cluster muss über die erforderlichen Netzwerkverbindungen zu StorageGRID und zum Connector verfügen.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sie haben einen Connector auf Ihrem Gelände installiert.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Der Connector kann auf einer Website mit oder ohne Internetzugang installiert werden.</p>
+</li>
+<li>
+<p>Das Networking für den Connector ermöglicht eine ausgehende HTTPS-Verbindung zum ONTAP-Cluster und zu StorageGRID.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sie haben gekauft <a href="task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license" target="_blank" rel="noopener">"Und aktiviert"</a> Eine Cloud Backup BYOL-Lizenz von NetApp</p>
+</li>
+<li>
+<p>Ihre StorageGRID hat Version 10.3 oder höher mit Zugriffsschlüsseln, die S3-Berechtigungen aufweisen.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Wählen Sie die Arbeitsumgebung aus, und klicken Sie auf <strong>Aktivieren &gt; Backup Volumes</strong> neben dem Backup &amp; Restore Service im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.</p>
+</div>
+<div class="paragraph quick-margin-para">
+<p><span class="image"><img src="./media/screenshot_backup_onprem_enable.png" alt="Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."></span></p>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Wählen Sie als Provider StorageGRID aus, und geben Sie dann die Details zum StorageGRID-Server und dem S3-Mandantenkonto ein. Sie müssen außerdem den IPspace im ONTAP Cluster angeben, auf dem sich die Volumes befinden.</p>
+</div>
+<div class="paragraph quick-margin-para">
+<p><span class="image"><img src="./media/screenshot_backup_provider_settings_storagegrid.png" alt="Ein Screenshot, der die Details des Cloud-Providers beim Backup von Volumes eines ONTAP Clusters auf StorageGRID zeigt"></span></p>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.</p>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Optional können Sie bei Verwendung von ONTAP 9.11.1 und höher Ihre Backups vor dem Löschen und Ransomware-Angriffen schützen, indem Sie eine der Einstellungen <em>DataLock und Ransomware Protection</em> konfigurieren. <a href="concept-cloud-backup-policies.html" target="_blank" rel="noopener">"Weitere Informationen über die verfügbaren Konfigurationseinstellungen für Cloud Backup-Richtlinien"</a>.</p>
+</div>
+<div class="paragraph quick-margin-para">
+<p><span class="image"><img src="./media/screenshot_backup_onprem_policy.png" alt="Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie den Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."></span></p>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.</p>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Ein S3-Bucket wird automatisch in dem Service-Konto erstellt, das durch den S3-Zugriffsschlüssel und den eingegebenen Geheimschlüssel angegeben ist und die Backup-Dateien dort gespeichert werden.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="anforderungen">Anforderungen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen, bevor Sie mit dem Backup von On-Premises-Volumes in StorageGRID beginnen.</p>
+</div>
+<div class="paragraph">
+<p>Das folgende Bild zeigt jede Komponente beim Backup eines On-Prem-ONTAP-Systems in StorageGRID und den Verbindungen, die zwischen ihnen vorbereitet werden müssen:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_cloud_backup_onprem_storagegrid.png" alt="Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."></span></p>
+</div>
+<div class="paragraph">
+<p>Wenn der Connector und das lokale ONTAP-System an einem lokalen Standort ohne Internetzugang installiert werden, muss sich das StorageGRID-System im selben On-Premises-Datacenter befinden.</p>
+</div>
+<div class="sect2">
+<h3 id="vorbereiten-der-ontap-cluster">Vorbereiten der ONTAP Cluster</h3>
+<div class="paragraph">
+<p>Bevor Sie mit dem Backup von Volume-Daten beginnen können, müssen Sie die ONTAP Cluster vor Ort in BlueXP ermitteln.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html" target="_blank" rel="noopener">"Entdecken Sie ein Cluster"</a>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">ONTAP-Anforderungen erfüllt</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Minimum ONTAP 9.7P5; ONTAP 9.8P13 und höher wird empfohlen.</p>
+</li>
+<li>
+<p>SnapMirror Lizenz (im Rahmen des Premium Bundle oder Datensicherungs-Bundles enthalten)</p>
+<div class="paragraph">
+<p><strong>Hinweis:</strong> bei der Verwendung von Cloud Backup ist das „Hybrid Cloud Bundle“ nicht erforderlich.</p>
+</div>
+<div class="paragraph">
+<p>Informieren Sie sich darüber <a href="https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html" target="_blank" rel="noopener">"Management Ihrer Cluster-Lizenzen"</a>.</p>
+</div>
+</li>
+<li>
+<p>Zeit und Zeitzone sind korrekt eingestellt.</p>
+<div class="paragraph">
+<p>Informieren Sie sich darüber <a href="https://docs.netapp.com/us-en/ontap/system-admin/manage-cluster-time-concept.html" target="_blank" rel="noopener">"Konfigurieren Sie die Cluster-Zeit"</a>.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Netzwerkanforderungen für Cluster</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Der ONTAP-Cluster initiiert eine HTTPS-Verbindung über einen vom Benutzer angegebenen Port von der Intercluster-LIF zum StorageGRID-Gateway-Node für Backup- und Restore-Vorgänge. Der Port kann während der Backup-Einrichtung konfiguriert werden.</p>
+<div class="paragraph">
+<p>ONTAP liest und schreibt Daten auf und aus dem Objekt-Storage. Objekt-Storage startet nie, er reagiert einfach nur.</p>
+</div>
+</li>
+<li>
+<p>ONTAP erfordert eine eingehende Verbindung vom Connector zur Cluster-Management-LIF. Der Stecker muss sich in Ihrem Haus befinden.</p>
+</li>
+<li>
+<p>Auf jedem ONTAP Node ist eine Intercluster-LIF erforderlich, die die Volumes hostet, die Sie sichern möchten. Die LIF muss dem <em>IPspace</em> zugewiesen sein, den ONTAP zur Verbindung mit Objekt-Storage verwenden sollte. <a href="https://docs.netapp.com/us-en/ontap/networking/standard_properties_of_ipspaces.html" target="_blank" rel="noopener">"Erfahren Sie mehr über IPspaces"</a>.</p>
+<div class="paragraph">
+<p>Wenn Sie Cloud Backup einrichten, werden Sie aufgefordert, den IP-Speicherplatz zu verwenden. Sie sollten den IPspace auswählen, dem jede LIF zugeordnet ist. Dies kann der „Standard“-IPspace oder ein benutzerdefinierter IPspace sein, den Sie erstellt haben.</p>
+</div>
+</li>
+<li>
+<p>Die Intercluster-LIFs der Nodes können auf den Objektspeicher zugreifen (nicht erforderlich, wenn der Connector an einem „dunklen“ Standort installiert ist).</p>
+</li>
+<li>
+<p>DNS-Server wurden für die Storage-VM konfiguriert, auf der sich die Volumes befinden. Informieren Sie sich darüber <a href="https://docs.netapp.com/us-en/ontap/networking/configure_dns_services_auto.html" target="_blank" rel="noopener">"Konfigurieren Sie DNS-Services für die SVM"</a>.</p>
+</li>
+<li>
+<p>Wenn Sie einen anderen IPspace als den Standard verwenden, müssen Sie möglicherweise eine statische Route erstellen, um Zugriff auf den Objekt-Storage zu erhalten.</p>
+</li>
+<li>
+<p>Aktualisieren Sie bei Bedarf Firewall-Regeln, um Cloud Backup Service-Verbindungen von ONTAP zu Objektspeicher über den angegebenen Port (normalerweise Port 443) und den Datenverkehr zur Namensauflösung von der Speicher-VM zum DNS-Server über Port 53 (TCP/UDP) zuzulassen.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="storagegrid-wird-vorbereitet">StorageGRID wird vorbereitet</h3>
+<div class="paragraph">
+<p>StorageGRID muss folgende Anforderungen erfüllen: Siehe <a href="https://docs.netapp.com/us-en/storagegrid-116/" target="_blank" rel="noopener">"StorageGRID-Dokumentation"</a> Finden Sie weitere Informationen.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Unterstützte StorageGRID-Versionen</dt>
+<dd>
+<p>StorageGRID 10.3 und höher wird unterstützt.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Damit Sie für Ihre Backups DataLock &amp; Ransomware Protection verwenden können, müssen Ihre StorageGRID Systeme ab Version 11.6.0.3 laufen.</p>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">S3-Anmeldedaten</dt>
+<dd>
+<p>Sie müssen ein S3-Mandantenkonto erstellt haben, um den Zugriff auf Ihren StorageGRID Storage zu kontrollieren. <a href="https://docs.netapp.com/us-en/storagegrid-116/admin/creating-tenant-account.html" target="_blank" rel="noopener">"Weitere Informationen finden Sie in der StorageGRID Dokumentation"</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Wenn Sie das Backup in StorageGRID einrichten, werden Sie vom Backup-Assistenten aufgefordert, einen S3-Zugriffsschlüssel und einen geheimen Schlüssel für ein Mandantenkonto einzugeben. Das Mandantenkonto ermöglicht Cloud Backup die Authentifizierung und den Zugriff auf die StorageGRID-Buckets, die für das Speichern von Backups verwendet werden. Die Schlüssel sind erforderlich, damit StorageGRID weiß, wer die Anforderung macht.</p>
+</div>
+<div class="paragraph">
+<p>Diese Zugriffsschlüssel müssen einem Benutzer mit den folgenden Berechtigungen zugeordnet sein:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">"s3:ListAllMyBuckets",
+"s3:ListBucket",
+"s3:GetObject",
+"s3:PutObject",
+"s3:DeleteObject",
+"s3:CreateBucket"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Objektversionierung</dt>
+<dd>
+<p>Sie dürfen die StorageGRID Objektversionierung auf dem Objektspeicher-Bucket nicht manuell aktivieren.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="erstellen-oder-umschalten-von-anschlüssen">Erstellen oder Umschalten von Anschlüssen</h3>
+<div class="paragraph">
+<p>Beim Daten-Backup in StorageGRID muss am Standort ein Connector verfügbar sein. Sie müssen entweder einen neuen Konnektor installieren oder sicherstellen, dass sich der aktuell ausgewählte Connector auf der Prem befindet. Der Connector kann auf einer Website mit oder ohne Internetzugang installiert werden.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html" target="_blank" rel="noopener">"Erfahren Sie mehr über Steckverbinder"</a></p>
+</li>
+<li>
+<p><a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-installing-linux.html" target="_blank" rel="noopener">"Installieren des Connectors auf einem Linux-Host mit Internetzugang"</a></p>
+</li>
+<li>
+<p><a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-onprem-no-internet.html" target="_blank" rel="noopener">"Installieren des Connectors auf einem Linux-Host ohne Internetzugang"</a></p>
+</li>
+<li>
+<p><a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-managing-connectors.html" target="_blank" rel="noopener">"Wechseln zwischen den Anschlüssen"</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud-manager-backup-restore/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Die Funktion Cloud Backup ist in BlueXP Connector integriert. Wenn Sie auf einer Website ohne Internetverbindung installiert sind, müssen Sie die Connector-Software regelmäßig aktualisieren, um Zugang zu neuen Funktionen zu erhalten. Prüfen Sie die <a href="whats-new.html">"Cloud Backup Was ist neu"</a> Um die neuen Funktionen in jeder Cloud Backup Version anzuzeigen, gehen Sie folgendermaßen vor <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-managing-connectors.html#upgrade-the-connector-on-prem-without-internet-access" target="_blank" rel="noopener">"Aktualisieren Sie die Connector-Software"</a> Wann Sie neue Funktionen nutzen möchten.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vorbereiten-der-vernetzung-für-den-connector">Vorbereiten der Vernetzung für den Connector</h3>
+<div class="paragraph">
+<p>Stellen Sie sicher, dass der Connector über die erforderlichen Netzwerkverbindungen verfügt.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Stellen Sie sicher, dass das Netzwerk, in dem der Connector installiert ist, folgende Verbindungen ermöglicht:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Eine HTTPS-Verbindung über Port 443 zum StorageGRID-Gateway-Node</p>
+</li>
+<li>
+<p>Eine HTTPS-Verbindung über Port 443 an Ihre ONTAP-Cluster-Management-LIF</p>
+</li>
+<li>
+<p>Eine ausgehende Internetverbindung über Port 443 zu Cloud Backup (bei Installation des Connectors an einem „dunklen“ Standort nicht erforderlich)</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lizenzanforderungen">Lizenzanforderungen</h3>
+<div class="paragraph">
+<p>Bevor Sie Cloud Backup für Ihren Cluster aktivieren können, müssen Sie eine Cloud Backup BYOL-Lizenz von NetApp erwerben und aktivieren. Diese Lizenz gilt für das Konto und kann auf mehreren Systemen verwendet werden.</p>
+</div>
+<div class="paragraph">
+<p>Sie benötigen die Seriennummer von NetApp, mit der Sie den Service für die Dauer und die Kapazität der Lizenz nutzen können. <a href="task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license">"Erfahren Sie, wie Sie Ihre BYOL-Lizenzen managen"</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud-manager-backup-restore/images/tip.svg" alt="Hinweis">
+</td>
+<td class="content">
+PAYGO-Lizenzierung wird beim Backup von Dateien in StorageGRID nicht unterstützt.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="unterstützung-von-cloud-backup-für-storagegrid">Unterstützung von Cloud Backup für StorageGRID</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Backup kann jederzeit direkt aus der lokalen Arbeitsumgebung aktiviert werden.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie auf der Arbeitsfläche die lokale Arbeitsumgebung aus und klicken Sie auf <strong>Aktivieren &gt; Backup Volumes</strong> neben dem Backup &amp; Restore Service im rechten Fenster.</p>
+<div class="paragraph">
+<p>Wenn das StorageGRID Ziel für Ihre Backups als eine Arbeitsumgebung auf dem Canvas existiert, können Sie den Cluster auf die StorageGRID Arbeitsumgebung ziehen, um den Setup-Assistenten zu starten.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_backup_onprem_enable.png" alt="Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."></span></p>
+</div>
+</li>
+<li>
+<p>Wählen Sie als Anbieter <strong>StorageGRID</strong> aus, klicken Sie auf <strong>Weiter</strong> und geben Sie dann die Provider-Daten ein:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Der FQDN des StorageGRID-Gateway-Knotens.</p>
+</li>
+<li>
+<p>Der Port, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden sollte.</p>
+</li>
+<li>
+<p>Der Zugriffsschlüssel und der geheime Schlüssel, mit dem auf den Bucket zugegriffen wird, um Backups zu speichern.</p>
+</li>
+<li>
+<p>Der IPspace im ONTAP Cluster, in dem sich die Volumes, die Sie sichern möchten, befinden. Die Intercluster-LIFs für diesen IPspace müssen über Outbound-Internetzugang verfügen (nicht erforderlich, wenn der Connector auf einer „dunklen“ Seite installiert ist).</p>
+<div class="paragraph">
+<p>Durch die Auswahl des richtigen IPspaces wird sichergestellt, dass Cloud Backup eine Verbindung von ONTAP zu Ihrem StorageGRID Objekt-Storage einrichten kann.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_backup_provider_settings_storagegrid.png" alt="Ein Screenshot, der die Details des Cloud-Providers zeigt, wenn ein Backup von Volumes aus einem lokalen Cluster in StorageGRID Storage erstellt wird."></span></p>
+</div>
+</li>
+<li>
+<p>Geben Sie die Backup Policy Details ein, die für Ihre Standard Policy verwendet werden, und klicken Sie auf <strong>Weiter</strong>. Sie können eine vorhandene Richtlinie auswählen oder eine neue Richtlinie erstellen, indem Sie in den einzelnen Abschnitten Ihre Auswahl eingeben:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Geben Sie den Namen für die Standardrichtlinie ein. Sie müssen den Namen nicht ändern.</p>
+</li>
+<li>
+<p>Legen Sie den Backup-Zeitplan fest und wählen Sie die Anzahl der zu behaltenden Backups aus. <a href="concept-ontap-backup-to-cloud.html#customizable-backup-schedule-and-retention-settings" target="_blank" rel="noopener">"Die Liste der vorhandenen Richtlinien, die Sie auswählen können, wird angezeigt"</a>.</p>
+</li>
+<li>
+<p>Optional können Sie bei der Verwendung von ONTAP 9.11.1 und höher Ihre Backups vor dem Löschen und Ransomware-Angriffen schützen, indem Sie <em>DataLock und Ransomware Protection</em> konfigurieren. <em>DataLock</em> schützt Ihre Backup-Dateien vor Modified oder Deleted, und <em>Ransomware Protection</em> scannt Ihre Backup-Dateien, um nach Anzeichen für einen Ransomware-Angriff in Ihren Backup-Dateien zu suchen. <a href="concept-cloud-backup-policies.html#datalock-and-ransomware-protection" target="_blank" rel="noopener">"Erfahren Sie mehr über die verfügbaren DataLock-Einstellungen"</a>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_backup_onprem_policy.png" alt="Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie Ihren Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."></span></p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Wichtig:</strong> Wenn Sie DataLock verwenden möchten, müssen Sie es bei der Aktivierung von Cloud Backup in Ihrer ersten Richtlinie aktivieren.</p>
+</div>
+</li>
+<li>
+<p>Wählen Sie auf der Seite Volumes auswählen die Volumes aus, für die ein Backup mit der definierten Backup-Richtlinie gesichert werden soll. Falls Sie bestimmten Volumes unterschiedliche Backup-Richtlinien zuweisen möchten, können Sie später zusätzliche Richtlinien erstellen und auf diese Volumes anwenden.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Um alle bestehenden Volumes und Volumes zu sichern, die in der Zukunft hinzugefügt wurden, markieren Sie das Kontrollkästchen „Alle bestehenden und zukünftigen Volumen sichern&#8230;&#8203;“. Wir empfehlen diese Option, damit alle Ihre Volumes gesichert werden und Sie nie vergessen müssen, Backups für neue Volumes zu aktivieren.</p>
+</li>
+<li>
+<p>Um nur vorhandene Volumes zu sichern, aktivieren Sie das Kontrollkästchen in der Titelzeile (<span class="image"><img src="./media/button_backup_all_volumes.png" alt=""></span>).</p>
+</li>
+<li>
+<p>Um einzelne Volumes zu sichern, aktivieren Sie das Kontrollkästchen für jedes Volume (<span class="image"><img src="./media/button_backup_1_volume.png" alt=""></span>).</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_backup_select_volumes.png" alt="Ein Screenshot, wie die Volumes ausgewählt werden, die gesichert werden."></span></p>
+</div>
+</li>
+<li>
+<p>Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Klicken Sie auf <strong>Activate Backup</strong> und Cloud Backup beginnt die Erstellung der ersten Backups jedes ausgewählten Volumes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Ein S3-Bucket wird automatisch in dem Service-Konto erstellt, das durch den S3-Zugriffsschlüssel und den eingegebenen Geheimschlüssel angegeben ist und die Backup-Dateien dort gespeichert werden. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen <a href="task-monitor-backup-jobs.html" target="_blank" rel="noopener">"Fenster Job-Überwachung"</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="was-kommt-als-nächstes">Was kommt als Nächstes?</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Das können Sie <a href="task-manage-backups-ontap.html" target="_blank" rel="noopener">"Management von Backup Files und Backup-Richtlinien"</a>. Dies umfasst das Starten und Stoppen von Backups, das Löschen von Backups, das Hinzufügen und Ändern des Backup-Zeitplans und vieles mehr.</p>
+</li>
+<li>
+<p>Das können Sie <a href="task-manage-backup-settings-ontap.html" target="_blank" rel="noopener">"Management von Backup-Einstellungen auf Cluster-Ebene"</a>. Dies umfasst die Änderung der Storage-Schlüssel, die ONTAP für den Zugriff auf den Cloud-Storage verwendet, die Änderung der verfügbaren Netzwerkbandbreite für das Hochladen von Backups in den Objekt-Storage, die Änderung der automatischen Backup-Einstellung für zukünftige Volumes und vieles mehr.</p>
+</li>
+<li>
+<p>Das können Sie auch <a href="task-restore-backups-ontap.html" target="_blank" rel="noopener">"Wiederherstellung von Volumes, Ordnern oder einzelnen Dateien aus einer Sicherungsdatei"</a> Auf ein lokales ONTAP System zugreifen:</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Allgemeine Geschäftsbedingungen</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Richtlinie zu Datenschutz</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Richtlinie zu Cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie-Einstellungen</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Feedback zu dieser Seite senden</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/cloud-manager-backup-restore/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/de-de/cloud-manager-backup-restore/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/de-de/cloud-manager-backup-restore/js/prism.js'></script>
+      <script type="text/javascript" src='/de-de/cloud-manager-backup-restore/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/de-de/cloud-manager-backup-restore/js/www-ntap.js'></script>
+    <script src='/de-de/cloud-manager-backup-restore/js/tabbed-blocks.js'></script>
+    <script src='/de-de/cloud-manager-backup-restore/js/sidebar.js'></script>
+  </body></html>
