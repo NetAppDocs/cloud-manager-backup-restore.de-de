@@ -1284,7 +1284,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
     
   
 
@@ -1317,7 +1317,7 @@
 <h2 id="das-restore-dashboard">Das Restore Dashboard</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Mit dem Restore Dashboard können Sie Volume-, Ordner- und Dateiwiederherstellungsvorgänge durchführen. Sie öffnen das Restore Dashboard, indem Sie im BlueXP-Menü auf <strong>Backup und Recovery</strong> klicken und dann auf die Registerkarte <strong>Restore</strong> klicken. Sie können auch auf klicken <span class="image"><img src="./media/screenshot_gallery_options.gif" alt="Schaltfläche „Mehr“"></span> &gt; <strong>Ansicht Restore Dashboard</strong> aus dem Fenster „Dienste“ aus dem Dienst „Backup &amp; Restore“.</p>
+<p>Mit dem Restore Dashboard können Sie Volume-, Ordner- und Dateiwiederherstellungsvorgänge durchführen. Sie öffnen das Restore Dashboard, indem Sie im BlueXP-Menü auf <strong>Backup und Recovery</strong> klicken und dann auf die Registerkarte <strong>Restore</strong> klicken. Sie können auch auf klicken <span class="image"><img src="./media/screenshot_gallery_options.gif" alt="Schaltfläche „Mehr“"></span> &gt; <strong>Ansicht Restore Dashboard</strong> vom Backup- und Recovery-Dienst aus dem Fenster Dienste.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1976,9 +1976,9 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <p>Wenn Ihr Konto keine Anmeldedaten für Cloud-Provider enthält, werden die Informationen zum indexierten Katalog auf dem Connector gespeichert.</p>
 </li>
 <li>
-<p>Wenn Sie haben <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-aws.html" target="_blank" rel="noopener">"AWS Zugangsdaten"</a> Oder <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-azure.html" target="_blank" rel="noopener">"Azure Zugangsdaten"</a> Im Konto wird der indizierte Katalog wie bei einem in der Cloud implementierten Connector beim Cloud-Provider gespeichert.</p>
+<p>Wenn Sie haben <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-aws.html" target="_blank" rel="noopener">"AWS Zugangsdaten"</a> Oder <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-azure.html" target="_blank" rel="noopener">"Azure Zugangsdaten"</a> Im Konto wird der indizierte Katalog wie bei einem in der Cloud implementierten Connector beim Cloud-Provider gespeichert. (Bei beiden Anmeldedaten ist standardmäßig AWS ausgewählt.)</p>
 <div class="paragraph">
-<p>AWS und Azure Anforderungen können Sie sich bei der Verwendung dieser Implementierung oben anzeigen lassen. Obwohl Sie einen On-Premises-Connector nutzen, müssen die Anforderungen an einen Cloud-Provider sowohl im Hinblick auf die Berechtigungen von Connector als auch auf Ressourcen von Cloud-Providern erfüllt werden.</p>
+<p>Obwohl Sie einen On-Premises-Connector nutzen, müssen die Anforderungen an einen Cloud-Provider sowohl im Hinblick auf die Berechtigungen von Connector als auch auf Ressourcen von Cloud-Providern erfüllt werden. AWS und Azure Anforderungen können Sie sich bei der Verwendung dieser Implementierung oben anzeigen lassen.</p>
 </div>
 </li>
 </ul>
@@ -2137,13 +2137,17 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <div class="paragraph">
 <p>Wenn Sie ein lokales ONTAP System auswählen und die Cluster-Verbindung mit dem Objekt-Storage nicht bereits konfiguriert haben, werden zusätzliche Informationen benötigt:</p>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Geben Sie beim Wiederherstellen aus StorageGRID den FQDN des StorageGRID-Servers und den Port ein, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden soll, geben Sie den Zugriffsschlüssel und den geheimen Schlüssel ein, der für den Zugriff auf den Objektspeicher erforderlich ist, sowie den IPspace im ONTAP-Cluster, in dem sich das Ziel-Volume befindet.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
