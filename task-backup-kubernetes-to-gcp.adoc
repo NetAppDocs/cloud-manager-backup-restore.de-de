@@ -37,7 +37,7 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 
 [role="quick-margin-para"]
-Wählen Sie die Arbeitsumgebung aus, und klicken Sie auf *Aktivieren* neben dem Backup & Restore-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
+Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren* neben dem Backup- und Recovery-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
 
 [role="quick-margin-para"]
 image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
@@ -145,7 +145,7 @@ GCP-Service-Konto:: Sie benötigen ein Servicekonto in Ihrem Google Cloud Projek
 Cloud-Backup kann jederzeit direkt aus der Kubernetes-Arbeitsumgebung aktiviert werden.
 
 .Schritte
-. Wählen Sie die Arbeitsumgebung aus, und klicken Sie neben dem Backup & Restore Service im rechten Fenster auf *Aktivieren.
+. Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren* neben dem Backup- und Recovery-Dienst im rechten Fenster.
 +
 image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 

@@ -28,7 +28,7 @@ Zum Wiederherstellen von Daten aus Backup-Dateien in einem Produktionssystem ist
 
 == Das Restore Dashboard
 
-Mit dem Restore Dashboard können Sie Volume-, Ordner- und Dateiwiederherstellungsvorgänge durchführen. Sie öffnen das Restore Dashboard, indem Sie im BlueXP-Menü auf *Backup und Recovery* klicken und dann auf die Registerkarte *Restore* klicken. Sie können auch auf klicken image:screenshot_gallery_options.gif["Schaltfläche „Mehr“"] > *Ansicht Restore Dashboard* aus dem Fenster „Dienste“ aus dem Dienst „Backup & Restore“.
+Mit dem Restore Dashboard können Sie Volume-, Ordner- und Dateiwiederherstellungsvorgänge durchführen. Sie öffnen das Restore Dashboard, indem Sie im BlueXP-Menü auf *Backup und Recovery* klicken und dann auf die Registerkarte *Restore* klicken. Sie können auch auf klicken image:screenshot_gallery_options.gif["Schaltfläche „Mehr“"] > *Ansicht Restore Dashboard* vom Backup- und Recovery-Dienst aus dem Fenster Dienste.
 
 
 NOTE: Cloud Backup muss bereits für mindestens eine Arbeitsumgebung aktiviert sein und es müssen erste Backup-Dateien vorhanden sein.
@@ -560,9 +560,9 @@ Je nach Konfiguration gibt es zwei Möglichkeiten, die Suche und Wiederherstellu
 
 +
 ** Wenn Ihr Konto keine Anmeldedaten für Cloud-Provider enthält, werden die Informationen zum indexierten Katalog auf dem Connector gespeichert.
-** Wenn Sie haben https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-aws.html["AWS Zugangsdaten"^] Oder https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-azure.html["Azure Zugangsdaten"^] Im Konto wird der indizierte Katalog wie bei einem in der Cloud implementierten Connector beim Cloud-Provider gespeichert.
+** Wenn Sie haben https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-aws.html["AWS Zugangsdaten"^] Oder https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-accounts-azure.html["Azure Zugangsdaten"^] Im Konto wird der indizierte Katalog wie bei einem in der Cloud implementierten Connector beim Cloud-Provider gespeichert. (Bei beiden Anmeldedaten ist standardmäßig AWS ausgewählt.)
 +
-AWS und Azure Anforderungen können Sie sich bei der Verwendung dieser Implementierung oben anzeigen lassen. Obwohl Sie einen On-Premises-Connector nutzen, müssen die Anforderungen an einen Cloud-Provider sowohl im Hinblick auf die Berechtigungen von Connector als auch auf Ressourcen von Cloud-Providern erfüllt werden.
+Obwohl Sie einen On-Premises-Connector nutzen, müssen die Anforderungen an einen Cloud-Provider sowohl im Hinblick auf die Berechtigungen von Connector als auch auf Ressourcen von Cloud-Providern erfüllt werden. AWS und Azure Anforderungen können Sie sich bei der Verwendung dieser Implementierung oben anzeigen lassen.
 
 
 
@@ -678,7 +678,10 @@ Wenn Sie ein lokales ONTAP System auswählen und die Cluster-Verbindung mit dem 
 +
 ifdef::aws[]
 
-** Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus.
++
+*** Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus.
+
+
 
 
 

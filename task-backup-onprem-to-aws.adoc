@@ -49,7 +49,7 @@ Richten Sie Berechtigungen für den Connector ein, um den S3-Bucket zu erstellen
 Optional können Sie Ihre eigenen, von Ihnen gemanagten Schlüssel für die Datenverschlüsselung einrichten statt dazu die standardmäßigen Amazon S3-Verschlüsselungsschlüssel zu verwenden.  your AWS environment,Erfahren Sie, wie Sie Ihre AWS S3-Umgebung für den Erhalt von ONTAP-Backups vorbereiten.
 
 [role="quick-margin-para"]
-Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup & Restore Service im rechten Fenster. Anschließend können Sie im Setup-Assistenten die Standard-Backup-Richtlinie und die Anzahl der beizubehaltenden Backups festlegen und die Volumes auswählen, für die Sie ein Backup erstellen möchten.
+Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup- und Recovery-Dienst im rechten Fenster. Anschließend können Sie im Setup-Assistenten die Standard-Backup-Richtlinie und die Anzahl der beizubehaltenden Backups festlegen und die Volumes auswählen, für die Sie ein Backup erstellen möchten.
 
 [role="quick-margin-para"]
  Cloud Backup,So aktivieren Sie Cloud Backup auf Ihren Volumes.
@@ -355,12 +355,12 @@ Please enter Certificate: Press <Enter> when done
 Cloud Backup kann jederzeit direkt aus der lokalen Arbeitsumgebung aktiviert werden.
 
 .Schritte
-. Wählen Sie auf der Arbeitsfläche die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Volumes sichern* neben dem Dienst Backup & Restore im rechten Fenster.
+. Wählen Sie in der Arbeitsfläche die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup- und Recovery-Service im rechten Fenster.
 +
 Wenn das Amazon S3 Ziel für Ihre Backups als Arbeitsumgebung auf dem Canvas existiert, können Sie den Cluster auf die Amazon S3-Arbeitsumgebung ziehen, um den Setup-Assistenten zu starten.
 
 +
-image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
 . Wählen Sie Amazon Web Services als Anbieter und klicken Sie auf *Weiter*.
 . Geben Sie die Provider-Daten ein und klicken Sie auf *Weiter*.

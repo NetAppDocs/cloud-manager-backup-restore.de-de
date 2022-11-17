@@ -43,10 +43,10 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 
 [role="quick-margin-para"]
-Wählen Sie die Arbeitsumgebung aus, und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup & Restore Service im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
+Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup- und Recovery-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
 
 [role="quick-margin-para"]
-image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
 [role="quick-margin-para"]
 Wählen Sie als Provider StorageGRID aus, und geben Sie dann die Details zum StorageGRID-Server und dem S3-Mandantenkonto ein. Sie müssen außerdem den IPspace im ONTAP Cluster angeben, auf dem sich die Volumes befinden.
@@ -209,12 +209,12 @@ TIP: PAYGO-Lizenzierung wird beim Backup von Dateien in StorageGRID nicht unters
 Cloud Backup kann jederzeit direkt aus der lokalen Arbeitsumgebung aktiviert werden.
 
 .Schritte
-. Wählen Sie auf der Arbeitsfläche die lokale Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup & Restore Service im rechten Fenster.
+. Wählen Sie auf dem Bildschirm die lokale Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup- und Recovery-Service im rechten Fenster.
 +
 Wenn das StorageGRID Ziel für Ihre Backups als eine Arbeitsumgebung auf dem Canvas existiert, können Sie den Cluster auf die StorageGRID Arbeitsumgebung ziehen, um den Setup-Assistenten zu starten.
 
 +
-image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
 . Wählen Sie als Anbieter *StorageGRID* aus, klicken Sie auf *Weiter* und geben Sie dann die Provider-Daten ein:
 +

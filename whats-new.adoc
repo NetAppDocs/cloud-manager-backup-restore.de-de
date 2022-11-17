@@ -61,7 +61,7 @@ https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-manage-backup-se
 
 === Sie können jetzt Backup-Dateien mithilfe von Search & Restore wiederherstellen, wenn Sie einen On-Premises Connector verwenden
 
-In der vorherigen Version wurde beim Einsatz des Connectors in Ihrer Umgebung Unterstützung beim Erstellen von Backup-Dateien in der Public Cloud erhalten. In dieser Version wurde mithilfe von Search & Restore weiterhin Unterstützung für die Wiederherstellung von Backups von Amazon S3 oder Azure Blob ermöglicht, wenn der Connector in Ihrer lokalen Umgebung implementiert wird. Search & Restore unterstützt auch die Wiederherstellung von Backups aus StorageGRID Systemen in ONTAP Systemen vor Ort.
+In der vorherigen Version wurde beim Einsatz des Connectors in Ihrer Umgebung Unterstützung beim Erstellen von Backup-Dateien in der Public Cloud erhalten. In dieser Version wurde mithilfe von Search & Restore weiterhin Unterstützung für die Wiederherstellung von Backups von Amazon S3 oder Azure Blob ermöglicht, wenn der Connector in Ihrer lokalen Umgebung implementiert wird. Search & Restore unterstützt jetzt auch die Wiederherstellung von Backups aus StorageGRID Systemen in ONTAP Systemen vor Ort.
 
 Derzeit muss der Connector in der Google Cloud Platform bereitgestellt werden, wenn Sie Search & Restore verwenden, um Backups von Google Cloud Storage wiederherzustellen.
 

@@ -38,10 +38,10 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 
 [role="quick-margin-para"]
-Wählen Sie die Arbeitsumgebung aus, und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup & Restore Service im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
+Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup- und Recovery-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
 
 [role="quick-margin-para"]
-image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
 [role="quick-margin-para"]
 Wählen Sie Google Cloud als Anbieter aus, und geben Sie dann die Provider-Details ein. Sie müssen außerdem den IPspace im ONTAP Cluster angeben, auf dem sich die Volumes befinden.
@@ -67,11 +67,11 @@ Bei der Konfiguration von Backups von lokalen ONTAP Systemen in Google Cloud Sto
 * Private Verbindung: Verwenden Sie ein VPN oder Google Cloud Interconnect und leiten Sie den Datenverkehr über eine private Google Access-Schnittstelle, die eine private IP-Adresse verwendet.
 
 
-Das folgende Diagramm zeigt die Methode *Public Connection* und die Verbindungen, die Sie zwischen den Komponenten vorbereiten müssen. Sie können einen Connector, den Sie an Ihrem Standort installiert haben, oder einen Connector verwenden, den Sie in der Google Cloud Platform VPC implementiert haben.
+Das folgende Diagramm zeigt die Methode *Public Connection* und die Verbindungen, die Sie zwischen den Komponenten vorbereiten müssen. Der Connector muss in der Google Cloud Platform VPC implementiert werden.
 
 image:diagram_cloud_backup_onprem_gcp_public.png["Eine Grafik zeigt, wie Cloud Backup über eine öffentliche Verbindung mit den Volumes im Cluster und dem Google Cloud Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
 
-Das folgende Diagramm zeigt die Methode *private Verbindung* und die Verbindungen, die Sie zwischen den Komponenten vorbereiten müssen. Sie können einen Connector, den Sie an Ihrem Standort installiert haben, oder einen Connector verwenden, den Sie in der Google Cloud Platform VPC implementiert haben.
+Das folgende Diagramm zeigt die Methode *private Verbindung* und die Verbindungen, die Sie zwischen den Komponenten vorbereiten müssen. Der Connector muss in der Google Cloud Platform VPC implementiert werden.
 
 image:diagram_cloud_backup_onprem_gcp_private.png["Ein Diagramm zeigt die Kommunikation von Cloud Backup über eine private Verbindung mit den Volumes auf dem Cluster und dem Google Cloud Storage, auf dem sich die Backup-Dateien befinden."]
 
@@ -126,12 +126,11 @@ Wenn Sie Cloud Backup einrichten, werden Sie aufgefordert, den IP-Speicherplatz 
 
 === Erstellen oder Umschalten von Anschlüssen
 
-Wenn Sie bereits einen Connector in Ihrer Google Cloud Platform VPC oder Ihrem Unternehmensstandort implementiert haben, sind Sie alle eingerichtet. Falls nicht, müssen Sie an einem dieser Orte einen Connector erstellen, um ONTAP Daten in Google Cloud Storage zu sichern. Sie können keinen Connector verwenden, der bei einem anderen Cloud-Provider bereitgestellt wird.
+Wenn Sie bereits einen Connector in Ihrer Google Cloud Platform VPC implementiert haben, sind Sie alle festgelegt. Falls nicht, müssen Sie an diesem Standort einen Connector erstellen, um ONTAP Daten in Google Cloud Storage zu sichern. Es kann kein Connector verwendet werden, der bei einem anderen Cloud-Provider oder vor Ort implementiert wird.
 
 * https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["Erfahren Sie mehr über Steckverbinder"^]
 * https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-checklist-cm.html["Erste Schritte mit den Anschlüssen"^]
 * https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-gcp.html["Installieren eines Steckers in GCP"^]
-* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-installing-linux.html["Installieren eines Connectors in Ihrem Haus"^]
 
 
 
@@ -158,7 +157,7 @@ Beachten Sie, dass Private Google Access mit VM-Instanzen funktioniert, die nur 
 
 === Überprüfen oder Hinzufügen von Berechtigungen zum Konnektor
 
-Um die Funktionalität Cloud Backup Search & Restore verwenden zu können, benötigen Sie spezifische Berechtigungen in der Rolle für den Connector, damit er auf den Google Cloud BigQuery Service zugreifen kann. Lesen Sie die unten stehenden Berechtigungen, und befolgen Sie die Schritte, wenn Sie die Richtlinie ändern müssen.
+Um die Cloud Backup Funktion „Search & Restore“ nutzen zu können, benötigen Sie spezielle Berechtigungen in der Rolle für den Connector, damit er auf den Google Cloud BigQuery Service zugreifen kann. Lesen Sie die unten stehenden Berechtigungen, und befolgen Sie die Schritte, wenn Sie die Richtlinie ändern müssen.
 
 .Schritte
 . In link:https://console.cloud.google.com["Cloud Console"^], Gehen Sie zur Seite *Rollen*.
@@ -225,12 +224,12 @@ Wenn Sie den Backup-Service konfigurieren, müssen Sie die Schlüssel später in
 Cloud Backup kann jederzeit direkt aus der lokalen Arbeitsumgebung aktiviert werden.
 
 .Schritte
-. Wählen Sie auf der Arbeitsfläche die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Volumes sichern* neben dem Dienst Backup & Restore im rechten Fenster.
+. Wählen Sie in der Arbeitsfläche die Arbeitsumgebung aus und klicken Sie auf *Aktivieren > Backup Volumes* neben dem Backup- und Recovery-Service im rechten Fenster.
 +
 Wenn das Ziel von Google Cloud Storage für Ihre Backups als Arbeitsumgebung auf dem Canvas existiert, können Sie den Cluster auf die Google Cloud Storage Arbeitsumgebung ziehen, um den Setup-Assistenten zu starten.
 
 +
-image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche Backup  Restore Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
+image:screenshot_backup_onprem_enable.png["Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
 . Wählen Sie Google Cloud als Anbieter und klicken Sie auf *Weiter*.
 . Geben Sie die Provider-Daten ein und klicken Sie auf *Weiter*.

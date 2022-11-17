@@ -30,7 +30,7 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 .<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"[] alt=„zwei“></span> Cloud-Sicherung auf Ihrem neuen oder vorhandenen System aktivieren
 * Neue Systeme: Cloud Backup ist standardmäßig im Assistenten für die Arbeitsumgebung aktiviert. Achten Sie darauf, dass die Option aktiviert bleibt.
-* Bestehende Systeme: Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren* neben dem Backup & Restore Service im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
+* Bestehende Systeme: Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren* neben dem Backup- und Recovery-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.
 +
 image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Enable zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
@@ -160,7 +160,7 @@ Cloud Backup ist auf dem System aktiviert und sichert täglich Volumes und speic
 Cloud Backup kann jederzeit direkt aus der Arbeitsumgebung aktiviert werden.
 
 .Schritte
-. Wählen Sie die Arbeitsumgebung aus, und klicken Sie neben dem Backup & Restore Service im rechten Fenster auf *Aktivieren.
+. Wählen Sie die Arbeitsumgebung aus und klicken Sie auf *Aktivieren* neben dem Backup- und Recovery-Dienst im rechten Fenster.
 +
 Wenn das Azure Blob Ziel für Ihre Backups als Arbeitsumgebung auf dem Canvas existiert, können Sie das Cluster auf die Azure Blob Arbeitsumgebung ziehen, um den Setup-Assistenten zu starten.
 
