@@ -718,6 +718,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1178,6 +1180,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/azure/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1284,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1363,6 +1372,9 @@
 </div>
 <div class="paragraph">
 <p>Wenn Sie Änderungen vornehmen möchten, erweitern Sie einfach die Option und nehmen Sie die Änderung vor. Alle Backup-Vorgänge nach der Änderung verwenden die neuen Werte.</p>
+</div>
+<div class="paragraph">
+<p>Beachten Sie, dass einige Optionen basierend auf der Version von ONTAP auf dem Quell-Cluster nicht verfügbar sind und auf dem Ziel des Cloud-Providers, in dem sich die Backups befinden, basieren.</p>
 </div>
 </div>
 </div>
@@ -1457,10 +1469,10 @@
 <h2 id="ändern-sie-ob-historische-snapshot-kopien-als-backup-dateien-exportiert-werden">Ändern Sie, ob historische Snapshot Kopien als Backup-Dateien exportiert werden</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Wenn es lokale Snapshot-Kopien für Volumes gibt, die mit dem Backup-Schedule-Label übereinstimmen, das Sie in dieser Arbeitsumgebung verwenden (z. B. täglich, wöchentlich usw.), können Sie diese historischen Snapshots als Backup-Dateien in Objekt-Storage exportieren. Damit können Sie die Backups in der Cloud initialisieren, indem Sie Snapshot-ältere Kopien in die Basis-Backup-Kopie verschieben.</p>
+<p>Wenn es lokale Snapshot-Kopien für Volumes gibt, die mit dem Backup-Schedule-Label übereinstimmen, das Sie in dieser Arbeitsumgebung verwenden (z. B. täglich, wöchentlich usw.), können Sie diese historischen Snapshots als Backup-Dateien in Objekt-Storage exportieren. Damit können Sie Ihre Backups in die Cloud initialisieren, indem Sie ältere Snapshot-Kopien in die Basis-Backup-Kopie verschieben.</p>
 </div>
 <div class="paragraph">
-<p>Beachten Sie, dass diese Option nur für neue Backup-Dateien für neue Volumes gilt und nicht bei Datensicherungs-Volumes unterstützt wird.</p>
+<p>Beachten Sie, dass diese Option nur für neue Backup-Dateien für neue Lese-/Schreib-Volumes gilt und nicht für Datensicherungs-Volumes unterstützt wird.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="./media/screenshot_backup_edit_export_snapshots.png" alt="Ein Screenshot des Eintrags „vorhandene Snapshot Kopien exportieren“ auf der Seite „Erweiterte Einstellungen“."></span></p>

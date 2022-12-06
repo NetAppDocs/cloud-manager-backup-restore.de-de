@@ -713,6 +713,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1236,6 +1238,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1342,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1358,6 +1367,35 @@
 <div class="sectionbody">
 <div class="paragraph lead">
 <p>Alles zum Thema Cloud Backup:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bis-6-dezember-2022">Bis 6. Dezember 2022</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="support-der-google-archivspeicher">Support der Google Archivspeicher</h3>
+<div class="paragraph">
+<p>Sicherungsdateien werden zunächst in der Speicherklasse Google Standard erstellt. Jetzt können Sie ältere Backups nach einer bestimmten Anzahl von Tagen auf Google Archivspeicher verschieben, um die Kosten weiter zu optimieren.</p>
+</div>
+<div class="paragraph">
+<p>Diese Funktion wird derzeit für ONTAP-Cluster vor Ort mit ONTAP 9.12.1 oder höher unterstützt. Dieses Angebot ist derzeit nicht für Cloud Volumes ONTAP Systeme verfügbar.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unterstützung-für-flexgroup-volumes">Unterstützung für FlexGroup Volumes</h3>
+<div class="paragraph">
+<p>Cloud Backup unterstützt jetzt FlexGroup Volumes. Bei Verwendung von ONTAP 9.12.1 oder neuer können Sie FlexGroup Volumes in Public- und Private-Cloud-Storage sichern. Wenn Sie über funktionierende Umgebungen mit FlexVol- und FlexGroup-Volumes verfügen, können Sie nach der Aktualisierung der ONTAP Software jedes der FlexGroup-Volumes auf diesen Systemen sichern.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-ontap-backup-to-cloud.html#supported-volumes">"Die vollständige Liste der unterstützten Volume-Typen finden Sie unter"</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="möglichkeit-zur-wiederherstellung-von-daten-aus-backups-in-einem-bestimmten-aggregat-auf-cloud-volumes-ontap-systemen">Möglichkeit zur Wiederherstellung von Daten aus Backups in einem bestimmten Aggregat auf Cloud Volumes ONTAP Systemen</h3>
+<div class="paragraph">
+<p>In älteren Versionen könnten Sie das Aggregat nur auswählen, wenn Sie Daten in On-Premises-ONTAP-Systemen wiederherstellen. Diese Funktion ist jetzt auch für die Wiederherstellung von Daten auf Cloud Volumes ONTAP Systemen geeignet.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1382,7 +1420,7 @@
 <div class="sect2">
 <h3 id="unterstützung-wurde-hinzugefügt-um-cloud-backup-benachrichtigungen-per-e-mail-und-im-notification-center-zu-erhalten">Unterstützung wurde hinzugefügt, um Cloud Backup-Benachrichtigungen per E-Mail und im Notification Center zu erhalten</h3>
 <div class="paragraph">
-<p>Cloud Backup wurde in den BlueXP Notification Service integriert. Sie können Cloud-Backup-Benachrichtigungen anzeigen, indem Sie in der Menüleiste von BlueXP auf die Benachrichtigungsglocke klicken. Außerdem können Sie BlueXP so konfigurieren, dass Benachrichtigungen per E-Mail als Warnungen gesendet werden, damit Sie auch dann über wichtige Systemaktivitäten informiert werden können, wenn Sie nicht im System angemeldet sind. Die E-Mail kann an alle Empfänger gesendet werden, die auf Backup- und Wiederherstellungsaktivitäten achten müssen. <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-monitor-backup-jobs.html#use-the-job-monitor-to-view-backup-and-restore-job-status">"Erfahren Sie, wie"</a>.</p>
+<p>Cloud Backup wurde in den BlueXP Notification Service integriert. Sie können Cloud-Backup-Benachrichtigungen anzeigen, indem Sie in der Menüleiste von BlueXP auf die Benachrichtigungsglocke klicken. Sie können BlueXP auch so konfigurieren, dass Benachrichtigungen per E-Mail als Benachrichtigungen gesendet werden, damit Sie auch dann über wichtige Systemaktivitäten informiert werden können, wenn Sie nicht im System angemeldet sind. Die E-Mail kann an alle Empfänger gesendet werden, die auf Backup- und Wiederherstellungsaktivitäten achten müssen. <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-monitor-backup-jobs.html#use-the-job-monitor-to-view-backup-and-restore-job-status">"Erfahren Sie, wie"</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1564,7 +1602,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="wir-haben-jetzt-die-möglichkeit-hinzugefügt-ihre-backup-dateien-vor-löschen-und-ransomware-angriffen-zu-schützen">Wir haben jetzt die Möglichkeit hinzugefügt, Ihre Backup-Dateien vor Löschen und Ransomware-Angriffen zu schützen</h3>
+<h3 id="wir-haben-die-möglichkeit-hinzugefügt-ihre-backup-dateien-vor-löschungen-und-ransomware-angriffen-zu-schützen">Wir haben die Möglichkeit hinzugefügt, Ihre Backup-Dateien vor Löschungen und Ransomware-Angriffen zu schützen</h3>
 <div class="paragraph">
 <p>Cloud Backup unterstützt jetzt Objekt-Lock-Support für Ransomware-sichere Backups. Wenn Ihr Cluster ONTAP 9.11.1 oder höher verwendet und Ihr Backup-Ziel Amazon S3 ist, steht jetzt eine neue Backup-Policy-Option namens <em>DataLock und Ransomware Protection</em> zur Verfügung. DataLock schützt Ihre Backup-Dateien vor Änderungen oder Löschung. Ransomware-Schutz scannt Ihre Backup-Dateien, um nach einem Ransomware-Angriff auf Ihre Backup-Dateien zu suchen. <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-cloud-backup-policies.html#datalock-and-ransomware-protection" target="_blank" rel="noopener">"Erfahren Sie mehr darüber, wie Sie mit DataLock- und Ransomware-Schutz Ihre Backups schützen können"</a>.</p>
 </div>

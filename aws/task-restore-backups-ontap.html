@@ -718,6 +718,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1178,6 +1180,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1284,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1399,13 +1408,13 @@ Cloud Backup muss bereits für mindestens eine Arbeitsumgebung aktiviert sein un
 <div class="ulist">
 <ul>
 <li>
-<p>volumes using Browse  Restore,Stellen Sie Volumes mithilfe von Browse  Restore wieder her</p>
+<p>&lt;&lt;Restoring volumes using Browse &amp; Restore,Stellen Sie Volumes mithilfe von Browse  Restore wieder her</p>
 </li>
 <li>
-<p>folders and files using Browse  Restore,Wiederherstellen von Ordnern und Dateien mit Durchsuchen  Restore</p>
+<p>&lt;&lt;Restoring folders and files using Browse &amp; Restore,Wiederherstellen von Ordnern und Dateien mit Durchsuchen  Restore</p>
 </li>
 <li>
-<p>ONTAP data using Search  Restore,Stellen Sie Volumes, Ordner und Dateien mithilfe von Search  Restore wieder her</p>
+<p>&lt;&lt;Restoring ONTAP data using Search &amp; Restore,Stellen Sie Volumes, Ordner und Dateien mithilfe von Search  Restore wieder her</p>
 </li>
 </ul>
 </div>
@@ -1418,7 +1427,7 @@ Cloud Backup muss bereits für mindestens eine Arbeitsumgebung aktiviert sein un
 <p>Bevor Sie mit der Wiederherstellung eines Volumes, Ordners oder einer Datei beginnen, sollten Sie den Namen des Volumes, aus dem Sie wiederherstellen möchten, den Namen der Arbeitsumgebung, in der sich das Volume befindet, sowie das ungefähre Datum der Sicherungsdatei, aus der Sie wiederherstellen möchten, kennen.</p>
 </div>
 <div class="paragraph">
-<p><strong>Hinweis:</strong> Wenn die Sicherungsdatei für das wiederherzustellende Volume im Archiv-Speicher liegt (beginnend mit ONTAP 9.10.1), dauert der Wiederherstellungsvorgang länger und es entstehen Kosten. Darüber hinaus muss auf dem Ziel-Cluster für das Volume Restore ONTAP 9.10.1 oder höher und 9.11.1 für die Dateiwiederherstellung ausgeführt werden.</p>
+<p><strong>Hinweis:</strong> Wenn die Sicherungsdatei für das wiederherzustellende Volume im Archiv-Speicher liegt (beginnend mit ONTAP 9.10.1), dauert der Wiederherstellungsvorgang länger und es entstehen Kosten. Darüber hinaus muss auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Restores, 9.11.1 für die Dateiwiederherstellung und 9.12.1 für Google Archive ausgeführt werden.</p>
 </div>
 <div class="paragraph">
 <p><a href="reference-aws-backup-tiers.html">"Erfahren Sie mehr über die Wiederherstellung aus AWS Archiv-Storage"</a>.</p>
@@ -1430,41 +1439,27 @@ Cloud Backup muss bereits für mindestens eine Arbeitsumgebung aktiviert sein un
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 30%;">
-<col style="width: 35%;">
-<col style="width: 35%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Speicherort Der Sicherungsdatei</th>
-<th class="tableblock halign-left valign-top" colspan="2">Zielarbeitsumgebung</th>
+<th class="tableblock halign-left valign-top">Speicherort der Sicherungsdatei Zielumgebung ifdef::aws[]</th>
+<th class="tableblock halign-left valign-top">Amazon S3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Volume Restore</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ordner- und Dateiwiederherstellung</strong> ifdef::aws[]</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon S3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in AWS On-Premises ONTAP System</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[]</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Azure Blob</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Azure On-Premises ONTAP System</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[]</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Google Cloud Storage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Google On-Premises ONTAP System</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[]</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NetApp StorageGRID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lokales ONTAP System</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lokales ONTAP System</p></td>
 </tr>
 </tbody>
 </table>
@@ -1562,15 +1557,12 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Geben Sie den Namen ein, den Sie für das wiederhergestellte Volume verwenden möchten, und wählen Sie die Storage VM aus, auf der sich das Volume befindet. Standardmäßig wird <strong>&lt;source_Volume_Name&gt;_restore</strong> als Volume-Name verwendet.</p>
+<p>Geben Sie den Namen ein, den Sie für das wiederhergestellte Volume verwenden möchten, und wählen Sie die Storage VM und das Aggregat aus, auf dem sich das Volume befinden soll. Standardmäßig wird <strong>&lt;source_Volume_Name&gt;_restore</strong> als Volume-Name verwendet.</p>
 <div class="paragraph">
 <p><span class="image"><img src="./media/screenshot_restore_new_vol_name.png" alt="Ein Screenshot, in den der Name des neuen Volumes eingegeben wird, das wiederhergestellt werden soll."></span></p>
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Sie können das Aggregat auswählen, das das Volume nur für seine Kapazität verwendet, wenn Sie ein Volume in ein lokales ONTAP System wiederherstellen.</p>
 </div>
 </li>
 </ul>
@@ -1595,6 +1587,7 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Cloud Backup erstellt auf Basis des ausgewählten Backups ein neues Volume. Das können Sie <a href="task-manage-backups-ontap.html">"Verwalten Sie die Backup-Einstellungen für dieses neue Volume"</a> Nach Bedarf.</p>
 </div>
 <div class="paragraph">
@@ -1641,10 +1634,7 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <p>Die ONTAP-Version muss mindestens 9.6 sein, um <em>File</em> Restore-Vorgänge durchzuführen.</p>
 </li>
 <li>
-<p>Die ONTAP-Version muss mindestens 9.11.1 sein, um Vorgänge <em>folder</em> wiederherstellen zu können.</p>
-</li>
-<li>
-<p>Für die Account-übergreifende Wiederherstellung von AWS ist eine manuelle Aktion in der AWS-Konsole erforderlich. Weitere Informationen finden Sie im Thema AWS <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html" target="_blank" rel="noopener">"Gewähren von Account-übergreifenden Bucket-Berechtigungen"</a> Entsprechende Details.</p>
+<p>Die ONTAP-Version muss mindestens 9.11.1 sein, um Vorgänge <em>folder</em> wiederherstellen zu können. Ifdef::aws[]</p>
 </li>
 </ul>
 </div>
@@ -1840,7 +1830,7 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <p>Sie können Ordner oder Dateien auf dem ursprünglichen Volume-Speicherort, auf einem anderen Volume in derselben Arbeitsumgebung oder in einer anderen Arbeitsumgebung wiederherstellen, die dasselbe Cloud-Konto verwendet. Ordner und Dateien können auch auf einem Volume auf einem lokalen ONTAP System wiederhergestellt werden.</p>
 </div>
 <div class="paragraph">
-<p>Wenn die Backup-Datei für das wiederherzustellende Volume im Archiv-Storage (ab ONTAP 9.10.1 verfügbar) gespeichert ist, dauert der Restore-Vorgang länger und es entstehen zusätzliche Kosten. Beachten Sie, dass auf dem Ziel-Cluster für die Volume-Wiederherstellung auch ONTAP 9.10.1 oder höher und 9.11.1 für die Dateiwiederherstellung ausgeführt werden muss.</p>
+<p>Wenn die Backup-Datei für das wiederherzustellende Volume im Archiv-Storage (ab ONTAP 9.10.1 verfügbar) gespeichert ist, dauert der Restore-Vorgang länger und es entstehen zusätzliche Kosten. Beachten Sie, dass auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Wiederherstellung, 9.11.1 für Dateiwiederherstellung und 9.12.1 für Google Archive ausgeführt werden muss.</p>
 </div>
 <div class="paragraph">
 <p><a href="reference-aws-backup-tiers.html">"Erfahren Sie mehr über die Wiederherstellung aus AWS Archiv-Storage"</a>.</p>
@@ -2071,7 +2061,7 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <div class="sect2">
 <h3 id="wiederherstellen-von-volumes-ordnern-und-dateien-mithilfe-von-search-restore">Wiederherstellen von Volumes, Ordnern und Dateien mithilfe von Search &amp; Restore</h3>
 <div class="paragraph">
-<p>Nachdem Sie den haben  the Indexed Catalog for each working environment,Indexierung für Ihre Arbeitsumgebung aktiviert, Sie können Volumes, Ordner und Dateien mit Search &amp; Restore wiederherstellen. So können Sie mithilfe verschiedener Filter genau die Datei oder das Volume finden, die Sie aus allen Backup-Dateien wiederherstellen möchten.</p>
+<p>Nachdem Sie den haben <a href="#aktivierung-des-indizierten-katalogs-für-jede-arbeitsumgebung">Indexierung für Ihre Arbeitsumgebung aktiviert</a>, Sie können Volumes, Ordner und Dateien mit Search &amp; Restore wiederherstellen. So können Sie mithilfe verschiedener Filter genau die Datei oder das Volume finden, die Sie aus allen Backup-Dateien wiederherstellen möchten.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
@@ -2140,11 +2130,11 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 <div class="ulist">
 <ul>
 <li>
-<p>Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus.</p>
+<p>Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus. <a href="task-backup-onprem-to-aws.html#cluster-networking-requirements">"Siehe Details zu diesen Anforderungen"</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Geben Sie beim Wiederherstellen aus StorageGRID den FQDN des StorageGRID-Servers und den Port ein, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden soll, geben Sie den Zugriffsschlüssel und den geheimen Schlüssel ein, der für den Zugriff auf den Objektspeicher erforderlich ist, sowie den IPspace im ONTAP-Cluster, in dem sich das Ziel-Volume befindet.</p>
+<p>Geben Sie beim Wiederherstellen aus StorageGRID den FQDN des StorageGRID-Servers und den Port ein, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden soll, geben Sie den Zugriffsschlüssel und den geheimen Schlüssel ein, der für den Zugriff auf den Objektspeicher erforderlich ist, sowie den IPspace im ONTAP-Cluster, in dem sich das Ziel-Volume befindet. <a href="task-backup-onprem-private-cloud.html#requirements">"Siehe Details zu diesen Anforderungen"</a>.</p>
 </li>
 </ul>
 </div>
@@ -2158,6 +2148,7 @@ Sie können keine Ordner oder Dateien wiederherstellen, wenn die Sicherungsdatei
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnisse</div>
 <p>Die Volume-, Ordner- oder Datei(en) werden wiederhergestellt und Sie werden zum Restore Dashboard zurückgebracht, damit Sie den Fortschritt des Wiederherstellungsvorgangs überprüfen können. Sie können auch auf die Registerkarte <strong>Job Monitoring</strong> klicken, um den Wiederherstellungsfortschritt anzuzeigen.</p>
 </div>
 <div class="paragraph">

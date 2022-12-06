@@ -718,6 +718,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1178,6 +1180,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/azure/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1284,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1310,8 +1319,8 @@
 <div class="paragraph">
 <p>Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.</p>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"</a> alt=„One“&gt;&lt;/span&gt; Überprüfen Sie den Support für Ihre Konfiguration</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Eins"></span> Überprüfen Sie die Unterstützung Ihrer Konfiguration</div>
 <ul>
 <li>
 <p>Sie haben den lokalen Cluster erkannt und zu einer Arbeitsumgebung in BlueXP hinzugefügt. Siehe <a href="https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html" target="_blank" rel="noopener">"Erkennung von ONTAP Clustern"</a> Entsprechende Details.</p>
@@ -1351,18 +1360,21 @@
 </ul>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png" alt="Zwei"></span> Aktivieren Sie Cloud Backup auf dem System</div>
 <p>Wählen Sie die Arbeitsumgebung aus und klicken Sie auf <strong>Aktivieren &gt; Backup Volumes</strong> neben dem Backup- und Recovery-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_onprem_enable.png" alt="Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Drittens"></span> Geben Sie die Details zum StorageGRID ein</div>
 <p>Wählen Sie als Provider StorageGRID aus, und geben Sie dann die Details zum StorageGRID-Server und dem S3-Mandantenkonto ein. Sie müssen außerdem den IPspace im ONTAP Cluster angeben, auf dem sich die Volumes befinden.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_provider_settings_storagegrid.png" alt="Ein Screenshot, der die Details des Cloud-Providers beim Backup von Volumes eines ONTAP Clusters auf StorageGRID zeigt"></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png" alt="Vier"></span> Legen Sie die standardmäßige Backup-Richtlinie fest</div>
 <p>Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.</p>
 </div>
 <div class="paragraph quick-margin-para">
@@ -1372,6 +1384,7 @@
 <p><span class="image"><img src="./media/screenshot_backup_onprem_policy.png" alt="Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie den Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png" alt="Fünf"></span> Wählen Sie die Volumes aus, die Sie sichern möchten</div>
 <p>Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.</p>
 </div>
 <div class="paragraph quick-margin-para">
@@ -1689,7 +1702,7 @@ PAYGO-Lizenzierung wird beim Backup von Dateien in StorageGRID nicht unterstütz
 </div>
 </li>
 <li>
-<p>Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
+<p>Wenn es lokale Snapshot-Kopien für Lese-/Schreib-Volumes in dieser Arbeitsumgebung gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Export vorhandener Snapshot Kopien in Objekt-Storage als Backup-Kopien“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
 </li>
 </ul>
 </div>
@@ -1700,6 +1713,7 @@ PAYGO-Lizenzierung wird beim Backup von Dateien in StorageGRID nicht unterstütz
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Ein S3-Bucket wird automatisch in dem Service-Konto erstellt, das durch den S3-Zugriffsschlüssel und den eingegebenen Geheimschlüssel angegeben ist und die Backup-Dateien dort gespeichert werden. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen <a href="task-monitor-backup-jobs.html" target="_blank" rel="noopener">"Fenster Job-Überwachung"</a>.</p>
 </div>
 </div>

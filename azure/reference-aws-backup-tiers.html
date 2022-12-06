@@ -718,6 +718,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1178,6 +1180,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/azure/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1284,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1308,7 +1317,7 @@
 <p>Beim ersten Erstellen von Backup-Dateien werden sie im S3 <em>Standard</em> Storage gespeichert. Diese Tier ist für die Speicherung von Daten optimiert, auf die selten zugegriffen wird. Dadurch können Sie jedoch auch sofort auf die Daten zugreifen. Nach 30 Tagen erfolgen die Backups auf die S3 <em>Standard-infrequent Access</em> Storage-Klasse, um Kosten zu sparen.</p>
 </div>
 <div class="paragraph">
-<p>Wenn in den Quellclustern ONTAP 9.10.1 oder neuer ausgeführt wird, können Sie Backups entweder nach einer bestimmten Anzahl von Tagen (normalerweise über 30 Tage) als Tiering zu <em>S3 Glacier Deep Archive</em> oder <em>S3 Glacier Deep Archive</em> Storage abstufen, um die Kosten weiter zu optimieren. Auf Daten in diesen Tiers kann bei Bedarf nicht sofort zugegriffen werden und verursachen höhere Abrufkosten. Daher müssen Sie bedenken, wie oft Sie Daten aus diesen archivierten Backup-Dateien wiederherstellen müssen. Siehe Abschnitt zu  data from archival storage,Wiederherstellen von Daten aus Archiv-Storage.</p>
+<p>Wenn in den Quellclustern ONTAP 9.10.1 oder neuer ausgeführt wird, können Sie Backups entweder nach einer bestimmten Anzahl von Tagen (normalerweise über 30 Tage) als Tiering zu <em>S3 Glacier Deep Archive</em> oder <em>S3 Glacier Deep Archive</em> Storage abstufen, um die Kosten weiter zu optimieren. Auf Daten in diesen Tiers kann bei Bedarf nicht sofort zugegriffen werden und verursachen höhere Abrufkosten. Daher müssen Sie bedenken, wie oft Sie Daten aus diesen archivierten Backup-Dateien wiederherstellen müssen. Siehe Abschnitt zu <a href="#wiederherstellen-von-daten-aus-archiv-storage">Wiederherstellen von Daten aus Archiv-Storage</a>.</p>
 </div>
 <div class="paragraph">
 <p>Wenn Sie bei der Aktivierung von Cloud Backup <em>S3 Glacier</em> oder <em>S3 Glacier Deep Archive</em> in Ihrer ersten Backup-Richtlinie auswählen, wird dieser Tier die einzige Archiv-Tier sein, die für zukünftige Backup-Richtlinien für diesen Cluster verfügbar ist. Falls Sie in Ihrer ersten Backup-Richtlinie keinen Archiv-Tier auswählen, ist <em>S3 Glacier</em> die einzige Archivoption für zukünftige Richtlinien.</p>

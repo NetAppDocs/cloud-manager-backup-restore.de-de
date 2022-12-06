@@ -713,6 +713,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1236,6 +1238,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1342,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1365,8 +1374,8 @@
 <div class="paragraph">
 <p>Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.</p>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"</a> alt=„One“&gt;&lt;/span&gt; Überprüfen Sie den Support für Ihre Konfiguration</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Eins"></span> Überprüfen Sie die Unterstützung Ihrer Konfiguration</div>
 <ul>
 <li>
 <p>Sie verwenden Cloud Volumes ONTAP 9.7P5 oder höher in Azure.</p>
@@ -1379,8 +1388,8 @@
 </li>
 </ul>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"</a> alt=„zwei“&gt;&lt;/span&gt; Cloud-Sicherung auf Ihrem neuen oder vorhandenen System aktivieren</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png" alt="Zwei"></span> Cloud Backup auf Ihrem neuen oder vorhandenen System aktivieren</div>
 <ul>
 <li>
 <p>Neue Systeme: Cloud Backup ist standardmäßig im Assistenten für die Arbeitsumgebung aktiviert. Achten Sie darauf, dass die Option aktiviert bleibt.</p>
@@ -1394,12 +1403,14 @@
 </ul>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Drittens"></span> Geben Sie die Anbieterdetails ein</div>
 <p>Wählen Sie das Provider-Abonnement und die Region aus, und legen Sie fest, ob Sie eine neue Ressourcengruppe erstellen oder eine bereits vorhandene Ressourcengruppe verwenden möchten. Anstelle der standardmäßigen von Microsoft gemanagten Verschlüsselung können Sie auch Ihre eigenen, vom Kunden gemanagten Schlüssel für die Datenverschlüsselung wählen.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_provider_settings_azure.png" alt="Ein Screenshot, der die Cloud-Provider-Details zeigt, wenn Sie Volumes von einem Cloud Volumes ONTAP System auf einer Azure Blob-Tier sichern."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png" alt="Vier"></span> Legen Sie die standardmäßige Backup-Richtlinie fest</div>
 <p>Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.</p>
 </div>
 <div class="paragraph quick-margin-para">
@@ -1409,6 +1420,7 @@
 <p><span class="image"><img src="./media/screenshot_backup_policy_azure.png" alt="Ein Screenshot mit den Cloud Backup Einstellungen, in dem Sie die Backup-Richtlinie auswählen und Ihre Backup-Aufbewahrung wählen können."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png" alt="Fünf"></span> Wählen Sie die Volumes aus, die Sie sichern möchten</div>
 <p>Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.</p>
 </div>
 </div>
@@ -1451,6 +1463,7 @@
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Sie müssen den Azure Synapse Analytics Resource Provider mit Ihrem Abonnement registrieren. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider" target="_blank" rel="noopener">"Erfahren Sie, wie Sie diesen Ressourcenanbieter für Ihr Abonnement registrieren"</a>. Sie müssen der Subscription <strong>Owner</strong> oder <strong>Contributor</strong> sein, um den Ressourcenanbieter zu registrieren.</p>
 </div>
 <div class="olist arabic">
@@ -1560,7 +1573,7 @@
 <img src="/us-en/cloud-manager-backup-restore/images/note.svg" alt="Anmerkung">
 </td>
 <td class="content">
-Wenn Sie den Namen der Ressourcengruppe auswählen möchten, deaktivieren Sie * Cloud-Backup bei der Bereitstellung von Cloud Volumes ONTAP. Befolgen Sie die Schritte für ,Aktivierung von Cloud Backup auf einem vorhandenen System Aktivieren von Cloud-Backup und Auswahl der Ressourcengruppe.
+Wenn Sie den Namen der Ressourcengruppe auswählen möchten, deaktivieren Sie * Cloud-Backup bei der Bereitstellung von Cloud Volumes ONTAP. Befolgen Sie die Schritte für <a href="#enabling-cloud-backup-on-an-existing-system">Aktivierung von Cloud Backup auf einem vorhandenen System</a> Aktivieren von Cloud-Backup und Auswahl der Ressourcengruppe.
 </td>
 </tr>
 </table>
@@ -1592,6 +1605,7 @@ Wenn Sie den Namen der Ressourcengruppe auswählen möchten, deaktivieren Sie * 
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Cloud Backup ist auf dem System aktiviert und sichert täglich Volumes und speichert die letzten 30 Backup-Kopien.</p>
 </div>
 </div>
@@ -1675,7 +1689,7 @@ Wenn Sie den Namen der Ressourcengruppe auswählen möchten, deaktivieren Sie * 
 </div>
 </li>
 <li>
-<p>Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
+<p>Wenn es lokale Snapshot-Kopien für Lese-/Schreib-Volumes in dieser Arbeitsumgebung gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Export vorhandener Snapshot Kopien in Objekt-Storage als Backup-Kopien“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
 </li>
 </ul>
 </div>
@@ -1686,6 +1700,7 @@ Wenn Sie den Namen der Ressourcengruppe auswählen möchten, deaktivieren Sie * 
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>In der von Ihnen eingegebenen Ressourcengruppe wird automatisch ein Blob-Storage-Container erstellt und die Backup-Dateien werden dort gespeichert. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen <a href="task-monitor-backup-jobs.html" target="_blank" rel="noopener">"Fenster Job-Überwachung"</a>.</p>
 </div>
 </div>

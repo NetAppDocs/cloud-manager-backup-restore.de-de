@@ -713,6 +713,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1236,6 +1238,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1342,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1365,8 +1374,8 @@
 <div class="paragraph">
 <p>Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.</p>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"</a> alt=„One“&gt;&lt;/span&gt; Überprüfen Sie den Support für Ihre Konfiguration</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Eins"></span> Überprüfen Sie die Unterstützung Ihrer Konfiguration</div>
 <ul>
 <li>
 <p>In GCP wird Cloud Volumes ONTAP 9.7P5 oder höher verwendet.</p>
@@ -1382,8 +1391,8 @@
 </li>
 </ul>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"</a> alt=„zwei“&gt;&lt;/span&gt; Cloud-Sicherung auf Ihrem neuen oder vorhandenen System aktivieren</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png" alt="Zwei"></span> Cloud Backup auf Ihrem neuen oder vorhandenen System aktivieren</div>
 <ul>
 <li>
 <p>Neue Systeme: Cloud Backup kann aktiviert werden, wenn Sie den Assistenten für die neue Arbeitsumgebung abschließen.</p>
@@ -1397,18 +1406,21 @@
 </ul>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Drittens"></span> Geben Sie die Anbieterdetails ein</div>
 <p>Wählen Sie das Google Cloud Projekt aus, in dem der Google Cloud Storage-Bucket für Backups erstellt werden soll.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_provider_settings_gcp.png" alt="In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png" alt="Vier"></span> Legen Sie die standardmäßige Backup-Richtlinie fest</div>
 <p>Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.</p>
 </div>
 <div class="paragraph quick-margin-para">
-<p><span class="image"><img src="./media/screenshot_backup_policy_gcp.png" alt="Ein Screenshot, der die Cloud Backup-Einstellungen zeigt, in denen Sie das Feature aktivieren oder deaktivieren und dann Ihre Backup-Aufbewahrung auswählen können."></span></p>
+<p><span class="image"><img src="./media/screenshot_backup_policy_gcp_no_archive.png" alt="Ein Screenshot, der die Cloud Backup-Einstellungen zeigt, in denen Sie das Feature aktivieren oder deaktivieren und dann Ihre Backup-Aufbewahrung auswählen können."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png" alt="Fünf"></span> Wählen Sie die Volumes aus, die Sie sichern möchten</div>
 <p>Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.</p>
 </div>
 </div>
@@ -1455,7 +1467,7 @@
 </dd>
 <dt class="hdlist1">Überprüfen oder Hinzufügen von Berechtigungen zum Konnektor</dt>
 <dd>
-<p>Um die Funktionalität Cloud Backup Search &amp; Restore verwenden zu können, benötigen Sie spezifische Berechtigungen in der Rolle für den Connector, damit er auf den Google Cloud BigQuery Service zugreifen kann. Lesen Sie die unten stehenden Berechtigungen, und befolgen Sie die Schritte, wenn Sie die Richtlinie ändern müssen.</p>
+<p>Um die Cloud Backup Funktion „Search &amp; Restore“ nutzen zu können, benötigen Sie spezielle Berechtigungen in der Rolle für den Connector, damit er auf den Google Cloud BigQuery Service zugreifen kann. Lesen Sie die unten stehenden Berechtigungen, und befolgen Sie die Schritte, wenn Sie die Richtlinie ändern müssen.</p>
 <div class="openblock">
 <div class="content">
 <div class="olist arabic">
@@ -1508,7 +1520,7 @@ bigquery.tables.create</code></pre>
 <p>Cloud Backup kann aktiviert werden, wenn Sie den Assistenten für die Arbeitsumgebung zur Erstellung eines neuen Cloud Volumes ONTAP Systems abschließen.</p>
 </div>
 <div class="paragraph">
-<p>Sie müssen bereits ein Servicekonto konfiguriert haben. Wenn Sie nicht wählen Sie ein Service-Konto, wenn Sie das Cloud Volumes ONTAP-System erstellen, dann müssen Sie das System ausschalten und den Service-Konto zu Cloud Volumes ONTAP von der GCP-Konsole hinzufügen.</p>
+<p>Sie müssen bereits ein Servicekonto konfiguriert haben. Wenn Sie beim Erstellen des Cloud Volumes ONTAP Systems kein Service-Konto auswählen, müssen Sie das System deaktivieren und das Service-Konto über die GCP-Konsole zu Cloud Volumes ONTAP hinzufügen.</p>
 </div>
 <div class="paragraph">
 <p>Siehe <a href="https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-gcp.html" target="_blank" rel="noopener">"Einführung von Cloud Volumes ONTAP in GCP"</a> Anforderungen und Details für die Erstellung Ihres Cloud Volumes ONTAP Systems.</p>
@@ -1562,6 +1574,7 @@ bigquery.tables.create</code></pre>
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Cloud Backup ist auf dem System aktiviert und sichert das täglich erstellte Volume und speichert die letzten 30 Backup-Kopien.</p>
 </div>
 </div>
@@ -1603,7 +1616,7 @@ bigquery.tables.create</code></pre>
 <li>
 <p>Legen Sie den Backup-Zeitplan fest und wählen Sie die Anzahl der zu behaltenden Backups aus. <a href="concept-ontap-backup-to-cloud.html#customizable-backup-schedule-and-retention-settings" target="_blank" rel="noopener">"Die Liste der vorhandenen Richtlinien, die Sie auswählen können, wird angezeigt"</a>.</p>
 <div class="paragraph">
-<p><span class="image"><img src="./media/screenshot_backup_policy_gcp.png" alt="Ein Screenshot, der die Cloud Backup-Einstellungen zeigt, in denen Sie das Feature aktivieren oder deaktivieren und dann Ihre Backup-Aufbewahrung auswählen können."></span></p>
+<p><span class="image"><img src="./media/screenshot_backup_policy_gcp_no_archive.png" alt="Ein Screenshot, der die Cloud Backup-Einstellungen zeigt, in denen Sie das Feature aktivieren oder deaktivieren und dann Ihre Backup-Aufbewahrung auswählen können."></span></p>
 </div>
 </li>
 </ol>
@@ -1626,7 +1639,7 @@ bigquery.tables.create</code></pre>
 </div>
 </li>
 <li>
-<p>Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
+<p>Wenn es lokale Snapshot-Kopien für Lese-/Schreib-Volumes in dieser Arbeitsumgebung gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Export vorhandener Snapshot Kopien in Objekt-Storage als Backup-Kopien“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
 </li>
 </ul>
 </div>
@@ -1637,6 +1650,7 @@ bigquery.tables.create</code></pre>
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Ein Google Cloud Storage-Bucket wird automatisch in dem Servicekonto erstellt, das durch den von Ihnen eingegebenen Zugriffsschlüssel und den geheimen Schlüssel von Google angegeben wird und die Backup-Dateien dort gespeichert sind. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen <a href="task-monitor-backup-jobs.html" target="_blank" rel="noopener">"Fenster Job-Überwachung"</a>.</p>
 </div>
 <div class="paragraph">

@@ -713,6 +713,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1236,6 +1238,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1342,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1365,8 +1374,8 @@
 <div class="paragraph">
 <p>Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.</p>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"</a> alt=„One“&gt;&lt;/span&gt; Überprüfen Sie den Support für Ihre Konfiguration</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Eins"></span> Überprüfen Sie die Unterstützung Ihrer Konfiguration</div>
 <ul>
 <li>
 <p>Sie nutzen Cloud Volumes ONTAP 9.7P5 oder höher in AWS.</p>
@@ -1382,8 +1391,8 @@
 </li>
 </ul>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png"</a> alt=„zwei“&gt;&lt;/span&gt; Cloud-Sicherung auf Ihrem neuen oder vorhandenen System aktivieren</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png" alt="Zwei"></span> Cloud Backup auf Ihrem neuen oder vorhandenen System aktivieren</div>
 <ul>
 <li>
 <p>Neue Systeme: Cloud Backup ist standardmäßig im Assistenten für die Arbeitsumgebung aktiviert. Achten Sie darauf, dass die Option aktiviert bleibt.</p>
@@ -1397,12 +1406,14 @@
 </ul>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Drittens"></span> Geben Sie die Anbieterdetails ein</div>
 <p>Wählen Sie das AWS Konto und die Region aus, in der die Backups erstellt werden sollen. Anstelle der standardmäßigen Amazon S3-Verschlüsselung haben Sie auch die Möglichkeit, Ihren eigenen vom Kunden gemanagten Schlüssel für die Datenverschlüsselung auszuwählen.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_provider_settings_aws.png" alt="Ein Screenshot, der die Cloud-Provider-Details beim Backup von Volumes eines Cloud Volumes ONTAP Systems in AWS S3 enthält."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png" alt="Vier"></span> Legen Sie die standardmäßige Backup-Richtlinie fest</div>
 <p>Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.</p>
 </div>
 <div class="paragraph quick-margin-para">
@@ -1415,6 +1426,7 @@
 <p><span class="image"><img src="./media/screenshot_backup_policy_aws.png" alt="Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie Ihren Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png" alt="Fünf"></span> Wählen Sie die Volumes aus, die Sie sichern möchten</div>
 <p>Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.</p>
 </div>
 </div>
@@ -1430,6 +1442,9 @@
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="./media/diagram_cloud_backup_cvo_aws.png" alt="Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."></span></p>
+</div>
+<div class="paragraph">
+<p>Der VPC-Gateway-Endpunkt muss bereits in der VPC vorhanden sein.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1469,10 +1484,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Fügen Sie die Anmeldeinformationen für das AWS Zielkonto in BlueXP hinzu</p>
+<p>Fügen Sie die Anmeldeinformationen für das AWS Zielkonto in BlueXP hinzu. <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-adding-aws-accounts.html#add-additional-credentials-to-a-connector">"So geht&#8217;s"</a>.</p>
 </li>
 <li>
-<p>Fügen Sie die Berechtigungen „s3:PutBucketPolicy“ und „s3:PutBucketEigentümership Controls“ zur IAM-Rolle hinzu, die dem BlueXP Connector Berechtigungen erteilt</p>
+<p>Fügen Sie die Berechtigungen „s3:PutBucketPolicy“ und „s3:PutBucketEigentümership Controls“ zur IAM-Rolle hinzu, die dem BlueXP Connector Berechtigungen erteilt.</p>
 </li>
 </ul>
 </div>
@@ -1483,7 +1498,7 @@
 <dd>
 <p>Im Aktivierungsassistenten können Sie Ihre eigenen, von Kunden gemanagten Schlüssel für die Datenverschlüsselung auswählen und nicht die standardmäßigen Amazon S3-Verschlüsselungsschlüssel verwenden. In diesem Fall müssen Sie bereits die über die Verschlüsselung gemanagten Schlüssel eingerichtet haben. <a href="https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-setting-up-kms.html" target="_blank" rel="noopener">"Sehen Sie, wie Sie Ihre eigenen Schlüssel verwenden"</a>.</p>
 </dd>
-<dt class="hdlist1">AWS Berechtigungen erforderlich</dt>
+<dt class="hdlist1">Erforderliche AWS Connector Berechtigungen</dt>
 <dd>
 <p>Die IAM-Rolle, die BlueXP Berechtigungen bereitstellt, muss die neuesten S3-Berechtigungen enthalten <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-permissions-aws.html" target="_blank" rel="noopener">"BlueXP-Richtlinie"</a>.</p>
 <div class="openblock">
@@ -1559,6 +1574,21 @@
 <div class="paragraph">
 <p>Wenn Sie den Connector mit Version 3.9.21 oder höher bereitgestellt haben, sollten diese Berechtigungen bereits Teil der IAM-Rolle sein. Andernfalls müssen Sie die fehlenden Berechtigungen hinzufügen. Insbesondere die "athena" und "Leim" Berechtigungen, wie sie für die Suche und Wiederherstellung erforderlich sind.</p>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Erforderliche AWS Cloud Volumes ONTAP Berechtigungen</dt>
+<dd>
+<p>Wenn auf Ihrem Cloud Volumes ONTAP System ONTAP 9.12.1 oder höher ausgeführt wird, muss die IAM-Rolle, die die Arbeitsumgebung mit Berechtigungen bereitstellt, einen neuen Satz von S3-Berechtigungen enthalten, speziell für Cloud Backup von der neuesten zum Einsatz kommen <a href="https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-set-up-iam-roles.html" target="_blank" rel="noopener">"Cloud Volumes ONTAP-Richtlinie"</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Wenn Sie die Cloud Volumes ONTAP-Arbeitsumgebung mit BlueXP Version 3.9.23 oder höher erstellt haben, sollten diese Berechtigungen bereits Teil der IAM-Rolle sein. Andernfalls müssen Sie die fehlenden Berechtigungen hinzufügen.</p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1594,6 +1624,7 @@
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Cloud Backup ist auf dem System aktiviert und sichert täglich Volumes und speichert die letzten 30 Backup-Kopien.</p>
 </div>
 </div>
@@ -1680,7 +1711,7 @@
 </div>
 </li>
 <li>
-<p>Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
+<p>Wenn es lokale Snapshot-Kopien für Lese-/Schreib-Volumes in dieser Arbeitsumgebung gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Export vorhandener Snapshot Kopien in Objekt-Storage als Backup-Kopien“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
 </li>
 </ul>
 </div>
@@ -1691,6 +1722,7 @@
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Ein S3-Bucket wird automatisch in dem Service-Konto erstellt, das durch den S3-Zugriffsschlüssel und den eingegebenen Geheimschlüssel angegeben ist und die Backup-Dateien dort gespeichert werden. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen <a href="task-monitor-backup-jobs.html" target="_blank" rel="noopener">"Fenster Job-Überwachung"</a>.</p>
 </div>
 </div>

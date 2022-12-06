@@ -713,6 +713,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1236,6 +1238,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1342,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-17 18:32:57 +0000">11/17/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1368,8 +1377,8 @@
 <div class="paragraph">
 <p>Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.</p>
 </div>
-<div class="ulist">
-<div class="title">&lt;span class=„image“&gt;&lt;img src="<a href="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"" class="bare">https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"</a> alt=„One“&gt;&lt;/span&gt; Überprüfen Sie den Support für Ihre Konfiguration</div>
+<div class="ulist quick-margin-list">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Eins"></span> Überprüfen Sie die Unterstützung Ihrer Konfiguration</div>
 <ul>
 <li>
 <p>Sie haben den lokalen Cluster erkannt und zu einer Arbeitsumgebung in BlueXP hinzugefügt. Siehe <a href="https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html" target="_blank" rel="noopener">"Erkennung von ONTAP Clustern"</a> Entsprechende Details.</p>
@@ -1399,21 +1408,28 @@
 </ul>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png" alt="Zwei"></span> Aktivieren Sie Cloud Backup auf dem System</div>
 <p>Wählen Sie die Arbeitsumgebung aus und klicken Sie auf <strong>Aktivieren &gt; Backup Volumes</strong> neben dem Backup- und Recovery-Dienst im rechten Fenster, und folgen Sie dann dem Setup-Assistenten.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_onprem_enable.png" alt="Ein Screenshot, der die Schaltfläche zum Aktivieren der Backup- und Recovery-Funktion zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Drittens"></span> Wählen Sie den Cloud-Provider aus, und geben Sie die Provider-Details ein</div>
 <p>Wählen Sie Google Cloud als Anbieter aus, und geben Sie dann die Provider-Details ein. Sie müssen außerdem den IPspace im ONTAP Cluster angeben, auf dem sich die Volumes befinden.</p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png" alt="Vier"></span> Legen Sie die standardmäßige Backup-Richtlinie fest</div>
 <p>Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.</p>
+</div>
+<div class="paragraph quick-margin-para">
+<p>Backups werden standardmäßig im Standard-Storage gespeichert. Falls in Ihrem Cluster ONTAP 9.12.1 oder höher verwendet wird, können Sie das Tiering von Backups nach einer bestimmten Anzahl von Tagen auf Google Archive Storage festlegen, um die Kosten weiter zu optimieren. <a href="concept-cloud-backup-policies.html" target="_blank" rel="noopener">"Weitere Informationen über die verfügbaren Konfigurationseinstellungen für Cloud Backup-Richtlinien"</a>.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_policy_gcp.png" alt="Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie den Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."></span></p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png" alt="Fünf"></span> Wählen Sie die Volumes aus, die Sie sichern möchten</div>
 <p>Legen Sie auf der Seite Volumes auswählen fest, welche Volumes gesichert werden sollen. Verwenden Sie dazu die Standard-Backup-Richtlinie. Um bestimmten Volumes unterschiedliche Backup-Richtlinien zuzuweisen, können Sie weitere Richtlinien erstellen und diese später auf Volumes anwenden.</p>
 </div>
 </div>
@@ -1514,6 +1530,9 @@
 </li>
 <li>
 <p>DNS-Server wurden für die Storage-VM konfiguriert, auf der sich die Volumes befinden. Informieren Sie sich darüber <a href="https://docs.netapp.com/us-en/ontap/networking/configure_dns_services_auto.html" target="_blank" rel="noopener">"Konfigurieren Sie DNS-Services für die SVM"</a>.</p>
+<div class="paragraph">
+<p>Wenn Sie privaten Google Access oder Private Service Connect verwenden, stellen Sie sicher, dass Ihre DNS-Server so konfiguriert wurden, dass sie auf Punkt storage.googleapis.com auf die richtige interne (private) IP-Adresse verweisen.</p>
+</div>
 </li>
 <li>
 <p>Wenn Sie einen anderen IPspace als den Standard verwenden, müssen Sie möglicherweise eine statische Route erstellen, um Zugriff auf den Objekt-Storage zu erhalten.</p>
@@ -1573,9 +1592,9 @@
 </div>
 </li>
 <li>
-<p>Aktivieren Sie den privaten Google-Zugriff im Subnetz, in dem Sie den Connector bereitstellen möchten. <a href="https://cloud.google.com/vpc/docs/configure-private-google-access" target="_blank" rel="noopener">"Privater Zugriff Auf Google"</a> Ist erforderlich, wenn Sie eine direkte Verbindung von Ihrem ONTAP Cluster zur VPC haben und Sie eine Kommunikation zwischen dem Connector und Google Cloud Storage in Ihrem virtuellen privaten Netzwerk wünschen (eine <strong>private</strong> Verbindung).</p>
+<p>Aktivieren Sie den privaten Google-Zugang (oder Private Service Connect) im Subnetz, in dem Sie den Connector bereitstellen möchten. <a href="https://cloud.google.com/vpc/docs/configure-private-google-access" target="_blank" rel="noopener">"Privater Zugriff Auf Google"</a> Oder <a href="https://cloud.google.com/vpc/docs/configure-private-service-connect-apis#on-premises" target="_blank" rel="noopener">"Private Service Connect"</a> Sind erforderlich, wenn Sie eine direkte Verbindung von Ihrem ONTAP Cluster zur VPC haben und Sie die Kommunikation zwischen dem Connector und Google Cloud Storage in Ihrem virtuellen privaten Netzwerk (eine <strong>private</strong> Verbindung) wünschen.</p>
 <div class="paragraph">
-<p>Beachten Sie, dass Private Google Access mit VM-Instanzen funktioniert, die nur interne (private) IP-Adressen haben (keine externen IP-Adressen).</p>
+<p>Befolgen Sie die Anweisungen von Google, um diese privaten Zugangsoptionen einzurichten. Stellen Sie sicher, dass Ihre DNS-Server so konfiguriert wurden, dass sie Punkt www.googleapis.com und storage.googleapis.com auf die korrekten internen (privaten) IP-Adressen verweisen.</p>
 </div>
 </li>
 </ol>
@@ -1737,6 +1756,9 @@ bigquery.tables.create</code></pre>
 </li>
 <li>
 <p>Legen Sie den Backup-Zeitplan fest und wählen Sie die Anzahl der zu behaltenden Backups aus. <a href="concept-ontap-backup-to-cloud.html#customizable-backup-schedule-and-retention-settings" target="_blank" rel="noopener">"Die Liste der vorhandenen Richtlinien, die Sie auswählen können, wird angezeigt"</a>.</p>
+</li>
+<li>
+<p>Bei Verwendung von ONTAP 9.12.1 oder neuer können Sie Backups nach einer bestimmten Anzahl von Tagen im Archiv-Storage Tiering zuweisen, um die Kosten weiter zu optimieren. <a href="concept-cloud-backup-policies.html" target="_blank" rel="noopener">"Weitere Informationen über die verfügbaren Konfigurationseinstellungen für Cloud Backup-Richtlinien"</a>.</p>
 <div class="paragraph">
 <p><span class="image"><img src="./media/screenshot_backup_policy_gcp.png" alt="Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie Ihren Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."></span></p>
 </div>
@@ -1761,7 +1783,7 @@ bigquery.tables.create</code></pre>
 </div>
 </li>
 <li>
-<p>Wenn es in dieser Arbeitsumgebung lokale Snapshot Kopien für Volumes gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Vorhandene Snapshot Kopien als Backup-Kopien exportieren“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
+<p>Wenn es lokale Snapshot-Kopien für Lese-/Schreib-Volumes in dieser Arbeitsumgebung gibt, die dem Backup-Schedule-Label entsprechen, das Sie gerade für diese Arbeitsumgebung ausgewählt haben (z. B. täglich, wöchentlich usw.), wird eine zusätzliche Eingabeaufforderung angezeigt: „Export vorhandener Snapshot Kopien in Objekt-Storage als Backup-Kopien“. Aktivieren Sie dieses Kontrollkästchen, wenn alle historischen Snapshots als Backup-Dateien in Objekt-Storage kopiert werden sollen, um sicherzustellen, dass die umfassendste Sicherung für Ihre Volumes gewährleistet ist.</p>
 </li>
 </ul>
 </div>
@@ -1772,10 +1794,8 @@ bigquery.tables.create</code></pre>
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Ein Google Cloud Storage-Bucket wird automatisch in dem Servicekonto erstellt, das durch den von Ihnen eingegebenen Zugriffsschlüssel und den geheimen Schlüssel von Google angegeben wird und die Backup-Dateien dort gespeichert sind. Das Dashboard für Volume Backup wird angezeigt, sodass Sie den Status der Backups überwachen können. Sie können den Status von Backup- und Wiederherstellungsjobs auch mit dem überwachen <a href="task-monitor-backup-jobs.html" target="_blank" rel="noopener">"Fenster Job-Überwachung"</a>.</p>
-</div>
-<div class="paragraph">
-<p>Backups sind standardmäßig mit der Storage-Klasse <em>Standard</em> verknüpft. Sie können die preisgünstigeren Storage-Klassen <em>Nearline</em>, <em>Coldline</em> oder <em>Archive</em> verwenden. Sie konfigurieren die Speicherklasse jedoch über Google, nicht über die Benutzeroberfläche von Cloud Backup. Siehe das Thema Google <a href="https://cloud.google.com/storage/docs/changing-default-storage-class" target="_blank" rel="noopener">"Ändern der Standard-Storage-Klasse eines Buckets"</a> Entsprechende Details.</p>
 </div>
 </div>
 </div>

@@ -718,6 +718,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1178,6 +1180,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/azure/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1284,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1415,40 +1424,30 @@
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 26.3157%;">
-<col style="width: 34.7368%;">
-<col style="width: 38.9475%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Sicherungsdatei</th>
-<th class="tableblock halign-left valign-top" colspan="2">Zielarbeitsumgebung</th>
+<th class="tableblock halign-left valign-top">Speicherort Der Sicherungsdatei</th>
+<th class="tableblock halign-left valign-top">Zielarbeitsumgebung ifdef::aws[]</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Lage</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Volume Restore</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ordner- und Dateiwiederherstellung</strong> ifdef::aws[]</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon S3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in AWS On-Premises ONTAP System</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Azure Blob</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Azure On-Premises ONTAP System</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Google Cloud Storage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Google On-Premises ONTAP System</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NetApp StorageGRID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lokales ONTAP System</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lokales ONTAP System</p></td>
 </tr>
 </tbody>
@@ -1480,11 +1479,51 @@
 </li>
 <li>
 <p>SnapLock Enterprise Volumes (erfordert ONTAP 9.11.1 oder höher)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>SnapLock-Compliance-Volumes werden derzeit nicht unterstützt.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>FlexGroup Volumes (erfordert ONTAP 9.12.1 oder höher)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud-manager-backup-restore/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
 <div class="paragraph">
-<p>FlexGroup Volumes und SnapLock Compliance Volumes werden derzeit nicht unterstützt.</p>
+<p><strong>FlexGroup-Einschränkungen</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die vollständige Volume-Wiederherstellung wird für ONTAP-Systeme vor Ort unterstützt; Cloud Volumes ONTAP-Systeme werden aktuell nicht unterstützt.</p>
+</li>
+<li>
+<p>Wiederherstellung auf Dateiebene wird sowohl für lokale ONTAP- als auch für Cloud Volumes ONTAP-Systeme unterstützt.</p>
+</li>
+<li>
+<p>Die Wiederherstellung von Verzeichnissen/Ordnern wird derzeit nicht unterstützt.</p>
+</li>
+<li>
+<p>Backups können nicht in Archiv-Storage verschoben werden.</p>
+</li>
+<li>
+<p>Backups können nicht DataLock- und Ransomware-Schutz nutzen.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1530,7 +1569,7 @@
 <p>Servicegebühren werden an NetApp gezahlt und decken sowohl die Kosten für die Erstellung „_ Backups“ und „ <em>Wiederherstellung</em> Volumes oder Dateien“ aus diesen Backups ab. Sie bezahlen nur für die Daten, die Sie sichern, berechnet anhand der verwendeten logischen Quellkapazität (<em>before</em> ONTAP-Effizienzfunktionen) der ONTAP Volumes, die in Objekt-Storage gesichert werden. Diese Kapazität wird auch als Front-End Terabyte (FETB) bezeichnet.</p>
 </div>
 <div class="paragraph">
-<p>Es gibt drei Möglichkeiten, für den Backup-Service zu bezahlen. Als erste Option können Sie Ihren Cloud-Provider abonnieren, sodass Sie monatlich bezahlen können. Die zweite Möglichkeit besteht darin, einen Jahresvertrag zu erhalten. Als dritte Option können Lizenzen direkt von NetApp erworben werden. Lesen Sie die ,Lizenzierung Weitere Informationen finden Sie in diesem Abschnitt.</p>
+<p>Es gibt drei Möglichkeiten, für den Backup-Service zu bezahlen. Als erste Option können Sie Ihren Cloud-Provider abonnieren, sodass Sie monatlich bezahlen können. Die zweite Möglichkeit besteht darin, einen Jahresvertrag zu erhalten. Als dritte Option können Lizenzen direkt von NetApp erworben werden. Lesen Sie die <a href="#lizenzierung">Lizenzierung</a> Weitere Informationen finden Sie in diesem Abschnitt.</p>
 </div>
 </div>
 </div>
@@ -1623,7 +1662,7 @@
 <h2 id="funktionsweise-von-cloud-backup">Funktionsweise von Cloud Backup</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Wenn Sie Cloud-Backups auf einem Cloud Volumes ONTAP- oder lokalen ONTAP-System aktivieren, führt der Service ein vollständiges Backup Ihrer Daten durch. Volume Snapshots werden nicht im Backup-Image berücksichtigt. Nach dem ersten Backup sind alle weiteren Backups inkrementell, das heißt, dass nur geänderte Blöcke und neue Blöcke gesichert werden. Dadurch wird der Netzwerkverkehr auf ein Minimum reduziert. Cloud Backup baut auf dem Fundament auf <a href="https://docs.netapp.com/us-en/ontap/concepts/snapmirror-cloud-backups-object-store-concept.html">"NetApp SnapMirror Cloud Technologie"</a>.</p>
+<p>Wenn Sie Cloud-Backups auf einem Cloud Volumes ONTAP- oder lokalen ONTAP-System aktivieren, führt der Service ein vollständiges Backup Ihrer Daten durch. Volume Snapshots werden nicht im Backup-Image berücksichtigt. Nach dem ersten Backup sind alle weiteren Backups inkrementell, das heißt, dass nur geänderte Blöcke und neue Blöcke gesichert werden. Dadurch wird der Netzwerkverkehr auf ein Minimum reduziert. Cloud Backup baut auf dem Fundament auf <a href="https://docs.netapp.com/us-en/ontap/concepts/snapmirror-cloud-backups-object-store-concept.html" target="_blank" rel="noopener">"NetApp SnapMirror Cloud Technologie"</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1873,13 +1912,13 @@ DataLock kann nicht aktiviert werden, wenn Sie Backups in Archiv-Storage Tiering
 </div>
 </li>
 <li>
+<p>Das MetroCluster (MCC) Backup wird nur von ONTAP sekundär unterstützt: MCC &gt; SnapMirror &gt; ONTAP &gt; Cloud Backup &gt; Objekt-Storage.</p>
+</li>
+<li>
 <p>Ad-hoc-Volume-Backup mit der <strong>Backup Now</strong>-Taste wird auf Datensicherungs-Volumes nicht unterstützt.</p>
 </li>
 <li>
 <p>SM-BC-Konfigurationen werden nicht unterstützt.</p>
-</li>
-<li>
-<p>Das MetroCluster (MCC) Backup wird nur von ONTAP sekundär unterstützt: MCC &gt; SnapMirror &gt; ONTAP &gt; Cloud Backup &gt; Objekt-Storage.</p>
 </li>
 <li>
 <p>ONTAP unterstützt keine Fan-out-of-SnapMirror-Beziehungen von einem einzelnen Volume zu mehreren Objektspeicher. Daher wird diese Konfiguration nicht von Cloud Backup unterstützt.</p>
@@ -1913,7 +1952,7 @@ DataLock kann nicht aktiviert werden, wenn Sie Backups in Archiv-Storage Tiering
 <p>Wiederherstellung auf Dateiebene wird nicht unterstützt, wenn Sie dasselbe Konto mit verschiedenen BlueXP-Systemen in unterschiedlichen Subnetzen verwenden.</p>
 </li>
 <li>
-<p>Sie können einzelne Ordner nicht wiederherstellen, wenn die Sicherungsdatei im Archiv-Speicher liegt.</p>
+<p>Sie können einzelne Ordner nicht wiederherstellen, wenn sich die Sicherungsdatei im Archiv-Speicher befindet.</p>
 </li>
 <li>
 <p>Wiederherstellung auf Dateiebene mithilfe von Suchen &amp; Wiederherstellen wird nicht unterstützt, wenn der Connector auf einer Website ohne Internetzugang installiert wird (dunkle Seite).</p>

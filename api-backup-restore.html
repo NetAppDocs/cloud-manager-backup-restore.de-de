@@ -713,6 +713,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1236,6 +1238,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1342,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1397,7 +1406,7 @@
 <p>Für den Einstieg in die Cloud Backup APIs benötigen Sie ein Benutzer-Token, Ihre Cloud Central Account-ID und die Cloud Connector-ID.</p>
 </div>
 <div class="paragraph">
-<p>Wenn Sie API-Aufrufe tätigen, fügen Sie das Benutzer-Token in den Autorisierungs-Header und die Cloud Connector-ID in der x-Agent-id-Kopfzeile hinzu. Sie sollten die Cloud Central-Konto-ID in den APIs verwenden.</p>
+<p>Wenn Sie API-Aufrufe tätigen, fügen Sie das Benutzer-Token in die Autorisierungs-Kopfzeile und die Cloud Connector-ID in die X-Agent-id-Kopfzeile ein. Sie sollten die Cloud Central-Konto-ID in den APIs verwenden.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
@@ -1480,10 +1489,11 @@ Header:
 <h2 id="beispiel-mit-den-apis">Beispiel mit den APIs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Das folgende Beispiel zeigt einen API-Aufruf zur Aktivierung des Backups in der Arbeitsumgebung mit einer neuen Richtlinie, in der Tages-, Stunden- und Wochenbeschriftungen nach 180 Tagen festgelegt und archiviert werden, in Ost-US-2-Regionen in der Azure-Cloud. Bitte beachten Sie, dass dies eine Datensicherung nur auf der Arbeitsumgebung ermöglicht, aber keine Volumes gesichert werden. Wenn Sie „Auto-Backup-aktiviert“ wählen: Wahr dann würden alle Volumes, die bereits im System vorhanden sind, gesichert werden, plus zukünftige Volumen hinzugefügt.</p>
+<p>Das folgende Beispiel zeigt einen API-Aufruf zur Aktivierung des Backups in der Arbeitsumgebung mit einer neuen Richtlinie, in der Tages-, Stunden- und Wochenbeschriftungen nach 180 Tagen festgelegt und archiviert werden, in Ost-US-2-Regionen in der Azure-Cloud. Bitte beachten Sie, dass dies eine Datensicherung nur auf der Arbeitsumgebung ermöglicht, aber keine Volumes gesichert werden. Wenn Sie „Auto-Backup-Enabled“ wählen: „True“, dann würden bereits im System vorhandene Volumes gesichert, plus künftige Volumes hinzugefügt.</p>
 </div>
 <div class="paragraph">
-<p>Sie werden sehen, dass wir die Cloud Central Account ID "Account-DpTFcxN3", BlueXP Connector ID "iZwFFeVCZjWnzGlw8RgD0QNANZvpP7Iclients", und Benutzer Token "Träger eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXIZ ImpZU2XYUWUZUWUWUXYUXEN…" verwenden.</p>
+<div class="title">API-Anfrage</div>
+<p>Wie Sie sehen, wird die Konto-ID von Cloud Central verwendet <code>account-DpTFcxN3</code>, BlueXP Connector-ID <code>iZwFFeVCZjWnzGlw8RgD0QQNANZvpP7Iclients`Und Benutzer-Token `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik5rSXlPVFUzUWpZek1E…y6nyhBjwkeMwHc4ValobjUmju2x0xUH48g</code> In diesem Befehl.</p>
 </div>
 <div class="listingblock">
 <div class="content">

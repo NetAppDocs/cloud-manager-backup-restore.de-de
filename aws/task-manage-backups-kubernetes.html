@@ -718,6 +718,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1178,6 +1180,13 @@
         Unterstützte Azure-Archiv-Zugriffsebenen
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Unterstützte Google-Archiv-Storage Tiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-google-backup-tiers.html">
+        Unterstützte Google-Archiv-Storage Tiers
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1284,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 19:48:02 +0000">11/16/2022</time>
+    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
     
   
 
@@ -1371,7 +1380,7 @@ Backup-Dateien lassen sich nicht direkt in der Umgebung Ihrer Cloud-Provider man
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Hinweis:</strong> Wenn ein Volume nicht gesichert werden soll, werden Sie Ihrem Cloud Provider weiterhin die Kosten für die Objektspeicherung für die Kapazität in Rechnung gestellt, die die Backups nutzen, es sei denn, Sie  backups,Löschen Sie die Backups.</p>
+<p><strong>Hinweis:</strong> Wenn ein Volume nicht gesichert werden soll, werden Sie Ihrem Cloud Provider weiterhin die Kosten für die Objektspeicherung für die Kapazität in Rechnung gestellt, die die Backups nutzen, es sei denn, Sie <a href="#backups-werden-gelöscht">Löschen Sie die Backups</a>.</p>
 </div>
 </div>
 </div>
@@ -1419,7 +1428,7 @@ Backup-Dateien lassen sich nicht direkt in der Umgebung Ihrer Cloud-Provider man
 <p>Falls Sie beim ersten Aktivieren von Cloud Backup auf Ihrem Kubernetes Cluster nicht die Option zum automatischen Zuweisen einer Backup-Richtlinie zu neu erstellten Volumes gewählt haben, können Sie diese Option später auf der Seite „<em>Backup Settings</em> “ auswählen. Eine Backup-Richtlinie, die neu erstellten Volumes zugewiesen wurde, stellt sicher, dass alle Ihre Daten geschützt sind.</p>
 </div>
 <div class="paragraph">
-<p>Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss.  a new backup policy,Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen.</p>
+<p>Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss. <a href="#Hinzufügen einer neuen Backup-Richtlinie">Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen</a>.</p>
 </div>
 <div class="paragraph">
 <p>Sie können diese Einstellung auch deaktivieren, damit neu erstellte Volumes nicht automatisch gesichert werden. In diesem Fall müssen Sie Backups manuell für alle spezifischen Volumes aktivieren, die Sie in Zukunft sichern möchten.</p>
@@ -1448,6 +1457,7 @@ Backup-Dateien lassen sich nicht direkt in der Umgebung Ihrer Cloud-Provider man
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Ergebnis</div>
 <p>Diese Backup-Richtlinie wird nun auf alle neuen Volumes angewendet, die in diesem Kubernetes Cluster erstellt wurden.</p>
 </div>
 </div>
@@ -1514,7 +1524,7 @@ Wenn Sie planen, eine Arbeitsumgebung oder ein Cluster mit Backups zu löschen, 
 <div class="sect2">
 <h3 id="löschen-aller-sicherungsdateien-für-eine-arbeitsumgebung">Löschen aller Sicherungsdateien für eine Arbeitsumgebung</h3>
 <div class="paragraph">
-<p>Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren  Cloud Backup for a working environment,Wie hier beschrieben.</p>
+<p>Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren <a href="#deaktivieren-von-cloud-backup-für-eine-arbeitsumgebung">Wie hier beschrieben</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
@@ -1543,7 +1553,7 @@ Wenn Sie planen, eine Arbeitsumgebung oder ein Cluster mit Backups zu löschen, 
 <p>Durch das Löschen aller Backups für ein Volume werden auch künftige Backups für dieses Volume deaktiviert.</p>
 </div>
 <div class="paragraph">
-<p>Das können Sie  and disabling backups of volumes,Starten Sie neu, um Backups für das Volume zu erstellen Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.</p>
+<p>Das können Sie <a href="#aktivieren-und-deaktivieren-von-backups-von-volumes">Starten Sie neu, um Backups für das Volume zu erstellen</a> Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
@@ -1613,7 +1623,7 @@ Wenn Sie planen, eine Arbeitsumgebung oder ein Cluster mit Backups zu löschen, 
 <p>Durch das Deaktivieren von Cloud Backup für eine Arbeitsumgebung werden Backups jedes Volumes auf dem System deaktiviert, zudem wird die Möglichkeit zur Wiederherstellung eines Volumes deaktiviert. Vorhandene Backups werden nicht gelöscht. Dadurch wird die Registrierung des Backup-Service in dieser Arbeitsumgebung nicht aufgehoben. Im Grunde können Sie alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten.</p>
 </div>
 <div class="paragraph">
-<p>Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich  all backup files for a working environment,Löschen Sie die Backups.</p>
+<p>Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich <a href="#löschen-aller-sicherungsdateien-für-eine-arbeitsumgebung">Löschen Sie die Backups</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
