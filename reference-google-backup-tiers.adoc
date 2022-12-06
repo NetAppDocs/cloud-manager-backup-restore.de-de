@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: reference-google-backup-tiers.html 
+keywords: google, storage classes, archive 
+summary: Cloud Backup unterstützt eine Google-Archiv-Storage-Klasse und in den meisten Regionen. 
+---
+= Google Archivspeicherklassen und Abrufzeiten wiederherstellen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Backup unterstützt eine Google-Archiv-Storage-Klasse und in den meisten Regionen.
+
+
+
+== Unterstützte Google-Archivierungs-Storageklassen für Cloud-Backup
+
+Beim ersten Erstellen von Backup-Dateien werden sie im _Standard_ Storage gespeichert. Diese Tier ist für die Speicherung von Daten optimiert, auf die selten zugegriffen wird. Dadurch können Sie jedoch auch sofort auf die Daten zugreifen.
+
+Wenn Ihr On-Prem-Cluster ONTAP 9.12.1 oder höher verwendet, können Sie ältere Backups nach einer bestimmten Anzahl von Tagen (normalerweise über 30 Tage) in der Cloud-Backup-UI auf _Archive_ Storage abstufen, um die Kosten weiter zu optimieren. (Diese Funktion ist derzeit für Cloud Volumes ONTAP Systeme nicht verfügbar.) Für Daten in dieser Tier fallen höhere Abrufkosten an. Daher müssen Sie bedenken, wie oft Sie Daten aus diesen archivierten Backup-Dateien wiederherstellen müssen. Siehe Abschnitt zu <<Wiederherstellen von Daten aus Archiv-Storage,Wiederherstellen von Daten aus Archiv-Storage>>.
+
+Wenn Sie Cloud Backup mit dieser Lebenszyklusregel konfigurieren, dürfen Sie beim Einrichten des Buckets in Ihrem Google-Konto keine Lebenszyklusregeln konfigurieren.
+
+https://cloud.google.com/storage/docs/storage-classes["Erfahren Sie mehr über Google Speicherklassen"^].
+
+
+
+== Wiederherstellen von Daten aus Archiv-Storage
+
+Das Speichern älterer Backup-Dateien im Archiv-Storage ist viel kostengünstiger als Standard-Storage. Der Zugriff auf Daten von einer Backup-Datei im Archiv-Storage für Wiederherstellungsvorgänge dauert etwas länger und kostet mehr Geld.
+
+Wie viel kostet es, Daten aus dem Google-Archiv wiederherzustellen?:: Detaillierte Google Cloud Storage Preise nach Region finden Sie im https://cloud.google.com/storage/pricing["Preise für Google Cloud Storage"^].
+Wie lange dauert es, meine im Google-Archiv archivierten Objekte wiederherzustellen?:: Es gibt zwei Teile, aus denen sich die gesamte Wiederherstellungszeit ergibt:
++
+--
+* *Retrieval Time*: Der Zeitpunkt, um die Sicherungsdatei aus dem Archiv abzurufen und in den Standard-Speicher zu legen. Dies wird manchmal als die "Rehydrierung" Zeit bezeichnet. Im Gegensatz zu den am seltensten benötigten Storage-Lösungen anderer Cloud-Provider sind Ihre Daten innerhalb von Millisekunden verfügbar.
+* *Restore Time*: Der Zeitpunkt, um die Daten aus der Sicherungsdatei im Standard-Speicher wiederherzustellen. Dieser Vorgang unterscheidet sich nicht von dem typischen Restore-Vorgang direkt vom Standard-Storage, wenn keine Archivebene verwendet wird.
+
+
+--
+

@@ -160,6 +160,8 @@ sidebar:
       url: "/reference-aws-backup-tiers.html"
     - title: Unterstützte Azure-Archiv-Zugriffsebenen
       url: "/reference-azure-backup-tiers.html"
+    - title: Unterstützte Google-Archiv-Storage Tiers
+      url: "/reference-google-backup-tiers.html"
     - title: Backup für Multi-Account-Zugriff in Azure konfigurieren
       url: "/reference-backup-multi-account-azure.html"
   - title: Wissen und Support

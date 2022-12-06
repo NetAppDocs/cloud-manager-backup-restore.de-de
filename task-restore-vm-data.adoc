@@ -19,6 +19,7 @@ Sie können Virtual Machines aus der Cloud wieder in vCenter vor Ort wiederherst
 
 NOTE: Sie können keine virtuellen Maschinen wiederherstellen, die von mehreren Datenspeichern verteilt sind.
 
+.Was Sie benötigen
 Stellen Sie sicher, dass Sie alle erfüllt haben link:concept-protect-vm-data.html#Requirements["Anforderungen"] Vor dem Wiederherstellen von virtuellen Maschinen aus der Cloud.
 
 .Schritte

@@ -230,9 +230,9 @@ endif::aws[]
 
 Bei Nutzung eines bestimmten Cloud-Storage können Sie ältere Backup-Dateien nach einer bestimmten Anzahl von Tagen auf eine kostengünstigere Storage-Klasse bzw. Zugriffsebene verschieben. Beachten Sie, dass Archivspeicher nicht verwendet werden kann, wenn Sie DataLock aktiviert haben.
 
-Daten in Archivebenen können nicht sofort abgerufen werden, wenn nötig, und erfordert eine höhere Abrufkosten, so müssen Sie überlegen, wie oft Sie Daten aus archivierten Backup-Dateien wiederherstellen müssen.
+Auf Daten in Archivebenen kann nicht unmittelbar bei Bedarf zugegriffen werden und sind mit höheren Abrufkosten verbunden. Daher müssen Sie berücksichtigen, wie oft Sie Daten aus archivierten Backup-Dateien wiederherstellen müssen.
 
-Beim Erstellen von Backup-Dateien in AWS oder Azure bietet jede Backup-Richtlinie einen Abschnitt für „ _Archival Policy_“, den Sie auf Ihre Backup-Dateien anwenden können.
+Jede Backup-Richtlinie enthält einen Abschnitt zur „ _Archivierungsrichtlinie_“, den Sie auf Ihre Backup-Dateien anwenden können.
 
 image:screenshot_archive_tier_settings.png["Ein Screenshot der Archivierungsrichtlinien-Einstellungen beim Erstellen einer Backup-Richtlinie"]
 
@@ -263,7 +263,7 @@ ifdef::gcp[]
 
 * In GCP werden Backups standardmäßig der Storage-Klasse _Standard_ zugeordnet.
 +
-Sie können die preisgünstigere Storage-Klasse _Nearline_ oder die Speicherklassen _Coldline_ oder _Archive_ verwenden. Sie konfigurieren diese anderen Speicherklassen jedoch über Google, nicht über die Benutzeroberfläche von Cloud Backup. Siehe das Thema Google https://cloud.google.com/storage/docs/storage-classes["Speicherklassen"^] Informationen zum Ändern der Standard-Storage-Klasse für einen Google Cloud Storage-Bucket
+Wenn Ihr On-Prem-Cluster ONTAP 9.12.1 oder höher verwendet, können Sie nach einer bestimmten Anzahl von Tagen ältere Backups als _Archive_ Storage in der Cloud Backup UI verschieben, um die Kosten weiter zu optimieren. (Diese Funktion ist derzeit für Cloud Volumes ONTAP Systeme nicht verfügbar.) link:reference-google-backup-tiers.html["Erfahren Sie mehr über Google Archivspeicher"^].
 
 
 

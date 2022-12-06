@@ -74,9 +74,9 @@ Bevor Sie eine der beiden Wiederherstellungsmethoden verwenden können, sollten 
 
 Siehe Anforderungen und Wiederherstellungsschritte für den Typ der Wiederherstellungsoperation, die Sie verwenden möchten:
 
-*  volumes using Browse  Restore,Stellen Sie Volumes mithilfe von Browse  Restore wieder her
-*  folders and files using Browse  Restore,Wiederherstellen von Ordnern und Dateien mit Durchsuchen  Restore
-*  ONTAP data using Search  Restore,Stellen Sie Volumes, Ordner und Dateien mithilfe von Search  Restore wieder her
+* <<Restoring volumes using Browse & Restore,Stellen Sie Volumes mithilfe von Browse  Restore wieder her
+* <<Restoring folders and files using Browse & Restore,Wiederherstellen von Ordnern und Dateien mit Durchsuchen  Restore
+* <<Restoring ONTAP data using Search & Restore,Stellen Sie Volumes, Ordner und Dateien mithilfe von Search  Restore wieder her
 
 
 
@@ -85,7 +85,7 @@ Siehe Anforderungen und Wiederherstellungsschritte für den Typ der Wiederherste
 
 Bevor Sie mit der Wiederherstellung eines Volumes, Ordners oder einer Datei beginnen, sollten Sie den Namen des Volumes, aus dem Sie wiederherstellen möchten, den Namen der Arbeitsumgebung, in der sich das Volume befindet, sowie das ungefähre Datum der Sicherungsdatei, aus der Sie wiederherstellen möchten, kennen.
 
-*Hinweis:* Wenn die Sicherungsdatei für das wiederherzustellende Volume im Archiv-Speicher liegt (beginnend mit ONTAP 9.10.1), dauert der Wiederherstellungsvorgang länger und es entstehen Kosten. Darüber hinaus muss auf dem Ziel-Cluster für das Volume Restore ONTAP 9.10.1 oder höher und 9.11.1 für die Dateiwiederherstellung ausgeführt werden.
+*Hinweis:* Wenn die Sicherungsdatei für das wiederherzustellende Volume im Archiv-Speicher liegt (beginnend mit ONTAP 9.10.1), dauert der Wiederherstellungsvorgang länger und es entstehen Kosten. Darüber hinaus muss auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Restores, 9.11.1 für die Dateiwiederherstellung und 9.12.1 für Google Archive ausgeführt werden.
 
 ifdef::aws[]
 
@@ -99,30 +99,30 @@ link:reference-azure-backup-tiers.html["Erfahren Sie mehr über die Wiederherste
 
 endif::azure[]
 
+ifdef::gcp[]
+
+link:reference-google-backup-tiers.html["Erfahren Sie mehr über die Wiederherstellung aus Google Archiv-Storage"].
+
+endif::gcp[]
+
 
 
 === Unterstützte Arbeitsumgebungen und Objekt-Storage-Anbieter durchsuchen und wiederherstellen
 
 Sie können ein Volume, einen Ordner oder einzelne Dateien aus einer ONTAP-Sicherungsdatei in folgenden Arbeitsumgebungen wiederherstellen:
 
-[cols="30,35,35"]
+[cols="50,50"]
 |===
-| Speicherort Der Sicherungsdatei 2+| Zielarbeitsumgebung 
+| Speicherort der Sicherungsdatei Zielumgebung ifdef::aws[] | Amazon S3 
 
 
-|  | *Volume Restore* | *Ordner- und Dateiwiederherstellung* ifdef::aws[] 
+| Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[] | Azure Blob 
 
 
-| Amazon S3 | Cloud Volumes ONTAP in AWS On-Premises ONTAP System | Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[] 
+| Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[] | Google Cloud Storage 
 
 
-| Azure Blob | Cloud Volumes ONTAP in Azure On-Premises ONTAP System | Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[] 
-
-
-| Google Cloud Storage | Cloud Volumes ONTAP in Google On-Premises ONTAP System | Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[] 
-
-
-| NetApp StorageGRID | Lokales ONTAP System | Lokales ONTAP System 
+| Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[] | NetApp StorageGRID 
 |===
 Für Browse & Restore kann der Connector an folgenden Orten installiert werden:
 
@@ -215,12 +215,9 @@ endif::gcp[]
 
 * Geben Sie beim Wiederherstellen aus StorageGRID den FQDN des StorageGRID-Servers und den Port ein, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden soll, wählen Sie den Zugriffsschlüssel und den geheimen Schlüssel aus, der für den Zugriff auf den Objektspeicher erforderlich ist, und den IPspace im ONTAP-Cluster, in dem sich das Ziel-Volume befindet.
 +
-.. Geben Sie den Namen ein, den Sie für das wiederhergestellte Volume verwenden möchten, und wählen Sie die Storage VM aus, auf der sich das Volume befindet. Standardmäßig wird *<source_Volume_Name>_restore* als Volume-Name verwendet.
+.. Geben Sie den Namen ein, den Sie für das wiederhergestellte Volume verwenden möchten, und wählen Sie die Storage VM und das Aggregat aus, auf dem sich das Volume befinden soll. Standardmäßig wird *<source_Volume_Name>_restore* als Volume-Name verwendet.
 +
 image:screenshot_restore_new_vol_name.png["Ein Screenshot, in den der Name des neuen Volumes eingegeben wird, das wiederhergestellt werden soll."]
-
-+
-Sie können das Aggregat auswählen, das das Volume nur für seine Kapazität verwendet, wenn Sie ein Volume in ein lokales ONTAP System wiederherstellen.
 
 +
 Wenn Sie das Volume aus einer Sicherungsdatei wiederherstellen, die sich in einer Archiv-Storage-Ebene befindet (verfügbar ab ONTAP 9.10.1), können Sie die Restore-Priorität auswählen.
@@ -242,9 +239,16 @@ link:reference-azure-backup-tiers.html#restoring-data-from-archival-storage["Erf
 
 endif::azure[]
 
+ifdef::gcp[]
+
+link:reference-google-backup-tiers.html#restoring-data-from-archival-storage["Erfahren Sie mehr über die Wiederherstellung aus Google Archiv-Storage"]. Backup-Dateien werden auf der Google Archiv Storage Tier nahezu sofort wiederhergestellt und müssen keine Restore-Priorität erhalten.
+
+endif::gcp[]
+
 . Klicken Sie auf *Wiederherstellen* und Sie werden wieder zum Restore Dashboard zurückgekehrt, damit Sie den Fortschritt des Wiederherstellungsvorgangs überprüfen können.
 
 
+.Ergebnis
 Cloud Backup erstellt auf Basis des ausgewählten Backups ein neues Volume. Das können Sie link:task-manage-backups-ontap.html["Verwalten Sie die Backup-Einstellungen für dieses neue Volume"] Nach Bedarf.
 
 Beachten Sie, dass die Wiederherstellung eines Volumes aus einer Backup-Datei im Archiv-Storage je nach Archivebene und Restore-Priorität viele Minuten oder Stunden in Anspruch nehmen kann. Sie können auf die Registerkarte *Job Monitoring* klicken, um den Wiederherstellungsfortschritt anzuzeigen.
@@ -271,12 +275,7 @@ Derzeit können Sie nur einen einzigen Ordner auswählen und wiederherstellen. U
 ==== Voraussetzungen
 
 * Die ONTAP-Version muss mindestens 9.6 sein, um _File_ Restore-Vorgänge durchzuführen.
-* Die ONTAP-Version muss mindestens 9.11.1 sein, um Vorgänge _folder_ wiederherstellen zu können.
-
-
-ifdef::aws[]
-
-* Für die Account-übergreifende Wiederherstellung von AWS ist eine manuelle Aktion in der AWS-Konsole erforderlich. Weitere Informationen finden Sie im Thema AWS https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html["Gewähren von Account-übergreifenden Bucket-Berechtigungen"^] Entsprechende Details.
+* Die ONTAP-Version muss mindestens 9.11.1 sein, um Vorgänge _folder_ wiederherstellen zu können. Ifdef::aws[]
 
 
 endif::aws[]
@@ -337,6 +336,12 @@ ifdef::azure[]
 link:reference-azure-backup-tiers.html#restoring-data-from-archival-storage["Erfahren Sie mehr über die Wiederherstellung aus Azure Archiv-Storage"].
 
 endif::azure[]
+
+ifdef::gcp[]
+
+link:reference-google-backup-tiers.html#restoring-data-from-archival-storage["Erfahren Sie mehr über die Wiederherstellung aus Google Archiv-Storage"]. Backup-Dateien werden auf der Google Archiv Storage Tier nahezu sofort wiederhergestellt und müssen keine Restore-Priorität erhalten.
+
+endif::gcp[]
 
 + und falls Ransomware-Schutz für die Backup-Datei aktiv ist (wenn Sie DataLock und Ransomware-Schutz in der Backup-Policy aktiviert), dann werden Sie aufgefordert, einen zusätzlichen Ransomware-Scan auf der Backup-Datei vor der Wiederherstellung der Daten auszuführen. Wir empfehlen, die Backup-Datei nach Ransomware zu scannen.
 
@@ -420,7 +425,7 @@ Wenn Sie ein Volume aus einer Backup-Datei wiederherstellen, erstellt Cloud Back
 
 Sie können Ordner oder Dateien auf dem ursprünglichen Volume-Speicherort, auf einem anderen Volume in derselben Arbeitsumgebung oder in einer anderen Arbeitsumgebung wiederherstellen, die dasselbe Cloud-Konto verwendet. Ordner und Dateien können auch auf einem Volume auf einem lokalen ONTAP System wiederhergestellt werden.
 
-Wenn die Backup-Datei für das wiederherzustellende Volume im Archiv-Storage (ab ONTAP 9.10.1 verfügbar) gespeichert ist, dauert der Restore-Vorgang länger und es entstehen zusätzliche Kosten. Beachten Sie, dass auf dem Ziel-Cluster für die Volume-Wiederherstellung auch ONTAP 9.10.1 oder höher und 9.11.1 für die Dateiwiederherstellung ausgeführt werden muss.
+Wenn die Backup-Datei für das wiederherzustellende Volume im Archiv-Storage (ab ONTAP 9.10.1 verfügbar) gespeichert ist, dauert der Restore-Vorgang länger und es entstehen zusätzliche Kosten. Beachten Sie, dass auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Wiederherstellung, 9.11.1 für Dateiwiederherstellung und 9.12.1 für Google Archive ausgeführt werden muss.
 
 ifdef::aws[]
 
@@ -433,6 +438,12 @@ ifdef::azure[]
 link:reference-azure-backup-tiers.html["Erfahren Sie mehr über die Wiederherstellung aus Azure Archiv-Storage"].
 
 endif::azure[]
+
+ifdef::gcp[]
+
+link:reference-google-backup-tiers.html["Erfahren Sie mehr über die Wiederherstellung aus Google Archiv-Storage"].
+
+endif::gcp[]
 
 [NOTE]
 ====
@@ -639,7 +650,7 @@ In Abhängigkeit von der Größe der Volumes in der Arbeitsumgebung und der Anza
 
 === Wiederherstellen von Volumes, Ordnern und Dateien mithilfe von Search & Restore
 
-Nachdem Sie den haben  the Indexed Catalog for each working environment,Indexierung für Ihre Arbeitsumgebung aktiviert, Sie können Volumes, Ordner und Dateien mit Search & Restore wiederherstellen. So können Sie mithilfe verschiedener Filter genau die Datei oder das Volume finden, die Sie aus allen Backup-Dateien wiederherstellen möchten.
+Nachdem Sie den haben <<Aktivierung des indizierten Katalogs für jede Arbeitsumgebung,Indexierung für Ihre Arbeitsumgebung aktiviert>>, Sie können Volumes, Ordner und Dateien mit Search & Restore wiederherstellen. So können Sie mithilfe verschiedener Filter genau die Datei oder das Volume finden, die Sie aus allen Backup-Dateien wiederherstellen möchten.
 
 .Schritte
 . Wählen Sie im Menü BlueXP die Option *Schutz > Sicherung und Wiederherstellung*.
@@ -679,7 +690,7 @@ Wenn Sie ein lokales ONTAP System auswählen und die Cluster-Verbindung mit dem 
 ifdef::aws[]
 
 +
-*** Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus.
+*** Wählen Sie bei der Wiederherstellung aus Amazon S3 den IPspace im ONTAP Cluster aus, auf dem sich das Ziel-Volume befindet, und geben Sie den Zugriffsschlüssel und den geheimen Schlüssel für den Benutzer ein, den Sie erstellt haben, um dem ONTAP Cluster Zugriff auf den S3-Bucket zu geben. Wählen Sie optional einen privaten VPC-Endpunkt für den sicheren Datentransfer aus. link:task-backup-onprem-to-aws.html#cluster-networking-requirements["Siehe Details zu diesen Anforderungen"].
 
 
 
@@ -690,21 +701,22 @@ endif::aws[]
 
 ifdef::azure[]
 
-* Wählen Sie beim Wiederherstellen aus Azure Blob den IPspace im ONTAP Cluster aus, an dem sich das Ziel-Volume befindet, und wählen Sie optional einen privaten Endpunkt für den sicheren Datentransfer aus, indem Sie vnet und Subnetz auswählen.
+* Wählen Sie beim Wiederherstellen aus Azure Blob den IPspace im ONTAP Cluster aus, an dem sich das Ziel-Volume befindet, und wählen Sie optional einen privaten Endpunkt für den sicheren Datentransfer aus, indem Sie vnet und Subnetz auswählen. link:task-backup-onprem-to-azure.html#requirements["Siehe Details zu diesen Anforderungen"].
 
 
 endif::azure[]
 
 ifdef::gcp[]
 
-* Wählen Sie bei der Wiederherstellung aus Google Cloud Storage den IP-Speicherplatz im ONTAP-Cluster aus, auf dem sich das Ziel-Volume befinden soll, und den Zugriffsschlüssel und den geheimen Schlüssel für den Zugriff auf den Objekt-Storage.
+* Wählen Sie bei der Wiederherstellung aus Google Cloud Storage den IP-Speicherplatz im ONTAP-Cluster aus, auf dem sich das Ziel-Volume befinden soll, und den Zugriffsschlüssel und den geheimen Schlüssel für den Zugriff auf den Objekt-Storage. link:task-backup-onprem-to-gcp.html#requirements["Siehe Details zu diesen Anforderungen"].
 
 
 endif::gcp[]
 
-* Geben Sie beim Wiederherstellen aus StorageGRID den FQDN des StorageGRID-Servers und den Port ein, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden soll, geben Sie den Zugriffsschlüssel und den geheimen Schlüssel ein, der für den Zugriff auf den Objektspeicher erforderlich ist, sowie den IPspace im ONTAP-Cluster, in dem sich das Ziel-Volume befindet.
+* Geben Sie beim Wiederherstellen aus StorageGRID den FQDN des StorageGRID-Servers und den Port ein, den ONTAP für die HTTPS-Kommunikation mit StorageGRID verwenden soll, geben Sie den Zugriffsschlüssel und den geheimen Schlüssel ein, der für den Zugriff auf den Objektspeicher erforderlich ist, sowie den IPspace im ONTAP-Cluster, in dem sich das Ziel-Volume befindet. link:task-backup-onprem-private-cloud.html#requirements["Siehe Details zu diesen Anforderungen"].
 
 
+.Ergebnisse
 Die Volume-, Ordner- oder Datei(en) werden wiederhergestellt und Sie werden zum Restore Dashboard zurückgebracht, damit Sie den Fortschritt des Wiederherstellungsvorgangs überprüfen können. Sie können auch auf die Registerkarte *Job Monitoring* klicken, um den Wiederherstellungsfortschritt anzuzeigen.
 
 Für wiederhergestellte Volumes ist möglich link:task-manage-backups-ontap.html["Verwalten Sie die Backup-Einstellungen für dieses neue Volume"] Nach Bedarf.

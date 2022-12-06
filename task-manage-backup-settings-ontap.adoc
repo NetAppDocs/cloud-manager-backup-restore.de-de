@@ -63,6 +63,8 @@ image:screenshot_backup_advanced_settings_page.png["Ein Screenshot mit den Werte
 
 Wenn Sie Änderungen vornehmen möchten, erweitern Sie einfach die Option und nehmen Sie die Änderung vor. Alle Backup-Vorgänge nach der Änderung verwenden die neuen Werte.
 
+Beachten Sie, dass einige Optionen basierend auf der Version von ONTAP auf dem Quell-Cluster nicht verfügbar sind und auf dem Ziel des Cloud-Providers, in dem sich die Backups befinden, basieren.
+
 
 
 == Ändern der Storage-Schlüssel für ONTAP für den Zugriff auf Cloud-Storage
@@ -141,9 +143,9 @@ Sobald diese Backup-Richtlinie aktiviert ist, wird sie auf alle neuen Volumes an
 
 == Ändern Sie, ob historische Snapshot Kopien als Backup-Dateien exportiert werden
 
-Wenn es lokale Snapshot-Kopien für Volumes gibt, die mit dem Backup-Schedule-Label übereinstimmen, das Sie in dieser Arbeitsumgebung verwenden (z. B. täglich, wöchentlich usw.), können Sie diese historischen Snapshots als Backup-Dateien in Objekt-Storage exportieren. Damit können Sie die Backups in der Cloud initialisieren, indem Sie Snapshot-ältere Kopien in die Basis-Backup-Kopie verschieben.
+Wenn es lokale Snapshot-Kopien für Volumes gibt, die mit dem Backup-Schedule-Label übereinstimmen, das Sie in dieser Arbeitsumgebung verwenden (z. B. täglich, wöchentlich usw.), können Sie diese historischen Snapshots als Backup-Dateien in Objekt-Storage exportieren. Damit können Sie Ihre Backups in die Cloud initialisieren, indem Sie ältere Snapshot-Kopien in die Basis-Backup-Kopie verschieben.
 
-Beachten Sie, dass diese Option nur für neue Backup-Dateien für neue Volumes gilt und nicht bei Datensicherungs-Volumes unterstützt wird.
+Beachten Sie, dass diese Option nur für neue Backup-Dateien für neue Lese-/Schreib-Volumes gilt und nicht für Datensicherungs-Volumes unterstützt wird.
 
 image:screenshot_backup_edit_export_snapshots.png["Ein Screenshot des Eintrags „vorhandene Snapshot Kopien exportieren“ auf der Seite „Erweiterte Einstellungen“."]
 

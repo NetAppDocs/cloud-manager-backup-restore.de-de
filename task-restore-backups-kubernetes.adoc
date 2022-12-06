@@ -66,4 +66,5 @@ image:screenshot_restore_k8s_volume.png["Ein Screenshot mit den Zielinformatione
 . Klicken Sie auf *Restore* und Sie werden wieder zum Kubernetes Dashboard, damit Sie den Fortschritt des Wiederherstellungsvorgangs überprüfen können.
 
 
+.Ergebnis
 BlueXP erstellt im Kubernetes-Cluster ein neues Volume basierend auf dem ausgewählten Backup. Das können Sie link:task-manage-backups-kubernetes.html["Verwalten Sie die Backup-Einstellungen für dieses neue Volume"] Nach Bedarf.

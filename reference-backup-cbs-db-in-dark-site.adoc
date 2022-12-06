@@ -1,0 +1,177 @@
+---
+sidebar: sidebar 
+permalink: reference-backup-cbs-db-in-dark-site.html 
+keywords: backup database, recover database 
+summary: Wenn Sie Cloud Backup auf einer Website ohne Internetzugang verwenden, sollten Sie kritische Dateien von Cloud Backup regelmäßig sichern, falls Sie ein Problem mit dem BlueXP Connector Host-System haben. So können Sie einen neuen Connector implementieren und die kritischen Cloud Backup-Daten wiederherstellen. 
+---
+= Cloud-Backup-Daten werden an einem dunklen Standort gesichert und wiederhergestellt
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Wenn Sie Cloud Backup auf einer Website ohne Internetzugang verwenden, sollten Sie kritische Dateien von Cloud Backup regelmäßig sichern, falls Sie ein Problem mit dem BlueXP Connector Host-System haben. So können Sie einen neuen Connector implementieren und die kritischen Cloud Backup-Daten wiederherstellen.
+
+Wenn Sie Cloud Backup in einer SaaS-Umgebung nutzen, in der der BlueXP Connector bei Ihrem Cloud-Provider oder auf Ihrem eigenen Hostsystem mit Internetzugang bereitgestellt wird, werden alle wichtigen Cloud Backup-Konfigurationsdaten gesichert und in der Cloud gespeichert. Wenn Sie Cloud Backup in einer Site ohne Internetzugang nutzen, die auch als „dunkle Seite“ bekannt ist, werden diese Cloud Backup-Informationen nur auf dem lokalen Connector-System gespeichert.
+
+In diesem Thema wird beschrieben, wie Sie kritische Cloud-Backup-Daten auf Ihrem verbundenen StorageGRID-System sichern. Außerdem wird beschrieben, wie die Daten bei Bedarf auf einem neuen Konnektor wiederhergestellt werden.
+
+
+NOTE: Sie sollten diese Cloud Backup-Daten in regelmäßigen Abständen sichern, damit Sie stets Zugriff auf die neuesten Daten haben.
+
+
+
+== Backup wichtiger Cloud-Backup-Daten
+
+Es gibt zwei Datentypen, die gesichert werden müssen:
+
+* Cloud-Backup-Datenbank
+* Indizierte Katalogdateien (für Such- und Wiederherstellungsfunktionen verwendet)
+
+
+Volume-Daten werden je nicht in die Cloud Backup-Datenbank oder in indizierte Katalogdateien enthalten.
+
+
+
+=== Backup der Cloud-Backup-Datenbank
+
+Die Cloud Backup-Datenbank enthält eine Liste aller Volumes, Backup-Dateien, Backup-Richtlinien und Konfigurationsinformationen.
+
+.Schritte
+. Melden Sie sich mit den entsprechenden Anmeldedaten am Connector-Host-System an.
+. Geben Sie die MySQL-Container-Shell ein, indem Sie den folgenden Befehl eingeben:
++
+[source, cli]
+----
+docker exec -it ds_mysql_1 sh
+----
+. In der Container-Shell, stellen Sie die "env".
+. Sie benötigen das MySQL DB Passwort, kopieren Sie also den Wert des Schlüssels "MYSQL_ROOT_PASSWORD".
+. Sichern Sie die Cloud Backup MySQL DB und geben Sie den folgenden Befehl ein:
++
+[source, cli]
+----
+mysqldump --user root --password -p cloud_backup --result-file=mysql.dump.cloud_backup.sql
+----
+. Kopieren Sie die MySQL DB-Sicherung aus dem MySQL-Docker-Container, indem Sie den folgenden Befehl eingeben:
++
+[source, cli]
+----
+docker cp ds_mysql_1:/mysql.dump.cloud_backup.sql .
+----
+. Kopieren Sie das Backup an einen sicheren Ort in Ihrem Netzwerk. Sie können ein lokales StorageGRID-System verwenden, wenn Sie ONTAP Volume Backups an diesem Speicherort erstellen.
+
+
+
+
+=== Sichern Sie die indizierten Katalogdateien
+
+Der indexierte Katalog wird für die Such- und Wiederherstellungsfunktion verwendet. Es enthält Informationen über jedes Volume und jede Backup-Datei, sodass Ihre Suchvorgänge bei der Wiederherstellung von Volume-Daten sehr schnell und effizient erfolgen.
+
+. Ändern Sie auf dem Connector-Host-System das Verzeichnis in „/tmp“.
+. Suchen Sie den Ordner Index Catalog. Es beginnt mit der Zeichenfolge *catalog*.
+. Zippen Sie den Ordner „Catalog<_xxxxxx_>“, indem Sie den folgenden Befehl eingeben:
++
+[source, cli]
+----
+zip -r catalogxxxxxx.zip catalogxxxxxx
+----
+. Kopieren Sie die gezippte Sicherung an einen sicheren Ort in Ihrem Netzwerk.
+
+
+
+
+== Wiederherstellen von Cloud-Backup-Daten auf einem neuen Connector
+
+Wenn der On-Premises-Connector einen katastrophalen Ausfall hat, müssen Sie einen neuen Connector installieren und anschließend die Cloud Backup-Daten auf dem neuen Connector wiederherstellen.
+
+Es gibt 4 Aufgaben, die Sie durchführen müssen, um Ihr Cloud-Backup-System in einen Arbeitszustand zurückzusetzen:
+
+* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-onprem-no-internet.html["Installieren Sie einen neuen Konnektor auf einem neuen lokalen Linux-Host"^]
+* Wiederherstellung der Cloud-Backup-Datenbank
+* Stellen Sie die indizierten Katalogdateien wieder her
+* Alle On-Prem-ONTAP-Systeme werden auf der BlueXP-Benutzeroberfläche wiederentdeckt
+
+
+Sobald Sie überprüfen, ob Ihr System wieder in einem Arbeitsauftrag ist, empfehlen wir Ihnen, neue Sicherungsdateien zu erstellen.
+
+
+
+=== Wiederherstellung der Cloud-Backup-Datenbank
+
+. Melden Sie sich nach der Installation des neuen Connectors mit den entsprechenden Anmeldedaten am Connector-Hostsystem an.
+. Kopieren Sie die MySQL-Sicherung vom sicheren Speicherort auf den neuen Connector-Host.
+. Kopieren Sie das Backup mit dem folgenden Befehl in den MySQL-Docker-Container:
++
+[source, cli]
+----
+docker cp mysql.dump.cloud_backup.sql ds_mysql_1:/.
+----
+. Geben Sie die MySQL-Container-Shell mithilfe des folgenden Befehls ein:
++
+[source, cli]
+----
+docker exec -it ds_mysql_1 sh
+----
+. In der Container-Shell, stellen Sie die "env".
+. Sie benötigen das MySQL DB Passwort, kopieren Sie also den Wert des Schlüssels "MYSQL_ROOT_PASSWORD".
+. Stellen Sie die Cloud Backup MySQL DB mit dem folgenden Befehl wieder her:
++
+[source, cli]
+----
+mysql -u root -p cloud_backup < mysql.dump.cloud_backup.sql
+----
+. Überprüfen Sie, ob die MySQL Datenbank von Cloud Backup mit den folgenden SQL-Befehlen korrekt wiederhergestellt wurde:
++
+[source, cli]
+----
+# mysql -u root -p cloud_backup
+----
++
+Geben Sie das Passwort ein.
+
++
+[source, cli]
+----
+mysql> show tables;
+mysql> select * from volume;
+----
++
+Überprüfen Sie, ob die angezeigten Volumen dieselben sind wie die in Ihrer ursprünglichen Umgebung.
+
+
+
+
+
+=== Stellen Sie die indizierten Katalogdateien wieder her
+
+. Kopieren Sie die Zip-Datei für die Indexsicherung vom sicheren Speicherort auf den neuen Connector-Host im Ordner „/tmp“.
+. Entpacken Sie die Datei „catalogxxxxxx.zip“ mit folgendem Befehl:
++
+[source, cli]
+----
+unzip catalogxxxxxx.zip
+----
+. Führen Sie den Befehl *ls* aus, um sicherzustellen, dass der Ordner "catalogxxxxxx" mit den Unterordnern "Changes" und "Snapshots" darunter erstellt wurde.
+
+
+
+
+=== Ermitteln der Cluster und Überprüfen der Cloud-Backup-Einstellungen
+
+. https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html#discovering-clusters-from-the-canvas-page["Hier finden Sie alle On-Premises-ONTAP-Arbeitsumgebungen"^] Die in Ihrer vorherigen Umgebung verfügbar waren.
+. Optional https://docs.netapp.com/us-en/cloud-manager-storagegrid/task-discover-storagegrid.html["Erkennen Sie Ihre StorageGRID Systeme"^].
+. Wählen Sie jede ONTAP Arbeitsumgebung aus und klicken Sie auf *Backups anzeigen* neben dem Backup- und Recovery-Service im rechten Fenster.
++
+Sie sollten in der Lage sein alle Backups zu sehen, die für Ihre Volumes erstellt wurden.
+
+. Klicken Sie im Dashboard wiederherstellen im Abschnitt Suchen & Wiederherstellen auf *Indexing-Einstellungen*.
++
+Vergewissern Sie sich, dass die Arbeitsumgebungen, in denen die Indexierung bereits in aktiviert war, weiterhin aktiviert sind.
+
+. Führen Sie auf der Seite Suchen & Wiederherstellen einige Katalogsuchen aus, um zu bestätigen, dass die Wiederherstellung des indizierten Katalogs erfolgreich abgeschlossen wurde.
+

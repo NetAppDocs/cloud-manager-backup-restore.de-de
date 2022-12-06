@@ -71,24 +71,21 @@ Cloud Backup ermöglicht Ihnen das Backup von ONTAP Volumes aus den folgenden Ar
 |===
 Sie können ein Volume, einen Ordner oder einzelne Dateien aus einer ONTAP-Sicherungsdatei in folgenden Arbeitsumgebungen wiederherstellen:
 
-[cols="25,33,37"]
+[cols="50,50"]
 |===
-| Sicherungsdatei 2+| Zielarbeitsumgebung 
+| Speicherort Der Sicherungsdatei | Zielarbeitsumgebung ifdef::aws[] 
 
 
-| *Lage* | *Volume Restore* | *Ordner- und Dateiwiederherstellung* ifdef::aws[] 
+| Amazon S3 | Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[] 
 
 
-| Amazon S3 | Cloud Volumes ONTAP in AWS On-Premises ONTAP System | Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[] 
+| Azure Blob | Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[] 
 
 
-| Azure Blob | Cloud Volumes ONTAP in Azure On-Premises ONTAP System | Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[] 
+| Google Cloud Storage | Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[] 
 
 
-| Google Cloud Storage | Cloud Volumes ONTAP in Google On-Premises ONTAP System | Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[] 
-
-
-| NetApp StorageGRID | Lokales ONTAP System | Lokales ONTAP System 
+| NetApp StorageGRID | Lokales ONTAP System 
 |===
 Beachten Sie, dass Verweise auf „On-Premises ONTAP Systeme“ Systeme mit FAS, AFF und ONTAP Select Systemen enthalten.
 
@@ -107,10 +104,25 @@ Cloud Backup unterstützt die folgenden Volume-Typen:
 * FlexVol Volumes für Lese- und Schreibvorgänge
 * SnapMirror Data Protection (DP) Ziel-Volumes
 * SnapLock Enterprise Volumes (erfordert ONTAP 9.11.1 oder höher)
++
+** SnapLock-Compliance-Volumes werden derzeit nicht unterstützt.
 
 
-FlexGroup Volumes und SnapLock Compliance Volumes werden derzeit nicht unterstützt.
+* FlexGroup Volumes (erfordert ONTAP 9.12.1 oder höher)
 
+
+[NOTE]
+====
+*FlexGroup-Einschränkungen*:
+
+* Die vollständige Volume-Wiederherstellung wird für ONTAP-Systeme vor Ort unterstützt; Cloud Volumes ONTAP-Systeme werden aktuell nicht unterstützt.
+* Wiederherstellung auf Dateiebene wird sowohl für lokale ONTAP- als auch für Cloud Volumes ONTAP-Systeme unterstützt.
+* Die Wiederherstellung von Verzeichnissen/Ordnern wird derzeit nicht unterstützt.
+* Backups können nicht in Archiv-Storage verschoben werden.
+* Backups können nicht DataLock- und Ransomware-Schutz nutzen.
+
+
+====
 
 
 == Kosten
@@ -162,7 +174,7 @@ endif::gcp[]
 
 Servicegebühren werden an NetApp gezahlt und decken sowohl die Kosten für die Erstellung „_ Backups“ und „ _Wiederherstellung_ Volumes oder Dateien“ aus diesen Backups ab. Sie bezahlen nur für die Daten, die Sie sichern, berechnet anhand der verwendeten logischen Quellkapazität (_before_ ONTAP-Effizienzfunktionen) der ONTAP Volumes, die in Objekt-Storage gesichert werden. Diese Kapazität wird auch als Front-End Terabyte (FETB) bezeichnet.
 
-Es gibt drei Möglichkeiten, für den Backup-Service zu bezahlen. Als erste Option können Sie Ihren Cloud-Provider abonnieren, sodass Sie monatlich bezahlen können. Die zweite Möglichkeit besteht darin, einen Jahresvertrag zu erhalten. Als dritte Option können Lizenzen direkt von NetApp erworben werden. Lesen Sie die ,Lizenzierung Weitere Informationen finden Sie in diesem Abschnitt.
+Es gibt drei Möglichkeiten, für den Backup-Service zu bezahlen. Als erste Option können Sie Ihren Cloud-Provider abonnieren, sodass Sie monatlich bezahlen können. Die zweite Möglichkeit besteht darin, einen Jahresvertrag zu erhalten. Als dritte Option können Lizenzen direkt von NetApp erworben werden. Lesen Sie die <<Lizenzierung,Lizenzierung>> Weitere Informationen finden Sie in diesem Abschnitt.
 
 
 
@@ -240,7 +252,7 @@ link:task-licensing-cloud-backup.html#use-an-annual-contract["Hier erfahren Sie,
 
 == Funktionsweise von Cloud Backup
 
-Wenn Sie Cloud-Backups auf einem Cloud Volumes ONTAP- oder lokalen ONTAP-System aktivieren, führt der Service ein vollständiges Backup Ihrer Daten durch. Volume Snapshots werden nicht im Backup-Image berücksichtigt. Nach dem ersten Backup sind alle weiteren Backups inkrementell, das heißt, dass nur geänderte Blöcke und neue Blöcke gesichert werden. Dadurch wird der Netzwerkverkehr auf ein Minimum reduziert. Cloud Backup baut auf dem Fundament auf https://docs.netapp.com/us-en/ontap/concepts/snapmirror-cloud-backups-object-store-concept.html["NetApp SnapMirror Cloud Technologie"].
+Wenn Sie Cloud-Backups auf einem Cloud Volumes ONTAP- oder lokalen ONTAP-System aktivieren, führt der Service ein vollständiges Backup Ihrer Daten durch. Volume Snapshots werden nicht im Backup-Image berücksichtigt. Nach dem ersten Backup sind alle weiteren Backups inkrementell, das heißt, dass nur geänderte Blöcke und neue Blöcke gesichert werden. Dadurch wird der Netzwerkverkehr auf ein Minimum reduziert. Cloud Backup baut auf dem Fundament auf https://docs.netapp.com/us-en/ontap/concepts/snapmirror-cloud-backups-object-store-concept.html["NetApp SnapMirror Cloud Technologie"^].
 
 
 CAUTION: Alle Aktionen, die direkt aus Ihrer Cloud-Provider-Umgebung zum Verwalten oder Ändern von Backup-Dateien übernommen werden, können die Dateien beschädigen und führen zu einer nicht unterstützten Konfiguration.
@@ -359,9 +371,9 @@ endif::azure[]
 
 ifdef::gcp[]
 
-* In GCP werden Backups standardmäßig der Storage-Klasse _Standard_ zugeordnet.
+* In GCP werden Backups der Klasse _Standard_ Storage zugeordnet.
 +
-Sie können auch die preisgünstigere Storage-Klasse _Nearline_ oder die Speicherklassen _Coldline_ oder _Archive_ verwenden. Sie konfigurieren diese anderen Speicherklassen über Google. Siehe das Thema Google link:https://cloud.google.com/storage/docs/storage-classes["Speicherklassen"^] Finden Sie Informationen zum Ändern der Speicherklasse.
+Wenn Ihr On-Prem-Cluster ONTAP 9.12.1 oder höher verwendet, können Sie nach einer bestimmten Anzahl von Tagen ältere Backups als _Archive_ Storage in der Cloud Backup UI verschieben, um die Kosten weiter zu optimieren. (Diese Funktion ist derzeit für Cloud Volumes ONTAP Systeme nicht verfügbar.) link:reference-google-backup-tiers.html["Erfahren Sie mehr über Google Archivspeicher"^].
 
 
 
@@ -417,9 +429,9 @@ Das folgende Problem ist bekannt, das in einer zukünftigen Version behoben wird
 ** Die auf das Volume angewandte Snapshot Richtlinie muss eine der vom Cloud Backup anerkannten Richtlinien sein, einschließlich täglich, wöchentlich, monatlich usw. die standardmäßige „SM_created“ Richtlinie (wird für *Spiegelung aller Snapshots* verwendet) Das DP-Volume wird nicht erkannt und in der Liste der Volumes, die gesichert werden können, nicht angezeigt.
 
 
+* Das MetroCluster (MCC) Backup wird nur von ONTAP sekundär unterstützt: MCC > SnapMirror > ONTAP > Cloud Backup > Objekt-Storage.
 * Ad-hoc-Volume-Backup mit der *Backup Now*-Taste wird auf Datensicherungs-Volumes nicht unterstützt.
 * SM-BC-Konfigurationen werden nicht unterstützt.
-* Das MetroCluster (MCC) Backup wird nur von ONTAP sekundär unterstützt: MCC > SnapMirror > ONTAP > Cloud Backup > Objekt-Storage.
 * ONTAP unterstützt keine Fan-out-of-SnapMirror-Beziehungen von einem einzelnen Volume zu mehreren Objektspeicher. Daher wird diese Konfiguration nicht von Cloud Backup unterstützt.
 * WORM-/Compliance-Modus auf einem Objektspeicher wird derzeit nur von Amazon S3 und StorageGRID unterstützt. Dies wird als DataLock-Funktion bezeichnet und muss mit Cloud Backup-Einstellungen verwaltet werden.
 
@@ -435,6 +447,6 @@ Diese Einschränkungen gelten sowohl für die Such- und Wiederherstellungsmethod
 * Suchen und Wiederherstellen und Suchen und Wiederherstellen können 1 Ordner gleichzeitig wiederherstellen.
 * Die wiederherzustellende Datei muss die gleiche Sprache verwenden wie die Sprache auf dem Zielvolume. Wenn die Sprachen nicht identisch sind, wird eine Fehlermeldung angezeigt.
 * Wiederherstellung auf Dateiebene wird nicht unterstützt, wenn Sie dasselbe Konto mit verschiedenen BlueXP-Systemen in unterschiedlichen Subnetzen verwenden.
-* Sie können einzelne Ordner nicht wiederherstellen, wenn die Sicherungsdatei im Archiv-Speicher liegt.
+* Sie können einzelne Ordner nicht wiederherstellen, wenn sich die Sicherungsdatei im Archiv-Speicher befindet.
 * Wiederherstellung auf Dateiebene mithilfe von Suchen & Wiederherstellen wird nicht unterstützt, wenn der Connector auf einer Website ohne Internetzugang installiert wird (dunkle Seite).
 

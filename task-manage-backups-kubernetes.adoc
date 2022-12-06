@@ -57,7 +57,7 @@ image:screenshot_backup_manage_volumes_page_k8s.png["Die Seite Volumes managen, 
 . Klicken Sie auf *Speichern*, um Ihre Änderungen zu speichern.
 
 
-*Hinweis:* Wenn ein Volume nicht gesichert werden soll, werden Sie Ihrem Cloud Provider weiterhin die Kosten für die Objektspeicherung für die Kapazität in Rechnung gestellt, die die Backups nutzen, es sei denn, Sie  backups,Löschen Sie die Backups.
+*Hinweis:* Wenn ein Volume nicht gesichert werden soll, werden Sie Ihrem Cloud Provider weiterhin die Kosten für die Objektspeicherung für die Kapazität in Rechnung gestellt, die die Backups nutzen, es sei denn, Sie <<Backups werden gelöscht,Löschen Sie die Backups>>.
 
 
 
@@ -90,7 +90,7 @@ image:screenshot_backup_edit_policy_k8s.png["Ein Screenshot, der die Einstellung
 
 Falls Sie beim ersten Aktivieren von Cloud Backup auf Ihrem Kubernetes Cluster nicht die Option zum automatischen Zuweisen einer Backup-Richtlinie zu neu erstellten Volumes gewählt haben, können Sie diese Option später auf der Seite „_Backup Settings_ “ auswählen. Eine Backup-Richtlinie, die neu erstellten Volumes zugewiesen wurde, stellt sicher, dass alle Ihre Daten geschützt sind.
 
-Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss.  a new backup policy,Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen.
+Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss. <<Hinzufügen einer neuen Backup-Richtlinie,Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen>>.
 
 Sie können diese Einstellung auch deaktivieren, damit neu erstellte Volumes nicht automatisch gesichert werden. In diesem Fall müssen Sie Backups manuell für alle spezifischen Volumes aktivieren, die Sie in Zukunft sichern möchten.
 
@@ -109,6 +109,7 @@ image:screenshot_auto_backup_k8s.png["Ein Screenshot, der zeigt, wie eine Backup
 
 
 
+.Ergebnis
 Diese Backup-Richtlinie wird nun auf alle neuen Volumes angewendet, die in diesem Kubernetes Cluster erstellt wurden.
 
 
@@ -150,7 +151,7 @@ CAUTION: Wenn Sie planen, eine Arbeitsumgebung oder ein Cluster mit Backups zu l
 
 === Löschen aller Sicherungsdateien für eine Arbeitsumgebung
 
-Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren  Cloud Backup for a working environment,Wie hier beschrieben.
+Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren <<Deaktivieren von Cloud Backup für eine Arbeitsumgebung,Wie hier beschrieben>>.
 
 .Schritte
 . Wählen Sie auf der Registerkarte *Kubernetes* die Option *Backup-Einstellungen* aus.
@@ -170,7 +171,7 @@ image:screenshot_delete_all_backups_k8s.png["Ein Screenshot mit der Auswahl der 
 
 Durch das Löschen aller Backups für ein Volume werden auch künftige Backups für dieses Volume deaktiviert.
 
-Das können Sie  and disabling backups of volumes,Starten Sie neu, um Backups für das Volume zu erstellen Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.
+Das können Sie <<Aktivieren und Deaktivieren von Backups von Volumes,Starten Sie neu, um Backups für das Volume zu erstellen>> Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.
 
 .Schritte
 . Klicken Sie auf der Registerkarte *Kubernetes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Quellvolume *Details & Sicherungsliste* aus.
@@ -220,7 +221,7 @@ image:screenshot_delete_one_backup_k8s.png["Ein Screenshot, der zeigt, wie eine 
 
 Durch das Deaktivieren von Cloud Backup für eine Arbeitsumgebung werden Backups jedes Volumes auf dem System deaktiviert, zudem wird die Möglichkeit zur Wiederherstellung eines Volumes deaktiviert. Vorhandene Backups werden nicht gelöscht. Dadurch wird die Registrierung des Backup-Service in dieser Arbeitsumgebung nicht aufgehoben. Im Grunde können Sie alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten.
 
-Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich  all backup files for a working environment,Löschen Sie die Backups.
+Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich <<Löschen aller Sicherungsdateien für eine Arbeitsumgebung,Löschen Sie die Backups>>.
 
 .Schritte
 . Wählen Sie auf der Registerkarte *Kubernetes* die Option *Backup-Einstellungen* aus.

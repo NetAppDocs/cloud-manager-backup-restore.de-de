@@ -42,7 +42,7 @@ NOTE: Das Service-Konto (_SnapCenter-Account-<accountid>_) wird für die Ausfüh
 
 . Geben Sie auf der Seite Hostdetails angeben die Details des Oracle-Datenbank-Hosts ein, aktivieren Sie das Kontrollkästchen, um zu bestätigen, dass das Plug-in auf dem Host installiert ist, und klicken Sie auf *Entdecken*.
 +
-** Zeigt alle Datenbanken auf dem Host an. Wenn die Betriebssystemauthentifizierung für die Datenbank deaktiviert ist, sollten Sie die Datenbankauthentifizierung konfigurieren, indem Sie auf *Configure* klicken. Weitere Informationen finden Sie unter  Oracle database credentials.
+** Zeigt alle Datenbanken auf dem Host an. Wenn die Betriebssystemauthentifizierung für die Datenbank deaktiviert ist, sollten Sie die Datenbankauthentifizierung konfigurieren, indem Sie auf *Configure* klicken. Weitere Informationen finden Sie unter <<Konfigurieren Sie die Anmeldedaten für die Oracle-Datenbank>>.
 ** Klicken Sie auf *Anwendung verwalten*, wählen Sie *Hinzufügen*, um einen neuen Host hinzuzufügen, *Aktualisieren*, um neue Datenbanken zu entdecken, oder *Entfernen*, um einen Datenbank-Host zu entfernen.
 ** Klicken Sie auf *Einstellungen* und wählen Sie *Richtlinien*, um die vordefinierten Richtlinien anzuzeigen. Überprüfen Sie die vordefinierten Richtlinien, und wenn Sie möchten, können Sie sie entweder bearbeiten, um Ihre Anforderung zu erfüllen, oder erstellen Sie eine neue Richtlinie.
 

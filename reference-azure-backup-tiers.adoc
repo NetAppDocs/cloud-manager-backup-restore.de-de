@@ -22,7 +22,7 @@ Cloud Backup unterstützt eine Azure-ArchivierungszugriffTier und die meisten Re
 
 Beim ersten Erstellen von Sicherungsdateien werden sie in der Zugriffsebene _Cool_ gespeichert. Diese Tier ist für die Speicherung von Daten optimiert, auf die selten zugegriffen wird. Bei Bedarf kann jedoch sofort zugegriffen werden.
 
-Wenn in Ihren Quellclustern ONTAP 9.10.1 oder neuer ausgeführt wird, können Sie zur weiteren Kostenoptimierung Backups von _Cool_ zu _Azure Archive_ Storage nach einer bestimmten Anzahl von Tagen (normalerweise über 30 Tage) abstufen. Auf die Daten in dieser Tier kann nicht unmittelbar bei Bedarf zugegriffen werden und sind mit höheren Abrufkosten verbunden. Daher müssen Sie bedenken, wie oft Sie Daten aus diesen archivierten Backup-Dateien wiederherstellen müssen. Weitere Informationen finden Sie im nächsten Abschnitt  data from archival storage,Wiederherstellen von Daten aus Archiv-Storage.
+Wenn in Ihren Quellclustern ONTAP 9.10.1 oder neuer ausgeführt wird, können Sie zur weiteren Kostenoptimierung Backups von _Cool_ zu _Azure Archive_ Storage nach einer bestimmten Anzahl von Tagen (normalerweise über 30 Tage) abstufen. Auf die Daten in dieser Tier kann nicht unmittelbar bei Bedarf zugegriffen werden und sind mit höheren Abrufkosten verbunden. Daher müssen Sie bedenken, wie oft Sie Daten aus diesen archivierten Backup-Dateien wiederherstellen müssen. Weitere Informationen finden Sie im nächsten Abschnitt <<Wiederherstellen von Daten aus Archiv-Storage,Wiederherstellen von Daten aus Archiv-Storage>>.
 
 Beachten Sie, dass Sie beim Konfigurieren von Cloud Backup mit dieser Lebenszyklusregel keine Lebenszyklusregeln konfigurieren müssen, wenn Sie den Container in Ihrem Azure-Konto einrichten.
 

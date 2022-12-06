@@ -41,7 +41,7 @@ Wenn Sie in bestimmten Arbeitsumgebungen nach bestimmten Volumes suchen, können
 
 Sie können Backups für neue Volumes aktivieren, wenn diese derzeit nicht gesichert werden. Darüber hinaus können Sie Backups auch für Volumes aktivieren, die Sie zuvor deaktiviert hatten.
 
-Sie können Backups für Volumes deaktivieren, sodass keine weiteren Backups erstellt werden. Dadurch wird auch die Möglichkeit deaktiviert, Volume-Daten aus einer Sicherungsdatei wiederherzustellen. So können Sie im Prinzip alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten. Alle bestehenden Backups werden nicht gelöscht, so dass Sie weiterhin von Ihrem Cloud-Provider für Objekt-Storage-Kosten für die Kapazität, die Ihre Backups verwenden, es sei denn, Sie link:deleting-all-backup-files-for-a-volume["Löschen Sie die Backups"].
+Sie können Backups für Volumes deaktivieren, sodass keine weiteren Backups erstellt werden. Dadurch wird auch die Möglichkeit deaktiviert, Volume-Daten aus einer Sicherungsdatei wiederherzustellen. So können Sie im Prinzip alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten. Alle bestehenden Backups werden nicht gelöscht, so dass Sie weiterhin von Ihrem Cloud-Provider für Objekt-Storage-Kosten für die Kapazität, die Ihre Backups verwenden, es sei denn, Sie <<Löschen aller Sicherungsdateien für ein Volume,Löschen Sie die Backups>>.
 
 .Schritte
 . Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
@@ -110,9 +110,15 @@ link:reference-azure-backup-tiers.html["Erfahren Sie mehr über den Azure Archiv
 
 endif::azure[]
 
+ifdef::gcp[]
+
+link:reference-google-backup-tiers.html["Erfahren Sie mehr über die Verwendung von Google Archivspeicher"]. (ONTAP 9.12.1 erforderlich.)
+
+endif::gcp[]
+
 +image:screenshot_backup_modify_policy_page2.png["Ein Screenshot, der das Tiering in die Archiv-Storage-Einstellungen für Cloud Backup zeigt."]
 
-+ Beachten Sie, dass alle Backup-Dateien, die in einen Archiv-Storage verschoben wurden, in diesem Tier belassen werden, wenn Sie die Tiering-Backups zur Archivierung anhalten - sie werden nicht automatisch zurück in die Standard-Tier verschoben.
++ Beachten Sie, dass alle Backup-Dateien, die in einen Archiv-Storage verschoben wurden, in diesem Tier belassen werden, wenn Sie die Tiering-Backups zur Archivierung anhalten - sie werden nicht automatisch zurück in die Standard-Tier verschoben. Es werden nur neue Volume-Backups in der Standard-Tier gespeichert.
 
 
 
@@ -120,7 +126,7 @@ endif::azure[]
 
 Wenn Sie Cloud-Backup für eine Arbeitsumgebung aktivieren, werden alle ausgewählten Volumes mit der von Ihnen definierten Standard-Backup-Richtlinie gesichert. Um bestimmten Volumes mit verschiedenen Recovery Point Objectives (RPOs) unterschiedliche Backup-Richtlinien zuzuweisen, können Sie zusätzliche Richtlinien für diesen Cluster erstellen und diese Richtlinien anderen Volumes zuweisen.
 
-Wenn Sie eine neue Sicherungsrichtlinie auf bestimmte Volumes in einer Arbeitsumgebung anwenden möchten, müssen Sie zunächst die Sicherungsrichtlinie zur Arbeitsumgebung hinzufügen. Dann können Sie das  the policy assigned to existing volumes,Wenden Sie die Richtlinie auf Volumes in dieser Arbeitsumgebung an.
+Wenn Sie eine neue Sicherungsrichtlinie auf bestimmte Volumes in einer Arbeitsumgebung anwenden möchten, müssen Sie zunächst die Sicherungsrichtlinie zur Arbeitsumgebung hinzufügen. Dann können Sie das <<Ändern der Richtlinie, die vorhandenen Volumes zugewiesen ist,Wenden Sie die Richtlinie auf Volumes in dieser Arbeitsumgebung an>>.
 
 [NOTE]
 ====
@@ -164,6 +170,12 @@ link:reference-azure-backup-tiers.html["Erfahren Sie mehr über den Azure Archiv
 
 endif::azure[]
 
+ifdef::gcp[]
+
+link:reference-google-backup-tiers.html["Erfahren Sie mehr über die Verwendung von Google Archivspeicher"]. (ONTAP 9.12.1 erforderlich.)
+
+endif::gcp[]
+
 +image:screenshot_backup_modify_policy_page2.png["Ein Screenshot, der das Tiering in die Archiv-Storage-Einstellungen für Cloud Backup zeigt."]
 
 
@@ -172,7 +184,7 @@ endif::azure[]
 
 Sie können die Ihrer vorhandenen Volumes zugewiesene Backup-Richtlinie ändern, wenn Sie die Häufigkeit der Durchführung von Backups ändern möchten oder den Aufbewahrungswert ändern möchten.
 
-Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss.  a new backup policy,Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen.
+Beachten Sie, dass die Richtlinie, die Sie auf die Volumes anwenden möchten, bereits vorhanden sein muss. <<Hinzufügen einer neuen Backup-Richtlinie,Erfahren Sie, wie Sie eine neue Backup-Richtlinie für eine Arbeitsumgebung hinzufügen>>.
 
 .Schritte
 . Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
@@ -291,7 +303,7 @@ CAUTION: Wenn Sie planen, eine Arbeitsumgebung oder ein Cluster mit Backups zu l
 
 === Löschen aller Sicherungsdateien für eine Arbeitsumgebung
 
-Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren  Cloud Backup for a working environment,Wie hier beschrieben.
+Durch das Löschen aller Backups für eine Arbeitsumgebung werden keine zukünftigen Backups von Volumes in dieser Arbeitsumgebung deaktiviert. Wenn Sie die Erstellung von Backups aller Volumes in einer Arbeitsumgebung beenden möchten, können Sie Backups deaktivieren <<Deaktivieren von Cloud Backup für eine Arbeitsumgebung,Wie hier beschrieben>>.
 
 .Schritte
 . Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
@@ -311,7 +323,7 @@ image:screenshot_delete_all_backups.png["Ein Screenshot mit der Auswahl der Scha
 
 Durch das Löschen aller Backups für ein Volume werden auch künftige Backups für dieses Volume deaktiviert.
 
-Das können Sie  and disabling backups of volumes,Starten Sie neu, um Backups für das Volume zu erstellen Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.
+Das können Sie <<Aktivieren und Deaktivieren von Backups von Volumes,Starten Sie neu, um Backups für das Volume zu erstellen>> Auf der Seite „Backups verwalten“ können Sie jederzeit Backups managen.
 
 .Schritte
 . Klicken Sie auf der Registerkarte *Volumes* auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Wählen Sie für das Quellvolume *Details & Sicherungsliste* aus.
@@ -400,7 +412,7 @@ image:screenshot_backup_view_no_relationship.png["Ein Screenshot, der den Status
 
 Durch die Deaktivierung von Cloud Backup für eine funktionierende Umgebung werden Backups von jedem Volume im System deaktiviert und es wird auch die Möglichkeit zur Wiederherstellung eines Volumes deaktiviert. Vorhandene Backups werden nicht gelöscht. Dadurch wird die Registrierung des Backup-Service in dieser Arbeitsumgebung nicht aufgehoben. Im Grunde können Sie alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten.
 
-Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich  all backup files for a working environment,Löschen Sie die Backups.
+Beachten Sie, dass Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität in Ihrem Backup in Rechnung stellen, es sei denn, Sie sind erforderlich <<Löschen aller Sicherungsdateien für eine Arbeitsumgebung,Löschen Sie die Backups>>.
 
 .Schritte
 . Wählen Sie auf der Registerkarte *Volumes* die Option *Backup-Einstellungen* aus.
