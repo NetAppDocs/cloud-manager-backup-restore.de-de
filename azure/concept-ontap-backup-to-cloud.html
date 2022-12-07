@@ -1293,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2022-12-07 15:55:00 +0000">12/07/2022</time>
     
   
 
@@ -1860,21 +1860,6 @@ DataLock kann nicht aktiviert werden, wenn Sie Backups in Archiv-Storage Tiering
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="einschränkungen">Einschränkungen</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Das folgende Problem ist bekannt, das in einer zukünftigen Version behoben wird:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Wenn während eines Wiederherstellungsvorgangs auf einem System mit ONTAP Version 9.10.1 oder neuer ein Backup erstellt wurde und auf dem System, auf dem das Volume wiederhergestellt wird, ONTAP Version 9.10.0 oder eine frühere Version ausgeführt wird, schlägt die Wiederherstellung entweder durch Systemunterbrechung oder in manchen Fällen erfolgreich fehl. Aber das Volumen ist beschädigt.</p>
-</li>
-</ul>
-</div>
 <div class="sect2">
 <h3 id="backup-einschränkungen">Backup-Einschränkungen</h3>
 <div class="ulist">
@@ -1946,16 +1931,19 @@ DataLock kann nicht aktiviert werden, wenn Sie Backups in Archiv-Storage Tiering
 <p>Suchen und Wiederherstellen und Suchen und Wiederherstellen können 1 Ordner gleichzeitig wiederherstellen.</p>
 </li>
 <li>
-<p>Die wiederherzustellende Datei muss die gleiche Sprache verwenden wie die Sprache auf dem Zielvolume. Wenn die Sprachen nicht identisch sind, wird eine Fehlermeldung angezeigt.</p>
+<p>Die Wiederherstellung von FlexGroup Volumes auf FlexVol Volumes oder FlexVol Volumes auf FlexGroup Volumes wird nicht unterstützt.</p>
 </li>
 <li>
 <p>Wiederherstellung auf Dateiebene wird nicht unterstützt, wenn Sie dasselbe Konto mit verschiedenen BlueXP-Systemen in unterschiedlichen Subnetzen verwenden.</p>
 </li>
 <li>
+<p>Wiederherstellung auf Dateiebene mithilfe von Suchen &amp; Wiederherstellen wird nicht unterstützt, wenn der Connector auf einer Website ohne Internetzugang installiert wird (dunkle Seite).</p>
+</li>
+<li>
 <p>Sie können einzelne Ordner nicht wiederherstellen, wenn sich die Sicherungsdatei im Archiv-Speicher befindet.</p>
 </li>
 <li>
-<p>Wiederherstellung auf Dateiebene mithilfe von Suchen &amp; Wiederherstellen wird nicht unterstützt, wenn der Connector auf einer Website ohne Internetzugang installiert wird (dunkle Seite).</p>
+<p>Die wiederherzustellende Datei muss die gleiche Sprache verwenden wie die Sprache auf dem Zielvolume. Wenn die Sprachen nicht identisch sind, wird eine Fehlermeldung angezeigt.</p>
 </li>
 </ul>
 </div>
