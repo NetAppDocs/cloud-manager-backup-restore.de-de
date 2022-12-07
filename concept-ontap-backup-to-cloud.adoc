@@ -404,15 +404,6 @@ Das Lesen der Daten von Ihrem Cloud-Provider kann zu einem einmalig erhöhten Ko
 
 
 
-== Einschränkungen
-
-Das folgende Problem ist bekannt, das in einer zukünftigen Version behoben wird:
-
-* Wenn während eines Wiederherstellungsvorgangs auf einem System mit ONTAP Version 9.10.1 oder neuer ein Backup erstellt wurde und auf dem System, auf dem das Volume wiederhergestellt wird, ONTAP Version 9.10.0 oder eine frühere Version ausgeführt wird, schlägt die Wiederherstellung entweder durch Systemunterbrechung oder in manchen Fällen erfolgreich fehl. Aber das Volumen ist beschädigt.
-
-
-
-
 === Backup-Einschränkungen
 
 * Um ältere Backup-Dateien per Tiering in Archiv-Storage zu verschieben, muss der Cluster ONTAP 9.10.1 oder höher ausführen. Für die Wiederherstellung von Volumes aus Backup-Dateien, die sich im Archiv-Storage befinden, muss im Ziel-Cluster zudem ONTAP 9.10.1+ ausgeführt werden.
@@ -445,8 +436,9 @@ Diese Einschränkungen gelten sowohl für die Such- und Wiederherstellungsmethod
 * Browse & Restore kann bis zu 100 einzelne Dateien gleichzeitig wiederherstellen.
 * Search & Restore kann 1 Datei gleichzeitig wiederherstellen.
 * Suchen und Wiederherstellen und Suchen und Wiederherstellen können 1 Ordner gleichzeitig wiederherstellen.
-* Die wiederherzustellende Datei muss die gleiche Sprache verwenden wie die Sprache auf dem Zielvolume. Wenn die Sprachen nicht identisch sind, wird eine Fehlermeldung angezeigt.
+* Die Wiederherstellung von FlexGroup Volumes auf FlexVol Volumes oder FlexVol Volumes auf FlexGroup Volumes wird nicht unterstützt.
 * Wiederherstellung auf Dateiebene wird nicht unterstützt, wenn Sie dasselbe Konto mit verschiedenen BlueXP-Systemen in unterschiedlichen Subnetzen verwenden.
-* Sie können einzelne Ordner nicht wiederherstellen, wenn sich die Sicherungsdatei im Archiv-Speicher befindet.
 * Wiederherstellung auf Dateiebene mithilfe von Suchen & Wiederherstellen wird nicht unterstützt, wenn der Connector auf einer Website ohne Internetzugang installiert wird (dunkle Seite).
+* Sie können einzelne Ordner nicht wiederherstellen, wenn sich die Sicherungsdatei im Archiv-Speicher befindet.
+* Die wiederherzustellende Datei muss die gleiche Sprache verwenden wie die Sprache auf dem Zielvolume. Wenn die Sprachen nicht identisch sind, wird eine Fehlermeldung angezeigt.
 
