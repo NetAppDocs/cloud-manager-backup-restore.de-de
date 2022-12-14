@@ -41,7 +41,7 @@ Wie Sie sehen können, bietet das Restore Dashboard 2 verschiedene Möglichkeite
 
 == Vergleichen von Durchsuchen und Wiederherstellen und Suchen und Wiederherstellen
 
-In der Regel ist _Browse & Restore_ besser, wenn Sie ein bestimmtes Volume, einen Ordner oder eine Datei aus der letzten Woche oder einem Monat wiederherstellen müssen - und Sie kennen den Namen und den Speicherort der Datei und das Datum, an dem sie zuletzt in gutem Zustand war. _Search & Restore_ ist in der Regel besser, wenn Sie ein Volume, einen Ordner oder eine Datei wiederherstellen müssen, aber Sie erinnern sich nicht an den genauen Namen, oder das Volumen, in dem es sich befindet, oder das Datum, an dem es zuletzt in gutem Zustand war.
+In der Regel ist _Browse & Restore_ besser, wenn Sie ein bestimmtes Volume, einen Ordner oder eine Datei aus der letzten Woche oder einem Monat wiederherstellen müssen - und Sie kennen den Namen und den Speicherort der Datei und das Datum, an dem sie zuletzt in gutem Zustand war. _Search & Restore_ ist in der Regel besser, wenn Sie ein Volume, einen Ordner oder eine Datei wiederherstellen müssen, aber Sie können sich nicht an den genauen Namen oder das Volumen, in dem es sich befindet, oder an das Datum erinnern, an dem es zuletzt in gutem Zustand war.
 
 Diese Tabelle enthält einen Vergleich der beiden Methoden.
 
@@ -113,16 +113,19 @@ Sie können ein Volume, einen Ordner oder einzelne Dateien aus einer ONTAP-Siche
 
 [cols="50,50"]
 |===
-| Speicherort der Sicherungsdatei Zielumgebung ifdef::aws[] | Amazon S3 
+| Speicherort Der Sicherungsdatei | Zielarbeitsumgebung ifdef::aws[] 
 
 
-| Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[] | Azure Blob 
+| Amazon S3 | Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[] 
 
 
-| Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[] | Google Cloud Storage 
+| Azure Blob | Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[] 
 
 
-| Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[] | NetApp StorageGRID 
+| Google Cloud Storage | Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[] 
+
+
+| NetApp StorageGRID | Lokales ONTAP System 
 |===
 Für Browse & Restore kann der Connector an folgenden Orten installiert werden:
 

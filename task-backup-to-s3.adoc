@@ -73,7 +73,7 @@ Die folgende Abbildung zeigt die einzelnen Komponenten und die Verbindungen, die
 
 image:diagram_cloud_backup_cvo_aws.png["Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
 
-Der VPC-Gateway-Endpunkt muss bereits in der VPC vorhanden sein.
+Der VPC-Gateway-Endpunkt muss bereits in der VPC vorhanden sein. https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html["Weitere Informationen zu Gateway-Endpunkten"^].
 
 Unterstützte ONTAP-Versionen:: Minimum ONTAP 9.7P5; ONTAP 9.8P13 und höher wird empfohlen.
 Lizenzanforderungen:: Für Cloud Backup PAYGO-Lizenzen ist im AWS Marketplace ein BlueXP-Abonnement verfügbar, das die Implementierung von Cloud Volumes ONTAP und Cloud Backup ermöglicht. Sie müssen https://aws.amazon.com/marketplace/pp/prodview-oorxakq6lq7m4?sr=0-8&ref_=beagle&applicationId=AWSMPContessa["Melden Sie sich für dieses BlueXP-Abonnement an"^] Vor Aktivierung von Cloud Backup: Die Abrechnung für Cloud Backup erfolgt über dieses Abonnement.
@@ -89,14 +89,6 @@ Zudem benötigen Sie ein AWS-Konto für den Speicherplatz, auf dem sich Ihre Bac
 
 --
 Unterstützte AWS-Regionen:: Cloud Backup wird in allen AWS Regionen unterstützt https://cloud.netapp.com/cloud-volumes-global-regions["Wobei Cloud Volumes ONTAP unterstützt wird"^]; Einschließlich Regionen von AWS GovCloud.
-Einrichtung zur Erstellung von Backups in einem anderen AWS Konto erforderlich:: Standardmäßig werden Backups mit demselben Konto erstellt wie für das Cloud Volumes ONTAP-System. Falls Sie ein anderes AWS Konto für Ihre Backups verwenden möchten, müssen Sie folgende Anforderungen erfüllen:
-+
---
-* Fügen Sie die Anmeldeinformationen für das AWS Zielkonto in BlueXP hinzu. https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-adding-aws-accounts.html#add-additional-credentials-to-a-connector["So geht's"].
-* Fügen Sie die Berechtigungen „s3:PutBucketPolicy“ und „s3:PutBucketEigentümership Controls“ zur IAM-Rolle hinzu, die dem BlueXP Connector Berechtigungen erteilt.
-
-
---
 Erforderliche Informationen zur Nutzung von vom Kunden gemanagten Schlüsseln für die Datenverschlüsselung:: Im Aktivierungsassistenten können Sie Ihre eigenen, von Kunden gemanagten Schlüssel für die Datenverschlüsselung auswählen und nicht die standardmäßigen Amazon S3-Verschlüsselungsschlüssel verwenden. In diesem Fall müssen Sie bereits die über die Verschlüsselung gemanagten Schlüssel eingerichtet haben. https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-setting-up-kms.html["Sehen Sie, wie Sie Ihre eigenen Schlüssel verwenden"^].
 Erforderliche AWS Connector Berechtigungen:: Die IAM-Rolle, die BlueXP Berechtigungen bereitstellt, muss die neuesten S3-Berechtigungen enthalten https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-permissions-aws.html["BlueXP-Richtlinie"^].
 +
@@ -171,6 +163,28 @@ Erforderliche AWS Cloud Volumes ONTAP Berechtigungen:: Wenn auf Ihrem Cloud Volu
 +
 --
 Wenn Sie die Cloud Volumes ONTAP-Arbeitsumgebung mit BlueXP Version 3.9.23 oder höher erstellt haben, sollten diese Berechtigungen bereits Teil der IAM-Rolle sein. Andernfalls müssen Sie die fehlenden Berechtigungen hinzufügen.
+
+--
+Einrichtung zur Erstellung von Backups in einem anderen AWS Konto erforderlich:: Standardmäßig werden Backups mit demselben Konto erstellt wie für das Cloud Volumes ONTAP-System. Falls Sie ein anderes AWS Konto für Ihre Backups verwenden möchten, müssen Sie folgende Anforderungen erfüllen:
++
+--
+* Stellen Sie sicher, dass die Berechtigungen „s3:PutBucketPolicy“ und „s3:PutBucketOwnershipControls“ Teil der IAM-Rolle sind, die dem BlueXP Connector Berechtigungen erteilt.
+* Fügen Sie die Anmeldeinformationen für das AWS Zielkonto in BlueXP hinzu. https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-adding-aws-accounts.html#add-additional-credentials-to-a-connector["So geht's"^].
+* Fügen Sie die folgenden Berechtigungen in den Benutzeranmeldeinformationen im zweiten Konto hinzu:
++
+....
+"athena:StartQueryExecution",
+"athena:GetQueryResults",
+"athena:GetQueryExecution",
+"glue:GetDatabase",
+"glue:GetTable",
+"glue:CreateTable",
+"glue:CreateDatabase",
+"glue:GetPartitions",
+"glue:BatchCreatePartition",
+"glue:BatchDeletePartition"
+....
+
 
 --
 

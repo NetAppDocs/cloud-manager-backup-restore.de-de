@@ -22,9 +22,27 @@ Alles zum Thema Cloud Backup:
 
 
 
-=== Support der Google Archivspeicher
+=== Erforderliche Änderungen am Endpunkt für ausgehende Internetzugriffe für Connector
 
-Sicherungsdateien werden zunächst in der Speicherklasse Google Standard erstellt. Jetzt können Sie ältere Backups nach einer bestimmten Anzahl von Tagen auf Google Archivspeicher verschieben, um die Kosten weiter zu optimieren.
+Aufgrund der Änderung im Cloud-Backup müssen die folgenden Connector-Endpunkte für einen erfolgreichen Cloud-Backup-Betrieb geändert werden:
+
+[cols="50,50"]
+|===
+| Alter Endpunkt | Neuer Endpunkt 
+
+
+| https://cloudmanager.cloud.netapp.com[] | https://api.bluexp.netapp.com[] 
+
+
+| https://*.cloudmanager.cloud.netapp.com[] | https://*.api.bluexp.netapp.com[] 
+|===
+Hier finden Sie die vollständige Liste der Endpunkte für Ihr https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-aws.html#outbound-internet-access["AWS"^], https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-gcp.html#outbound-internet-access["Google Cloud"^], Oder https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-azure.html#outbound-internet-access["Azure"^] Cloud-Umgebung.
+
+
+
+=== Unterstützung für die Auswahl des Google Archivspeicherklasses in der UI
+
+Sicherungsdateien werden zunächst in der Speicherklasse Google Standard erstellt. Jetzt können Sie über die Benutzeroberfläche von Cloud Backup ältere Backups nach einer bestimmten Anzahl von Tagen auf Google Archiv-Storage verschieben, um die Kosten weiter zu optimieren.
 
 Diese Funktion wird derzeit für ONTAP-Cluster vor Ort mit ONTAP 9.12.1 oder höher unterstützt. Dieses Angebot ist derzeit nicht für Cloud Volumes ONTAP Systeme verfügbar.
 
