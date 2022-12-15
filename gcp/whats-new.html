@@ -1286,7 +1286,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2022-12-14 19:05:55 +0000">12/14/2022</time>
     
   
 
@@ -1309,9 +1309,40 @@
 <h2 id="bis-6-dezember-2022">Bis 6. Dezember 2022</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="support-der-google-archivspeicher">Support der Google Archivspeicher</h3>
+<h3 id="erforderliche-änderungen-am-endpunkt-für-ausgehende-internetzugriffe-für-connector">Erforderliche Änderungen am Endpunkt für ausgehende Internetzugriffe für Connector</h3>
 <div class="paragraph">
-<p>Sicherungsdateien werden zunächst in der Speicherklasse Google Standard erstellt. Jetzt können Sie ältere Backups nach einer bestimmten Anzahl von Tagen auf Google Archivspeicher verschieben, um die Kosten weiter zu optimieren.</p>
+<p>Aufgrund der Änderung im Cloud-Backup müssen die folgenden Connector-Endpunkte für einen erfolgreichen Cloud-Backup-Betrieb geändert werden:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Alter Endpunkt</th>
+<th class="tableblock halign-left valign-top">Neuer Endpunkt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cloudmanager.cloud.netapp.com" class="bare">https://cloudmanager.cloud.netapp.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://api.bluexp.netapp.com" class="bare">https://api.bluexp.netapp.com</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://*.cloudmanager.cloud.netapp.com" class="bare">https://*.cloudmanager.cloud.netapp.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://*.api.bluexp.netapp.com" class="bare">https://*.api.bluexp.netapp.com</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Hier finden Sie die vollständige Liste der Endpunkte für Ihr <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-aws.html#outbound-internet-access" target="_blank" rel="noopener">"AWS"</a>, <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-gcp.html#outbound-internet-access" target="_blank" rel="noopener">"Google Cloud"</a>, Oder <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-azure.html#outbound-internet-access" target="_blank" rel="noopener">"Azure"</a> Cloud-Umgebung.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unterstützung-für-die-auswahl-des-google-archivspeicherklasses-in-der-ui">Unterstützung für die Auswahl des Google Archivspeicherklasses in der UI</h3>
+<div class="paragraph">
+<p>Sicherungsdateien werden zunächst in der Speicherklasse Google Standard erstellt. Jetzt können Sie über die Benutzeroberfläche von Cloud Backup ältere Backups nach einer bestimmten Anzahl von Tagen auf Google Archiv-Storage verschieben, um die Kosten weiter zu optimieren.</p>
 </div>
 <div class="paragraph">
 <p>Diese Funktion wird derzeit für ONTAP-Cluster vor Ort mit ONTAP 9.12.1 oder höher unterstützt. Dieses Angebot ist derzeit nicht für Cloud Volumes ONTAP Systeme verfügbar.</p>

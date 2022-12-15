@@ -1286,7 +1286,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-07 15:55:00 +0000">12/07/2022</time>
+    <time datetime="2022-12-14 19:05:55 +0000">12/14/2022</time>
     
   
 
@@ -1493,12 +1493,12 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p><strong>FlexGroup-Einschränkungen</strong>:</p>
+<p><strong>Einschränkungen bei der Wiederherstellung von FlexGroup-Volumes</strong>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Die vollständige Volume-Wiederherstellung wird für ONTAP-Systeme vor Ort unterstützt; Cloud Volumes ONTAP-Systeme werden aktuell nicht unterstützt.</p>
+<p>Vollständige Volume-Wiederherstellung wird nur für On-Premises-ONTAP-Systeme unterstützt (aktuell werden Cloud Volumes ONTAP-Systeme nicht unterstützt).</p>
 </li>
 <li>
 <p>Wiederherstellung auf Dateiebene wird sowohl für lokale ONTAP- als auch für Cloud Volumes ONTAP-Systeme unterstützt.</p>
@@ -1507,10 +1507,7 @@
 <p>Die Wiederherstellung von Verzeichnissen/Ordnern wird derzeit nicht unterstützt.</p>
 </li>
 <li>
-<p>Backups können nicht in Archiv-Storage verschoben werden.</p>
-</li>
-<li>
-<p>Backups können nicht DataLock- und Ransomware-Schutz nutzen.</p>
+<p>Volumes können zu diesem Zeitpunkt in einem einzelnen Aggregat wiederhergestellt werden.</p>
 </li>
 </ul>
 </div>
@@ -1574,7 +1571,7 @@
 <p><strong>BYOL</strong>: Eine von NetApp erworbene Lizenz, die zusammen mit jedem Cloud-Provider verwendet werden kann.</p>
 </li>
 <li>
-<p><strong>PAYGO</strong>: Ein stündliches Abonnement vom Markt Ihres Cloud-Providers.</p>
+<p><strong>PAYGO</strong>: Ein stündliches Abonnement über den Markt Ihres Cloud-Providers.</p>
 </li>
 <li>
 <p><strong>Jahr</strong>: Ein Jahresvertrag über den Markt Ihres Cloud-Providers.</p>
@@ -1589,7 +1586,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Wenn Sie eine BYOL-Lizenz von NetApp erwerben, müssen Sie auch das PAYGO-Angebot über den Markt Ihres Cloud-Providers abonnieren. Ihre Lizenz wird immer zuerst berechnet, aber Sie werden vom Stundensatz auf dem Markt in diesen Fällen berechnet:</p>
+<p>Wenn Sie eine BYOL-Lizenz von NetApp erwerben, müssen Sie auch das PAYGO-Angebot über den Markt Ihres Cloud-Providers abonnieren. Ihre Lizenz wird immer zuerst berechnet, aber in diesen Fällen wird Ihnen der Stundensatz auf dem Markt berechnet:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1602,7 +1599,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>Wenn Sie über einen Jahresvertrag eines Marktes verfügen, wird der gesamte Cloud Backup-Verbrauch über diesen Vertrag abgerechnet. Man kann einen jährlichen Marktplatzvertrag nicht mit einem Byol kombinieren.</p>
+<p>Wenn Sie über einen Jahresvertrag eines Marktes verfügen, wird der gesamte Cloud Backup-Verbrauch über diesen Vertrag abgerechnet. Es ist nicht möglich, einen jährlichen Marktvertrag mit einem BYOL-Modell zu kombinieren.</p>
 </div>
 </td>
 </tr>
@@ -1623,7 +1620,7 @@
 <div class="sect2">
 <h3 id="pay-as-you-go-abonnement">Pay-as-you-go-Abonnement</h3>
 <div class="paragraph">
-<p>Cloud Backup bietet eine nutzungsbasierte Lizenzierung in einem Pay-as-you-go-Modell. Nachdem Sie sich über den Marktplatz Ihres Cloud-Providers registriert haben, zahlen Sie pro gib für gesicherte Daten – ​there keine Vorauszahlung. Die Abrechnung erfolgt von Ihrem Cloud-Provider über Ihre monatliche Abrechnung.</p>
+<p>Cloud Backup bietet eine nutzungsbasierte Lizenzierung in einem Pay-as-you-go-Modell. Wenn Sie den Markt Ihres Cloud-Providers abonniert haben, bezahlen Sie pro gib für Daten, die gesichert werden. Es erfolgt keine Vorauszahlung. Die Abrechnung erfolgt von Ihrem Cloud-Provider über Ihre monatliche Abrechnung.</p>
 </div>
 <div class="paragraph">
 <p><a href="task-licensing-cloud-backup.html#use-a-cloud-backup-paygo-subscription">"Erfahren Sie, wie Sie ein Pay-as-you-go-Abonnement einrichten"</a>.</p>
@@ -1867,10 +1864,13 @@ DataLock kann nicht aktiviert werden, wenn Sie Backups in Archiv-Storage Tiering
 <p>Beziehungen zu den SnapMirror-Labels <code>app_consistent</code> Und <code>all_source_snapshot</code> Wird nicht in der Cloud gesichert werden.</p>
 </li>
 <li>
-<p>Wenn Sie lokale Kopien der Snapshots auf dem SnapMirror Ziel-Volume erstellen (unabhängig von den verwendeten SnapMirror Bezeichnungen), werden diese Snapshots nicht als Backups in die Cloud verschoben. Zu diesem Zeitpunkt müssen Sie eine Snapshot-Richtlinie mit den gewünschten Labels auf dem Quell-DP-Volume erstellen, um Cloud Backup zu sichern.</p>
+<p>Wenn Sie lokale Kopien der Snapshots auf dem SnapMirror Ziel-Volume erstellen (unabhängig von den verwendeten SnapMirror Bezeichnungen), werden diese Snapshots nicht als Backups in die Cloud verschoben. Derzeit müssen Sie eine Snapshot-Richtlinie mit den gewünschten Etiketten auf dem Quell-DP-Volume erstellen, damit Cloud Backup sie sichern kann.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>FlexGroup Volumes Backups können nicht in Archiv-Storage verschoben oder nicht DataLock und Ransomware-Schutz verwendet werden.</p>
 </li>
 <li>
 <p>SVM-DR-Volume-Backup wird unter den folgenden Einschränkungen unterstützt:</p>

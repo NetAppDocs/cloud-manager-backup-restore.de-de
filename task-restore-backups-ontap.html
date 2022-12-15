@@ -1351,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2022-12-14 19:05:55 +0000">12/14/2022</time>
     
   
 
@@ -1410,7 +1410,7 @@ Cloud Backup muss bereits für mindestens eine Arbeitsumgebung aktiviert sein un
 <h2 id="vergleichen-von-durchsuchen-und-wiederherstellen-und-suchen-und-wiederherstellen">Vergleichen von Durchsuchen und Wiederherstellen und Suchen und Wiederherstellen</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In der Regel ist <em>Browse &amp; Restore</em> besser, wenn Sie ein bestimmtes Volume, einen Ordner oder eine Datei aus der letzten Woche oder einem Monat wiederherstellen müssen - und Sie kennen den Namen und den Speicherort der Datei und das Datum, an dem sie zuletzt in gutem Zustand war. <em>Search &amp; Restore</em> ist in der Regel besser, wenn Sie ein Volume, einen Ordner oder eine Datei wiederherstellen müssen, aber Sie erinnern sich nicht an den genauen Namen, oder das Volumen, in dem es sich befindet, oder das Datum, an dem es zuletzt in gutem Zustand war.</p>
+<p>In der Regel ist <em>Browse &amp; Restore</em> besser, wenn Sie ein bestimmtes Volume, einen Ordner oder eine Datei aus der letzten Woche oder einem Monat wiederherstellen müssen - und Sie kennen den Namen und den Speicherort der Datei und das Datum, an dem sie zuletzt in gutem Zustand war. <em>Search &amp; Restore</em> ist in der Regel besser, wenn Sie ein Volume, einen Ordner oder eine Datei wiederherstellen müssen, aber Sie können sich nicht an den genauen Namen oder das Volumen, in dem es sich befindet, oder an das Datum erinnern, an dem es zuletzt in gutem Zustand war.</p>
 </div>
 <div class="paragraph">
 <p>Diese Tabelle enthält einen Vergleich der beiden Methoden.</p>
@@ -1508,22 +1508,26 @@ Cloud Backup muss bereits für mindestens eine Arbeitsumgebung aktiviert sein un
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Speicherort der Sicherungsdatei Zielumgebung ifdef::aws[]</th>
-<th class="tableblock halign-left valign-top">Amazon S3</th>
+<th class="tableblock halign-left valign-top">Speicherort Der Sicherungsdatei</th>
+<th class="tableblock halign-left valign-top">Zielarbeitsumgebung ifdef::aws[]</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon S3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in AWS On-Premises ONTAP System endif::aws[] ifdef::azurAzure[]</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Azure Blob</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Azure On-Premises ONTAP System endif::Azure[] ifdef::gcp[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Google Cloud Storage</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Google Cloud Storage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Volumes ONTAP in Google On-Premises ONTAP System endif::gcp[]</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NetApp StorageGRID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lokales ONTAP System</p></td>
 </tr>
 </tbody>
 </table>

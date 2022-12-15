@@ -1351,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2022-12-14 19:05:55 +0000">12/14/2022</time>
     
   
 
@@ -1444,7 +1444,7 @@
 <p><span class="image"><img src="./media/diagram_cloud_backup_cvo_aws.png" alt="Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."></span></p>
 </div>
 <div class="paragraph">
-<p>Der VPC-Gateway-Endpunkt muss bereits in der VPC vorhanden sein.</p>
+<p>Der VPC-Gateway-Endpunkt muss bereits in der VPC vorhanden sein. <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html" target="_blank" rel="noopener">"Weitere Informationen zu Gateway-Endpunkten"</a>.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1475,24 +1475,6 @@
 <dt class="hdlist1">Unterstützte AWS-Regionen</dt>
 <dd>
 <p>Cloud Backup wird in allen AWS Regionen unterstützt <a href="https://cloud.netapp.com/cloud-volumes-global-regions" target="_blank" rel="noopener">"Wobei Cloud Volumes ONTAP unterstützt wird"</a>; Einschließlich Regionen von AWS GovCloud.</p>
-</dd>
-<dt class="hdlist1">Einrichtung zur Erstellung von Backups in einem anderen AWS Konto erforderlich</dt>
-<dd>
-<p>Standardmäßig werden Backups mit demselben Konto erstellt wie für das Cloud Volumes ONTAP-System. Falls Sie ein anderes AWS Konto für Ihre Backups verwenden möchten, müssen Sie folgende Anforderungen erfüllen:</p>
-<div class="openblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Fügen Sie die Anmeldeinformationen für das AWS Zielkonto in BlueXP hinzu. <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-adding-aws-accounts.html#add-additional-credentials-to-a-connector">"So geht&#8217;s"</a>.</p>
-</li>
-<li>
-<p>Fügen Sie die Berechtigungen „s3:PutBucketPolicy“ und „s3:PutBucketEigentümership Controls“ zur IAM-Rolle hinzu, die dem BlueXP Connector Berechtigungen erteilt.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 </dd>
 <dt class="hdlist1">Erforderliche Informationen zur Nutzung von vom Kunden gemanagten Schlüsseln für die Datenverschlüsselung</dt>
 <dd>
@@ -1583,6 +1565,41 @@
 <div class="content">
 <div class="paragraph">
 <p>Wenn Sie die Cloud Volumes ONTAP-Arbeitsumgebung mit BlueXP Version 3.9.23 oder höher erstellt haben, sollten diese Berechtigungen bereits Teil der IAM-Rolle sein. Andernfalls müssen Sie die fehlenden Berechtigungen hinzufügen.</p>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Einrichtung zur Erstellung von Backups in einem anderen AWS Konto erforderlich</dt>
+<dd>
+<p>Standardmäßig werden Backups mit demselben Konto erstellt wie für das Cloud Volumes ONTAP-System. Falls Sie ein anderes AWS Konto für Ihre Backups verwenden möchten, müssen Sie folgende Anforderungen erfüllen:</p>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Stellen Sie sicher, dass die Berechtigungen „s3:PutBucketPolicy“ und „s3:PutBucketOwnershipControls“ Teil der IAM-Rolle sind, die dem BlueXP Connector Berechtigungen erteilt.</p>
+</li>
+<li>
+<p>Fügen Sie die Anmeldeinformationen für das AWS Zielkonto in BlueXP hinzu. <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-adding-aws-accounts.html#add-additional-credentials-to-a-connector" target="_blank" rel="noopener">"So geht&#8217;s"</a>.</p>
+</li>
+<li>
+<p>Fügen Sie die folgenden Berechtigungen in den Benutzeranmeldeinformationen im zweiten Konto hinzu:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"athena:StartQueryExecution",
+"athena:GetQueryResults",
+"athena:GetQueryExecution",
+"glue:GetDatabase",
+"glue:GetTable",
+"glue:CreateTable",
+"glue:CreateDatabase",
+"glue:GetPartitions",
+"glue:BatchCreatePartition",
+"glue:BatchDeletePartition"</pre>
+</div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
