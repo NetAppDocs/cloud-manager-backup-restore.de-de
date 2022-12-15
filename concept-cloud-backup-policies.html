@@ -1351,7 +1351,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2022-12-15 16:35:06 +0000">12/15/2022</time>
     
   
 
@@ -1518,18 +1518,6 @@
 </li>
 </ul>
 </div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/cloud-manager-backup-restore/images/caution.svg" alt="Achtung">
-</td>
-<td class="content">
-Bei einem Ransomware-Scan muss die Sicherungsdatei in Ihre BlueXP-Umgebung (wo der Connector installiert ist) heruntergeladen werden. Bei der Implementierung des Connectors vor Ort können zusätzliche Kosten für den ausgehenden Datenverkehr von Ihrem Cloud-Provider anfallen. Daher empfehlen wir Ihnen, den Connector in der Cloud zu implementieren und sich in derselben Region wie der Bucket zu befinden, in der Ihre Backups gespeichert werden.
-</td>
-</tr>
-</table>
-</div>
 </div>
 <div class="sect2">
 <h3 id="einstellungen-für-datalock-und-ransomware-schutz">Einstellungen für DataLock und Ransomware-Schutz</h3>
@@ -1620,7 +1608,7 @@ Die StorageGRID S3-Objektsperre bietet einen einzelnen DataLock-Modus, der dem C
 <div class="ulist">
 <ul>
 <li>
-<p>Der Connector muss in der Cloud implementiert werden</p>
+<p>Der Connector kann in der Cloud oder vor Ort bereitgestellt werden</p>
 </li>
 <li>
 <p>Die folgenden S3-Berechtigungen müssen Teil der IAM-Rolle sein, die dem Connector Berechtigungen erteilt. Sie befinden sich im Abschnitt „BackupS3Policy“ für die Ressource „arn:aws:s3::netapp-Backup-*“:</p>
@@ -1707,16 +1695,13 @@ Die StorageGRID S3-Objektsperre bietet einen einzelnen DataLock-Modus, der dem C
 <li>
 <p>s3:GetObjectVersion</p>
 <div class="paragraph">
-<p>„s3:BypassGoveranceRetention“ muss nur hinzugefügt werden, wenn Sie möchten, dass Ihre Admin-Benutzer in der Lage sind, Sicherungsdateien, die im Governance-Modus gesperrt sind, zu überschreiben oder zu löschen.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
 <p><a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-permissions-aws.html" target="_blank" rel="noopener">"Zeigen Sie das vollständige JSON-Format für die Richtlinie an, in der Sie erforderliche Berechtigungen kopieren und einfügen können"</a>.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>

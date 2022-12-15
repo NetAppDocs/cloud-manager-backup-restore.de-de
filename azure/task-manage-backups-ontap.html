@@ -1293,7 +1293,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2022-12-15 16:35:06 +0000">12/15/2022</time>
     
   
 
@@ -1354,7 +1354,7 @@ Backup-Dateien lassen sich nicht direkt in der Umgebung Ihrer Cloud-Provider man
 <p>Sie können Backups für neue Volumes aktivieren, wenn diese derzeit nicht gesichert werden. Darüber hinaus können Sie Backups auch für Volumes aktivieren, die Sie zuvor deaktiviert hatten.</p>
 </div>
 <div class="paragraph">
-<p>Sie können Backups für Volumes deaktivieren, sodass keine weiteren Backups erstellt werden. Dadurch wird auch die Möglichkeit deaktiviert, Volume-Daten aus einer Sicherungsdatei wiederherzustellen. So können Sie im Prinzip alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten. Alle bestehenden Backups werden nicht gelöscht, so dass Sie weiterhin von Ihrem Cloud-Provider für Objekt-Storage-Kosten für die Kapazität, die Ihre Backups verwenden, es sei denn, Sie <a href="#löschen-aller-sicherungsdateien-für-ein-volume">Löschen Sie die Backups</a>.</p>
+<p>Sie können Backups für Volumes deaktivieren, sodass keine weiteren Backups erstellt werden. Dadurch wird auch die Möglichkeit deaktiviert, Volume-Daten aus einer Sicherungsdatei wiederherzustellen. So können Sie im Prinzip alle Backup- und Wiederherstellungsaktivitäten für einen bestimmten Zeitraum anhalten. Vorhandene Backups werden nicht gelöscht, sodass Ihr Cloud-Provider Ihnen weiterhin die Kosten für Objekt-Storage für die Kapazität berechnet, die Ihre Backups verwenden, wenn Sie nicht benötigen <a href="#löschen-aller-sicherungsdateien-für-ein-volume">Löschen Sie die Backups</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
@@ -1674,18 +1674,6 @@ Volume-Backups werden auf Datensicherungs-Volumes nicht unterstützt.
 </div>
 <div class="paragraph">
 <p>Diese Funktion ist nur verfügbar, wenn die Volume-Sicherung von einem System mit ONTAP 9.11.1 oder höher erstellt wurde und wenn Sie <em>DataLock und Ransomware Protection</em> in der Backup-Policy aktiviert haben.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/cloud-manager-backup-restore/images/note.svg" alt="Anmerkung">
-</td>
-<td class="content">
-Bei einem Ransomware-Scan muss die Sicherungsdatei in Ihre BlueXP-Umgebung (wo der Connector installiert ist) heruntergeladen werden. Bei der Implementierung des Connectors vor Ort können zusätzliche Kosten für den ausgehenden Datenverkehr von Ihrem Cloud-Provider anfallen. Daher empfehlen wir Ihnen, den Connector in der Cloud zu implementieren und sich in derselben Region wie der Bucket zu befinden, in der Ihre Backups gespeichert werden.
-</td>
-</tr>
-</table>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
