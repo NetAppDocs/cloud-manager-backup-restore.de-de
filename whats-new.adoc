@@ -31,10 +31,10 @@ Aufgrund der Änderung im Cloud-Backup müssen die folgenden Connector-Endpunkte
 | Alter Endpunkt | Neuer Endpunkt 
 
 
-| https://cloudmanager.cloud.netapp.com[] | https://api.bluexp.netapp.com[] 
+| \https://cloudmanager.cloud.netapp.com | \https://api.bluexp.netapp.com 
 
 
-| https://*.cloudmanager.cloud.netapp.com[] | https://*.api.bluexp.netapp.com[] 
+| \https://*.cloudmanager.cloud.netapp.com | \https://*.api.bluexp.netapp.com 
 |===
 Hier finden Sie die vollständige Liste der Endpunkte für Ihr https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-aws.html#outbound-internet-access["AWS"^], https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-gcp.html#outbound-internet-access["Google Cloud"^], Oder https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-creating-connectors-azure.html#outbound-internet-access["Azure"^] Cloud-Umgebung.
 
@@ -50,7 +50,7 @@ Diese Funktion wird derzeit für ONTAP-Cluster vor Ort mit ONTAP 9.12.1 oder hö
 
 === Unterstützung für FlexGroup Volumes
 
-Cloud Backup unterstützt jetzt FlexGroup Volumes. Bei Verwendung von ONTAP 9.12.1 oder neuer können Sie FlexGroup Volumes in Public- und Private-Cloud-Storage sichern. Wenn Sie über funktionierende Umgebungen mit FlexVol- und FlexGroup-Volumes verfügen, können Sie nach der Aktualisierung der ONTAP Software jedes der FlexGroup-Volumes auf diesen Systemen sichern.
+Cloud Backup unterstützt jetzt Backups und Restores von FlexGroup Volumes. Bei Verwendung von ONTAP 9.12.1 oder neuer können Sie FlexGroup Volumes in Public- und Private-Cloud-Storage sichern. Wenn Sie über funktionierende Umgebungen mit FlexVol- und FlexGroup-Volumes verfügen, können Sie nach der Aktualisierung der ONTAP Software jedes der FlexGroup-Volumes auf diesen Systemen sichern.
 
 https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-ontap-backup-to-cloud.html#supported-volumes["Die vollständige Liste der unterstützten Volume-Typen finden Sie unter"].
 
@@ -418,63 +418,3 @@ Wenn in Ihrem AKS Cluster NetApp Astra Trident installiert ist und Cloud Volumes
 === In dieser Version wurden die Cloud Backup Service-Gebühren geändert, um sich stärker an die Branchenstandards anzupassen
 
 Anstatt NetApp für die Kapazität auf Basis der Größe der Backup-Dateien zu bezahlen, zahlen Sie jetzt nur für die gesicherten Daten, berechnet anhand der verwendeten logischen Kapazität (vor der ONTAP-Effizienz) der zu sichernden ONTAP Quell-Volumes. Diese Kapazität wird auch als Front-End Terabyte (FETB) bezeichnet.
-
-
-
-== 28. November 2021
-
-
-
-=== Möglichkeit zur Sicherung persistenter Volumes von EKS Kubernetes-Clustern in Amazon S3
-
-Wenn in Ihrem EKS Cluster NetApp Astra Trident installiert ist und Cloud Volumes ONTAP für AWS als Backend-Storage für den Cluster genutzt wird, können Sie Volumes in und aus Amazon S3 sichern und wiederherstellen. link:task-backup-kubernetes-to-s3.html["Weitere Informationen finden Sie hier"].
-
-
-
-=== Verbesserte Funktionalität für das Backup von DP Volumes
-
-Cloud Backup unterstützt jetzt die Erstellung von Backups von DP-Volumes, die auf dem ONTAP Zielsystem in einer SVM-DR-Beziehung vorhanden sind. Es gibt einige Einschränkungen, siehe link:concept-ontap-backup-to-cloud.html#limitations["Einschränkungen zu nutzen"] Entsprechende Details.
-
-
-
-== 5. November 2021
-
-
-
-=== Möglichkeit zur Auswahl eines privaten Endpunkts bei der Wiederherstellung eines Volumes auf ein lokales ONTAP System
-
-Bei der Wiederherstellung eines Volumes in einem ONTAP On-Premises-System über eine Backup-Datei in Amazon S3 oder Azure Blob können Sie jetzt einen privaten Endpunkt auswählen, der eine Verbindung zu Ihrem lokalen System privat und sicher herstellt.
-
-
-
-=== Jetzt können Sie ältere Backup-Dateien nach einigen Tagen in Archiv-Storage verschieben, um Kosten zu sparen
-
-Wenn in Ihrem Cluster ONTAP 9.10.1 oder höher ausgeführt wird und Sie AWS oder Azure Cloud-Storage verwenden, können Sie Tiering von Backups in den Archiv-Storage aktivieren. Weitere Informationen zu link:reference-aws-backup-tiers.html["AWS S3 Archiv-Storage-Klassen"] Und link:reference-azure-backup-tiers.html["Archiv-Zugriffs-Tiers für Azure Blob"].
-
-
-
-=== Byol-Lizenzen für Cloud Backup sind in der Registerkarte Datendienste-Lizenzen im Digital Wallet eingezogen
-
-Byol-Lizenzierung für Cloud Backup hat sich von der Registerkarte Cloud Backup Licenses auf die Registerkarte Data Services Licenses im BlueXP Digital Wallet verlagert.
-
-
-
-== Oktober 4 2021
-
-
-
-=== Die Größe der Sicherungsdatei ist jetzt auf der Seite Backup verfügbar, wenn Sie eine Volume- oder Dateiwiederherstellung durchführen
-
-Dies ist nützlich, wenn Sie große Sicherungsdateien löschen möchten, die unnötig sind, oder so können Sie Backup-Dateien Größen vergleichen, um alle anormalen Backup-Dateien zu identifizieren, die das Ergebnis eines bösartigen Software-Angriffs sein könnten.
-
-
-
-=== Mit dem TCO-Rechner können Sie die Kosten für Cloud-Backups vergleichen
-
-Der TCO-Rechner hilft Ihnen, die TCO für Cloud Backup zu verstehen, und diese Kosten mit herkömmlichen Backup-Lösungen zu vergleichen, um mögliche Einsparungen abzuschätzen. Zur Verfügunghttps://cloud.netapp.com/cloud-backup-service-tco-calculator["Hier"^].
-
-
-
-=== Möglichkeit der Registrierung von Cloud Backup für eine Arbeitsumgebung
-
-Das ist jetzt ganz einfach link:task_manage_backups.html#unregistering-cloud-backup-for-a-working-environment["Unregister für Cloud Backup für eine Arbeitsumgebung"] Wenn Sie keine Backup-Funktion mehr für diese Arbeitsumgebung verwenden möchten (oder berechnet werden).

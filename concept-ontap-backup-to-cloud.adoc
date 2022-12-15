@@ -437,7 +437,6 @@ Diese Einschränkungen gelten sowohl für die Such- und Wiederherstellungsmethod
 * Search & Restore kann 1 Datei gleichzeitig wiederherstellen.
 * Suchen und Wiederherstellen und Suchen und Wiederherstellen können 1 Ordner gleichzeitig wiederherstellen.
 * Die Wiederherstellung von FlexGroup Volumes auf FlexVol Volumes oder FlexVol Volumes auf FlexGroup Volumes wird nicht unterstützt.
-* Wiederherstellung auf Dateiebene wird nicht unterstützt, wenn Sie dasselbe Konto mit verschiedenen BlueXP-Systemen in unterschiedlichen Subnetzen verwenden.
 * Wiederherstellung auf Dateiebene mithilfe von Suchen & Wiederherstellen wird nicht unterstützt, wenn der Connector auf einer Website ohne Internetzugang installiert wird (dunkle Seite).
 * Sie können einzelne Ordner nicht wiederherstellen, wenn sich die Sicherungsdatei im Archiv-Speicher befindet.
 * Die wiederherzustellende Datei muss die gleiche Sprache verwenden wie die Sprache auf dem Zielvolume. Wenn die Sprachen nicht identisch sind, wird eine Fehlermeldung angezeigt.
