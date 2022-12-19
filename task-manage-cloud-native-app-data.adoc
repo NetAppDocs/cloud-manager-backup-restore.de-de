@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: task-manage-cloud-native-app-data.html 
-keywords: manage, view backup, monitor jobs, monitor 
+keywords: manage, view backup, monitor jobs, monitor, Cloud Manager, BlueXP 
 summary: Zeigen Sie die Backup-Details an und überwachen Sie den Status aller Jobs. 
 ---
 = Sicherung von Cloud-nativen Applikationsdaten managen
@@ -45,6 +45,14 @@ Sie können auf den Namen eines Jobs klicken, um die entsprechenden Details anzu
 
 
 
+== Audit-Daten
+
+Wenn Sie entweder eine API direkt ausführen oder die Benutzeroberfläche verwenden, um den API-Aufruf an eine der extern exponierten APIs des Cloud Backup for Applications durchzuführen, werden die Anforderungsdetails wie Headern, Rolle, Anforderungskörper, Und API-Informationen werden in der BlueXP-Zeitleiste protokolliert und die Audit-Einträge werden für immer in der Zeitleiste gespeichert. Der Status und die Fehlerantwort des API-Aufrufs werden ebenfalls nach Abschluss des Vorgangs geprüft. Bei asynchronen API-Antworten wie Jobs wird auch die Job-id im Rahmen der Antwort protokolliert.
+
+Cloud Backup for Applications protokolliert die Einträge wie Host-IP, Request Body, Operation Name, wer ausgelöst hat, einige Header, Und den Betriebsstatus der API.
+
+
+
 == Zeigen Sie Backup-Details an
 
 Sie können die Gesamtzahl der erstellten Backups, die Richtlinien zum Erstellen von Backups, die Datenbankversion und die Agenten-ID anzeigen.
@@ -54,37 +62,40 @@ Sie können die Gesamtzahl der erstellten Backups, die Richtlinien zum Erstellen
 
 
 
-IMPORTANT: Die Agent-ID ist dem Konnektor zugeordnet. Wenn ein Connector, der bei der Registrierung des Oracle-Datenbank-Hosts verwendet wurde, nicht mehr vorhanden ist, schlagen die nachfolgenden Backups dieser Anwendung fehl, da die Agent-ID des neuen Connectors anders ist. Sie sollten die API *Connector-Update* ausführen, um die Agenten-ID zu ändern.
+IMPORTANT: Die Agent-ID ist dem Konnektor zugeordnet. Wenn ein Connector, der bei der Registrierung des SAP HANA-Hosts verwendet wurde, nicht mehr vorhanden ist, schlagen die nachfolgenden Backups dieser Anwendung fehl, da die Agent-ID des neuen Connectors anders ist. Sie sollten die Konnektor-id im Host ändern.
 
 
 
-== Aktualisieren Sie die Verbindungsdetails
+== Klon löschen
 
-Wenn ein Connector, der bei der Registrierung des Oracle-Datenbank-Hosts verwendet wurde, nicht mehr existiert oder in AWS beschädigt ist, sollten Sie einen neuen Konnektor bereitstellen. Nach der Bereitstellung des neuen Connectors sollten Sie die *Connector-Update* API ausführen, um die Connector-Details zu aktualisieren.
+Sie können einen Klon löschen, wenn Sie nicht mehr benötigen.
+
+. Klicken Sie Auf image:button_plus_sign_square.png["Symbol, um die Aktion auszuwählen"] Neben *Filtern nach* und wählen Sie *Clone-Optionen* > *Eltern klonen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Anwendung und klicken Sie auf *Details anzeigen*.
+. Klicken Sie auf der Seite Datenbankdetails auf image:button_plus_sign_square.png["Symbol, um die Aktion auszuwählen"] Neben *Filter by* und wählen Sie *Clone*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend dem Klon, den Sie löschen möchten, und klicken Sie auf *Löschen*.
+. (Optional) Aktivieren Sie das Kontrollkästchen *Force delete*.
+
+
+
+
+== Aktualisieren Sie die Connector-Details für den SAP HANA-Datenbank-Host
+
+Wenn der Connector, der bei der Registrierung des Anwendungshosts verwendet wurde, nicht mehr existiert oder beschädigt ist, sollten Sie einen neuen Konnektor bereitstellen. Nach der Bereitstellung des neuen Connectors sollten Sie die *Connector-Update* API ausführen, um die Connector-Details für alle Hosts zu aktualisieren, die über den alten Konnektor registriert sind.
 
 [listing]
 ----
-curl --location --request PATCH 'https://snapcenter.cloudmanager.cloud.netapp.com/api/oracle/databases/connector-update' \
+curl --location --request PATCH
+'https://snapcenter.cloudmanager.cloud.netapp.com/api/saphana/hosts/connector/update' \
 --header 'x-account-id: <CM account-id>' \
---header 'x-agent-id: <connector Agent ID >' \
 --header 'Authorization: Bearer token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-"old_connector_id": "Old connector id that no longer exist",
+"old_connector_id": "Old connector id that no longer exists",
 "new_connector_id": "New connector Id"
 }
 ----
-Nach dem Aktualisieren der Connector-Details sollten Sie eine Verbindung zum Oracle-Datenbank-Host herstellen und die folgenden Schritte durchführen:
-
-. Holen Sie die Plug-in-Informationen ab, die auf dem Oracle Database Host ausgeführt werden.
-`rpm -qi netapp-snapcenter-plugin-oracle`
-. Deinstallieren Sie das Plug-in.
-`sudo /opt/NetApp/snapcenter/spl/installation/plugins/uninstall`
-. Überprüfen Sie, ob das Plug-in erfolgreich deinstalliert wurde.
-`rpm -qi netapp-snapcenter-plugin-oracle`
-
-
-Nachdem Sie das Plug-in deinstalliert haben, können Sie das Plug-in bereitstellen. link:reference-prereq-protect-cloud-native-app-data.html#deploy-snapcenter-plug-in-for-oracle["Weitere Informationen ."].
+Connector-Details werden erfolgreich aktualisiert, wenn alle Hosts über ein SnapCenter-Plug-in für SAP HANA-Dienst installiert und ausgeführt werden und wenn sie alle über den neuen Konnektor erreichbar sind.
 
 
 
@@ -129,7 +140,7 @@ NOTE: Die certfile.crt bezieht sich auf die Zertifikate der Root CA sowie der Zw
 
 === Konfigurieren Sie das CA-Zertifikat für das Server-Zertifikat des Plug-ins
 
-Das CA-Zertifikat sollte den genauen Namen des Oracle-Plug-in-Hosts haben, mit dem die virtuelle Connector-Maschine kommuniziert.
+Das CA-Zertifikat sollte den genauen Namen des Plug-in-Hosts haben, mit dem die virtuelle Connector-Maschine kommuniziert.
 
 *Was Sie brauchen*
 

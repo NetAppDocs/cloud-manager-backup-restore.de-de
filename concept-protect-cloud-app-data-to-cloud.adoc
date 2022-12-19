@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: concept-protect-cloud-app-data-to-cloud.html 
-keywords: backing up, back up, backup, backup application data, Amazon EC2, Amazon Web services, Amazon FSx, Cloud Backup, Oracle database, requirements, prerequisites, Cloud Manager, BlueXP 
-summary: Cloud-Backups für Applikationen innerhalb von NetApp BlueXP ermöglichen ein effizientes, applikationskonsistentes, richtlinienbasiertes Backup und die Wiederherstellung von Oracle Datenbanken auf Amazon FSX für NetApp ONTAP. 
+keywords: backing up, back up, backup, backup application data, Amazon EC2, Amazon Web services, Amazon FSx, Cloud Backup, Oracle database, requirements, prerequisites, Cloud Volumes ONTAP, Cloud Manager, BlueXP 
+summary: BlueXP bietet effizientes, applikationskonsistentes, richtlinienbasiertes Backup und Restore von Oracle Datenbanken in Amazon FSX für NetApp ONTAP oder Cloud Volumes ONTAP. 
 ---
 = Sichern Sie Ihre Daten aus Cloud-nativen Applikationen
 :hardbreaks:
@@ -14,7 +14,11 @@ summary: Cloud-Backups für Applikationen innerhalb von NetApp BlueXP ermöglich
 
 
 [role="lead"]
-Cloud Backup für Applikationen ist ein SaaS-basierter Service mit Datensicherungsfunktionen für Applikationen, die auf NetApp Cloud Storage ausgeführt werden. Cloud Backup für Applikationen innerhalb von NetApp BlueXP (früher Cloud Manager) bietet effiziente, applikationskonsistente, richtlinienbasierte Backups und Restores von Oracle Datenbanken auf Amazon FSX für NetApp ONTAP.
+Cloud Backup für Applikationen ist ein SaaS-basierter Service mit Datensicherungsfunktionen für Applikationen, die auf NetApp Cloud Storage ausgeführt werden. Cloud Backup für Anwendungen, die in BlueXP (ehemals Cloud Manager) aktiviert sind, bietet effizienten, applikationskonsistenten, richtlinienbasierten Schutz der folgenden Anwendungen:
+
+* Oracle Datenbanken befinden sich auf Amazon FSX für NetApp ONTAP und Cloud Volumes ONTAP
+* SAP HANA Systeme auf Azure NetApp Files (ANF)
+
 
 
 
@@ -26,32 +30,35 @@ Die Architektur von Cloud Backup für Applikationen umfasst die folgenden Kompon
 +
 Die Datensicherungs-Workflows werden für Applikationen auf NetApp Cloud Storage orchestriert.
 
-* Die Benutzeroberfläche von Cloud Backup für Applikationen ist in die Benutzeroberfläche von BlueXP integriert.
+* Auf die Benutzeroberfläche von Cloud Backup für Applikationen kann über die Benutzeroberfläche von BlueXP zugegriffen werden.
 +
-Die Benutzeroberfläche von Cloud Backup für Applikationen bietet diverse Storage- und Datenmanagement-Funktionen.
+Die Benutzeroberfläche von Cloud Backup für Applikationen bietet Datensicherungsfunktionen für Applikationen.
 
-* BlueXP Connector ist eine Komponente von BlueXP, die in Ihrem Cloud-Netzwerk ausgeführt wird und mit Amazon FSX Storage-Dateisystemen und dem SnapCenter-Plug-in für Oracle interagiert, die auf Oracle-Datenbank-Hosts ausgeführt werden.
-* Das SnapCenter Plug-in für Oracle ist eine Komponente, die auf jedem Oracle Datenbank-Host ausgeführt wird und mit den auf dem Host ausgeführten Oracle Datenbanken interagiert, während gleichzeitig Datensicherungsprozesse durchgeführt werden.
-+
+* BlueXP Connector ist eine Komponente, die im Cloud-Netzwerk des Benutzers ausgeführt wird und mit Storage-Systemen und applikationsspezifischen Plug-ins interagiert.
+* Das applikationsspezifische Plug-in ist eine Komponente, die auf jedem Applikations-Host ausgeführt wird und mit den auf dem Host ausgeführten Datenbanken interagiert, während gleichzeitig Datensicherungsprozesse durchgeführt werden.
+
+
 Die folgende Abbildung zeigt die einzelnen Komponenten und die Verbindungen, die zwischen den Komponenten vorbereitet werden müssen:
 
-+
-image:diagram_nativecloud_backup_app.png["Diagramm zur Kommunikation von Cloud Backup mit verschiedenen Komponenten"]
+image:diagram_nativecloud_backup_app.png["Ein Diagramm, das zeigt, wie jede Komponente und die Verbindungen vorbereitet werden müssen."]
 
-+
-Für alle von Benutzern initiierten Anfragen kommuniziert die Benutzeroberfläche von Cloud Backup for Applications mit dem SaaS von BlueXP, das bei der Validierung der Anfrageprozesse identisch ist. Wenn die Anforderung einen Workflow wie Backup oder Wiederherstellung ausführen soll, initiiert der SaaS-Service den Workflow und leitet den Anruf an den BlueXP Connector weiter. Der Connector kommuniziert dann mit Amazon FSX für NetApp ONTAP und das SnapCenter Plug-in für Oracle, um die Workflow-Aufgaben auszuführen.
+Für alle von Benutzern initiierten Anfragen kommuniziert die Benutzeroberfläche von Cloud Backup for Applications mit dem SaaS von BlueXP, das bei der Validierung der Anfrageprozesse identisch ist. Wenn die Anfrage einen Workflow wie Backup, Wiederherstellung oder Klon ausführen soll, initiiert der SaaS-Service den Workflow und leitet diesen bei Bedarf an den BlueXP Connector weiter. Der Connector kommuniziert dann im Rahmen der Ausführung der Workflow-Aufgaben mit dem Speichersystem und dem anwendungsspezifischen Plug-in.
 
-+
-Der Connector kann in derselben VPC wie die der Oracle Datenbanken oder in einer anderen implementiert werden. Wenn sich die Connector- und Oracle-Datenbanken in einem anderen Netzwerk befinden, sollten Sie eine Netzwerkverbindung zwischen ihnen herstellen.
+Der Connector kann in derselben VPC oder vnet wie die der Applikationen oder in einer anderen implementiert werden. Wenn sich der Connector und die Anwendungen in einem anderen Netzwerk befinden, sollten Sie eine Netzwerkverbindung zwischen ihnen herstellen.
 
 
+NOTE: Ein einziger BlueXP Connector kann mit mehreren Speichersystemen und mehreren Anwendungs-Plug-ins kommunizieren. Sie benötigen einen einzigen Connector, um Ihre Anwendungen zu verwalten, solange die Verbindung zwischen dem Connector und den Anwendungs-Hosts besteht.
 
 
-IMPORTANT: Die Infrastruktur von Cloud Backup für Applikationen kann Ausfälle der Verfügbarkeitszone innerhalb einer Region nicht kompensieren. Jetzt werden regionale Ausfälle unterstützt, indem ein Failover auf eine neue Region durchgeführt wird, was mit etwa zwei Stunden Ausfallzeit verbunden ist.
+IMPORTANT: Cloud Backup für Applikationen die SaaS-Infrastruktur ist gegen Ausfälle der Verfügbarkeitszonen innerhalb einer Region stabil. Es unterstützt regionale Ausfälle durch Failover auf eine neue Region, und der Failover hat ungefähr zwei Stunden Ausfallzeit.
 
 
 
-== Unterstützte Konfigurationen
+== Schutz von Oracle Datenbank
+
+
+
+=== Unterstützte Konfigurationen
 
 * Betriebssystem:
 +
@@ -59,18 +66,32 @@ IMPORTANT: Die Infrastruktur von Cloud Backup für Applikationen kann Ausfälle 
 ** L 7.5 oder höher und 8.x
 
 
-* Storage-System Amazon FSX für ONTAP
-* Storage-Layouts: NFS v3 und v4.1 (dNFS wird unterstützt) und iSCSI mit ASM (ASMFD, ASMLib und ASMUdev)
-* Applikationen: Oracle Standard und Oracle Enterprise – Standalone (alt und mandantenfähig – CDB und PDB)
-* Oracle Versionen: 12cR2, 18c und 19c
+* Storage-System:
++
+** Amazon FSX für ONTAP
+** Cloud Volumes ONTAP
+
+
+* Storage-Layouts:
++
+** NFS v3 und v4.1 (einschließlich dNFS)
+** ISCSI mit ASM (ASMFD, ASMLib und ASMUdev)
+
+
+* Datenbank-Layouts: Oracle Standard und Oracle Enterprise Standalone (veraltete und mandantenfähige CDB und PDB)
+* Datenbankversionen: 12cR2, 18c, 19c und 21c
 
 
 
 
-== Funktionen
+=== Funktionen
+
+* Host hinzufügen und Plug-in implementieren
++
+Sie können das Plug-in entweder manuell, mithilfe eines Skripts oder automatisch bereitstellen.
 
 * Automatische Erkennung von Oracle-Datenbanken
-* Sichern von Oracle Datenbanken auf Amazon FSX für NetApp ONTAP
+* Backup von Oracle Datenbanken
 +
 ** Vollständiges Backup (Daten + Kontrolle + Archivprotokolldateien)
 ** On-Demand-Backup
@@ -84,51 +105,83 @@ Sie können verschiedene Planungsfrequenzen wie stündlich, täglich, wöchentli
 * Wiederherstellen der vollständigen Oracle-Datenbank (Datendateien + Kontrolldatei) aus dem angegebenen Backup
 * Nur Datendateien wiederherstellen und nur Dateien aus dem angegebenen Backup steuern
 * Wiederherstellen der Oracle-Datenbank mit bis SCN, bis zu der Zeit, alle verfügbaren Protokolle und keine Recovery-Optionen
-* Überwachung von Backups und anderen Aufgaben
+* Klonen von Oracle Datenbanken auf Quell- oder alternativen Ziel-Hosts
++
+** Grundclonen mit einem Klick
+** Erweitertes Klonen mit einer benutzerdefinierten Klonspezifikationsdatei
+** Der Name der Kloneinheiten kann automatisch generiert oder mit der Quelle identisch sein
+** Anzeigen der Klonhierarchie
+** Geklonte Datenbanken werden gelöscht
+
+
+* Monitoring von Backups, Restores, Klonen und anderen Aufgaben
 * Anzeigen der Schutzzusammenfassung im Dashboard
 * Senden von Benachrichtigungen per E-Mail
 
 
 
 
-== Einschränkungen
+=== Einschränkungen
 
-* Oracle Versionen 11g und 21c werden nicht unterstützt
-* Mount-, Klon-, Katalog- und Verifizierungsvorgänge für Backups werden nicht unterstützt
+* Bietet keine Unterstützung für Oracle 11g
+* Unterstützt keine Mount-, Katalog- und Überprüfungsvorgänge für Backups
 * Bietet keine Unterstützung für Oracle auf RAC und Data Guard
-* Backup-Einschränkungen:
+* Bei Cloud Volumes ONTAP HA wird nur eine der Netzwerk-Schnittstellen-IPs verwendet. Wenn die Verbindung der IP unterbrochen wird oder Sie nicht auf die IP zugreifen können, schlagen die Vorgänge fehl.
+* Die IP-Adressen der Netzwerkschnittstellen von Amazon FSX für NetApp ONTAP oder Cloud Volumes ONTAP müssen im BlueXP Konto und in der Region eindeutig sein.
+
+
+
+
+== Schutz von SAP HANA Datenbanken
+
+
+
+=== Unterstützte Konfigurationen
+
+* Betriebssystem:
 +
-** Bietet keine Unterstützung für Online-Daten oder lediglich für Backup-Protokollierung
-** Keine Unterstützung von Offline-Backups
-** Unterstützt keine Sicherung der Oracle-Datenbank, die sich auf rekursiven Bereitstellungspunkten befindet
-** Unterstützt keine Snapshots von Konsistenzgruppen für Oracle Datenbanken, die sich auf mehreren ASM-Festplattengruppen mit Überschneidungen von FSX Volumes befinden
-** Wenn Ihre Oracle-Datenbanken auf ASM konfiguriert sind, stellen Sie sicher, dass Ihre SVM-Namen für die FSX-Systeme eindeutig sind. Wenn Sie in den FSX-Systemen denselben SVM-Namen haben, werden Backups der auf diesen SVMs befindlichen Oracle Datenbanken nicht unterstützt.
+** RHEL 7.5 oder höher, 8.x-Plattformen, von SAP HANA zertifiziert
+** SLES 12 SP5 oder höher und 15 SPX Plattformen zertifiziert von SAP HANA
 
 
-* Einschränkungen bei Wiederherstellungen:
+* Storage-System Azure NetApp Files (ANF)
+* Storage-Layouts: Azure unterstützt für Daten und Protokoll nur NFSv4.1.
+* Datenbank-Layout:
 +
-** Keine Unterstützung für granulare Restores, beispielsweise beim Wiederherstellen von Tabellen und PDBs
-** Unterstützt nur die in-Place-Wiederherstellung von Oracle-Datenbanken unter NAS- und SAN-Layouts
-** Unterstützt nicht die Wiederherstellung von Kontrolldatei nur oder Datendateien + Kontrolldatei von Oracle-Datenbanken auf SAN-Layouts
-** Im SAN-Layout schlägt der Wiederherstellungsvorgang fehl, wenn das SnapCenter Plug-in für Oracle andere fremde Dateien als Oracle-Datendateien auf der ASM-Festplattengruppe findet. Die Fremddateien können eine oder mehrere der folgenden Typen sein:
+** Single Container Version 1.0SPS12
+** SAP HANA Multitenant Database Container (MDC) 2.0SPS4, 2.0SPS5, 2.0SPS6 mit einzelnen oder mehreren Mandanten
+** SAP HANA Einzelhostsystem, SAP HANA mehrere Hostsysteme (ohne Standby-Host), HANA System Replication
+
+
+* Plug-in für SAP HANA auf dem Datenbank-Host
+
+
+
+
+=== Funktionen
+
+* Manuelles Hinzufügen von SAP HANA-Systemen
+* Backup von SAP HANA Datenbanken
 +
-*** Parameter
-*** Passwort
-*** Archivprotokoll
-*** Online-Protokoll
-*** ASM-Parameterdatei.
+** On-Demand-Backup (dateibasiert und auf Snapshot Kopien)
+** Ein geplantes Backup basiert auf den systemdefinierten oder benutzerdefinierten Richtlinien
 +
-Aktivieren Sie das Kontrollkästchen in-Place-Wiederherstellung erzwingen, um die fremden Dateien von Typ-Parameter, Passwort und Archivprotokoll zu überschreiben.
+Sie können verschiedene Planungsfrequenzen wie stündlich, täglich, wöchentlich und monatlich in der Richtlinie festlegen.
 
-+
-
-NOTE: Wenn es andere Arten von Fremddateien gibt, schlägt der Wiederherstellungsvorgang fehl und die Datenbank kann nicht wiederhergestellt werden. Wenn Sie andere Arten von Fremddateien haben, sollten Sie sie löschen oder an einen anderen Speicherort verschieben, bevor Sie den Wiederherstellungsvorgang durchführen.
-
-+
-Aufgrund eines bekannten Problems wird die Fehlermeldung aufgrund von Fremddateien nicht auf der Jobseite in der UI angezeigt. Prüfen Sie die Connector-Protokolle, wenn während der Phase der SAN-Vorabwiederherstellung ein Fehler auftritt, um die Ursache des Problems zu ermitteln.
+** HANA System Replication (HSR)-orientiert
 
 
+* Aufbewahrung von Backups anhand der Richtlinie
+* Wiederherstellung der vollständigen SAP HANA-Datenbank aus dem angegebenen Backup
+* Sichern und Wiederherstellen von HANA-Volumes ohne Daten und globalen nicht-Daten-Volumes
+* Unterstützung von Prescript und Postscript mithilfe von Umgebungsvariablen für Backup- und Restore-Vorgänge
+* Erstellen eines Aktionsplans für Fehlerszenarien mit der Option vor dem Beenden
 
 
 
+
+=== Einschränkungen
+
+* Bei HSR-Konfiguration wird nur HSR mit 2 Nodes unterstützt (1 primäre und 1 sekundäre).
+* Die Aufbewahrung wird nicht ausgelöst, wenn das Postscript während der Wiederherstellung ausfällt
 

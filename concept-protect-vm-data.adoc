@@ -14,9 +14,9 @@ summary: Erfahren Sie mehr über die Sicherung von Daten auf Ihren Virtual Machi
 
 
 [role="lead"]
-Durch die Integration des SnapCenter Plug-ins für VMware vSphere in BlueXP (ehemals Cloud Manager) können Sie Daten auf Ihren virtuellen Maschinen schützen. Sie können Datastores in der Cloud sichern und Virtual Machines problemlos im lokalen SnapCenter Plug-in für VMware vSphere wiederherstellen.
+Durch die Integration des SnapCenter Plug-ins für VMware vSphere in BlueXP (ehemals Cloud Manager) können Sie Daten auf Ihren virtuellen Maschinen schützen. Sie können Datastores von primärem und sekundärem On-Premises-Storage in die Cloud sichern und Virtual Machines problemlos am lokalen SnapCenter Plug-in für VMware vSphere wiederherstellen.
 
-Sie können Backups von Datastores auf Amazon Web Services S3, Microsoft Azure Blob und StorageGRID erstellen.
+Sie können Datastores auf Amazon Web Services S3 (unterstützte Archiv-Tiers sind Glacier und Deep Glacier), Microsoft Azure Blob (unterstützte Archiv-Tier ist Azure Archiv), Google Cloud Platform und StorageGRID sichern.
 
 
 
@@ -25,10 +25,14 @@ Sie können Backups von Datastores auf Amazon Web Services S3, Microsoft Azure B
 Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen, bevor Sie mit dem Backup von Datastores und Virtual Machines in Cloud-Services beginnen.
 
 * SnapCenter Plug-in für VMware vSphere 4.6P1 oder höher
++
+** Sie sollten das SnapCenter-Plug-in für VMware vSphere 4.7P1 oder höher verwenden, um Virtual Machines von lokalem sekundärem Storage zu sichern.
+
+
 * ONTAP 9.8 oder höher
 * BlueXP 3.9 oder höher
 * In SnapCenter-Plug-in für VMware vSphere 4.6P1 sollte mindestens ein Backup erstellt werden.
-* In SnapCenter Plug-in für VMware vSphere wird mindestens eine Tages-, Wochen- oder Monatsrichtlinie verwendet, ohne dass ein Etikett oder dieselbe Bezeichnung wie die Richtlinie für Cloud Backup für virtuelle Maschinen in BlueXP lautet.
+* SnapCenter Plug-in für VMware vSphere enthält mindestens eine tägliche, wöchentliche oder monatliche Richtlinie ohne Etikett und dieselbe Bezeichnung wie die Virtual Machines-Richtlinie in BlueXP.
 * Im Rahmen einer vordefinierten Richtlinie sollte die Zeitplanebene für den Datenspeicher im SnapCenter Plug-in für VMware vSphere und in der Cloud identisch sein.
 * Stellen Sie sicher, dass keine FlexGroup Volumes im Datenspeicher vorhanden sind, da Backup und Wiederherstellung von FlexGroup Volumes nicht unterstützt werden.
 * Stellen Sie sicher, dass keines der Volumes verschlüsselt ist, da die Wiederherstellung verschlüsselter Volumes nicht unterstützt wird.
@@ -39,4 +43,4 @@ Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine u
 
 Die folgende Abbildung zeigt die einzelnen Komponenten und die Verbindungen, die zwischen den Komponenten vorbereitet werden müssen:
 
-image:cloud_backup_vm.png["Das Architekturdiagramm des Cloud-Backups für Virtual Machines"]
+image:cloud_backup_vm.png["Architekturdiagramm"]

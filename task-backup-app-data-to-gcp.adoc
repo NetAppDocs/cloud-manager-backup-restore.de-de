@@ -14,7 +14,7 @@ summary: In wenigen Schritten wird ein Backup von Applikationsdaten von ONTAP in
 
 
 [role="lead"]
-Durch die Integration von Cloud Backup für Anwendungen in BlueXP und On-Premises-SnapCenter können Sie Backups der Applikationsdaten von ONTAP auf der Google Cloud-Plattform erstellen.
+Durch Integration von Cloud Backup für Applikationen in Cloud Manager und On-Premises-SnapCenter können Sie Backups der Applikationsdaten von ONTAP auf der Google Cloud-Plattform erstellen.
 
 Sie können eine oder mehrere Applikationen gleichzeitig mit einer einzigen Richtlinie in der Cloud sichern.
 

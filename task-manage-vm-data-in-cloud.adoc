@@ -50,7 +50,7 @@ Es werden die Datenspeicher und Virtual Machines angezeigt, die mit dem registri
 
 == Bearbeiten Sie das SnapCenter Plug-in für die VMware vSphere-Instanz
 
-Die Details zum SnapCenter Plug-in für VMware vSphere können Sie unter BlueXP bearbeiten
+Die Details zum SnapCenter Plug-in für VMware vSphere können Sie unter BlueXP bearbeiten.
 
 .Schritte
 . Klicken Sie in BlueXP UI auf *Schutz* > *Sicherung und Wiederherstellung* > *Virtuelle Maschinen* > *Einstellungen* > *SnapCenter Plug-in für VMware vSphere*.

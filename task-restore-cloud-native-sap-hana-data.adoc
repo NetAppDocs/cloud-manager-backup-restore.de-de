@@ -1,0 +1,111 @@
+---
+sidebar: sidebar 
+permalink: task-restore-cloud-native-sap-hana-data.html 
+keywords: cloud native, application data, restore, data files, SAP HANA, database, recovery, Cloud Manager, BlueXP 
+summary: Stellen Sie die Datendateien wieder her und stellen Sie dann die Datenbank wieder her. 
+---
+= Wiederherstellung der nativen Cloud SAP HANA Datenbank
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Im Falle eines Datenverlustes können Sie die Daten und nicht-Datendateien wiederherstellen und dann die Datenbank wiederherstellen.
+
+
+
+== Vorschriften und Postskripte
+
+Sie können Prescripts, Postskripte bereitstellen und Skripte beenden, während Sie eine Richtlinie erstellen. Diese Skripte werden auf dem HANA-Host ausgeführt und führen einen Restore-Vorgang durch.
+
+Das unterstützte Format für Skripte sind .sh, Python script, Perl script usw.
+
+Das Prescript und das Postscript sollten vom Hostadministrator registriert werden `/opt/NetApp/snapcenter/scc/etc/allowed_commands.config file``
+
+`[root@scspa2622265001 etc]# cat allowed_commands.config
+command: mount
+command: umount
+command: /mnt/scripts/pre_script.sh
+command: /mnt/scripts/post_script.sh`
+
+
+
+== Umgebungsvariablen
+
+Für den Wiederherstellungsworkflow stehen die folgenden Umgebungsvariablen als Teil von Prescript und Postscript zur Verfügung.
+
+|===
+| Umgebungsvariable | Beschreibung 
+
+
+ a| 
+SID
+ a| 
+Die Systemkennung der zur Wiederherstellung ausgewählten HANA-Datenbank
+
+
+
+ a| 
+BackupName
+ a| 
+Für den Wiederherstellungsvorgang ausgewählte Sicherungsname
+
+
+
+ a| 
+UserStoreKeyNames
+ a| 
+Konfigurierter Benutzerspeicherschlüssel für die HANA-Datenbank
+
+
+
+ a| 
+OSDBUser
+ a| 
+OSDBUser für die HANA-Datenbank konfiguriert
+
+|===
+
+
+== Wiederherstellung der nativen Cloud SAP HANA Datenbank
+
+*Was Sie brauchen*
+
+. Das SAP HANA-System muss sich im Zustand „gestoppt“ befinden.
+. Sie können ein Preskript zur Anhalten des SAP HANA-Systems zur Verfügung stellen.
+
+
+*Schritte*
+
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Datenbank, die Sie wiederherstellen möchten, und klicken Sie auf *Details anzeigen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Datensicherung, die Sie für die Wiederherstellung verwenden möchten, und klicken Sie auf *Restore*.
+. Geben Sie auf der Seite *System wiederherstellen* die Skripte ein.
+. Klicken Sie Auf *Wiederherstellen*.
+
+
+*Nach Ihrer Beendigung*
+
+* Stellen Sie nach der Wiederherstellung das SAP HANA System manuell wieder her oder geben Sie ein Post-Script ein, das die Wiederherstellung des SAP HANA Systems durchführt.
+
+
+
+
+== Nicht-Daten-Volume Wiederherstellen
+
+. Wählen Sie auf der Seite *Anwendungen* aus dem Dropdown-Feld Non-Data Volume aus.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend dem Backup, das Sie wiederherstellen möchten, und klicken Sie auf *Wiederherstellen*.
+
+
+
+
+== Globales Volume Ohne Daten Wiederherstellen
+
+*Schritte*
+
+. Klicken Sie auf der Seite *Anwendungen* auf das globale nicht-Daten-Volume, das Sie wiederherstellen möchten.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend dem globalen nicht-Daten-Volume, das Sie wiederherstellen möchten, und klicken Sie auf *Wiederherstellen*.
+

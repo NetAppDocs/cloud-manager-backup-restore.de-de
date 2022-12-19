@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: task-backup-cloud-native-oracle-data.html 
+keywords: admin role, service account, pre-canned policies, cloud manager, BlueXP, scheduled backups, on-demand backups, create policy, Oracle database, backup limitations 
+summary: Erstellen Sie geplante oder On-Demand-Backups für die Oracle Datenbank. 
+---
+= Backup Cloud-nativer Oracle Database
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie sollten entweder eine vordefinierte Richtlinie oder die von Ihnen erstellte Richtlinie zuweisen und anschließend ein Backup erstellen.
+
+
+
+== Erstellen Sie eine Richtlinie zum Schutz von Oracle Datenbanken
+
+Sie können Richtlinien erstellen, wenn Sie die vordefinierten Richtlinien nicht bearbeiten möchten.
+
+*Schritte*
+
+. Wählen Sie auf der Seite Anwendungen aus der Dropdown-Liste Einstellungen die Option *Richtlinien* aus.
+. Klicken Sie auf *Create Policy*.
+. Geben Sie einen Richtliniennamen an.
+. (Optional) Bearbeiten Sie das Format des Backup-Namens.
+. Geben Sie den Zeitplan und die Aufbewahrungsdetails an.
+. Klicken Sie Auf *Erstellen*.
+
+
+
+
+== Erstellen Sie ein Backup der Oracle Database
+
+Sie können entweder eine vordefinierte Richtlinie zuweisen oder eine Richtlinie erstellen und sie dann der Datenbank zuweisen. Sobald die Richtlinie zugewiesen ist, werden die Backups gemäß dem in der Richtlinie definierten Zeitplan erstellt.
+
+
+NOTE: Stellen Sie für Oracle beim Erstellen von ASM-Festplattengruppen sicher, dass es keine gemeinsamen Volumes über Festplattengruppen hinweg gibt. Jede Festplattengruppe benötigt dedizierte Volumes.
+
+*Schritte*
+
+. Wenn die Datenbank nicht mit einer Richtlinie geschützt ist, klicken Sie auf der Seite Anwendungen auf *Richtlinie zuweisen*.
++
+Wenn die Datenbank mit einer oder mehreren Richtlinien geschützt ist, können Sie durch Klicken auf weitere Richtlinien zuweisen image:icon-action.png["Symbol, um die Aktion auszuwählen"] > *Richtlinie Zuweisen*.
+
+. Wählen Sie die Richtlinie aus und klicken Sie auf *Zuweisen*.
++
+Die Backups werden gemäß dem in der Richtlinie definierten Zeitplan erstellt.
+
++
+
+NOTE: Das Servicekonto (_SnapCenter-Account-<Account_id>_) wird zur Ausführung der geplanten Backup-Vorgänge verwendet.
+
+
+
+
+
+== Erstellen eines On-Demand-Backups der Oracle Datenbank
+
+Nach der Zuweisung der Richtlinie können Sie ein On-Demand-Backup der Applikation erstellen.
+
+*Schritte*
+
+. Klicken Sie auf der Seite Anwendungen auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Anwendung und klicken Sie auf *On-Demand Backup*.
+. Wenn der Anwendung mehrere Richtlinien zugewiesen werden, wählen Sie die Richtlinie, den Aufbewahrungswert aus und klicken Sie dann auf *Backup erstellen*.
+
+
+*Weitere Informationen*
+
+Nach dem Wiederherstellen einer großen Datenbank (250 GB oder mehr), wenn Sie ein vollständiges Online-Backup in derselben Datenbank durchführen, kann der Vorgang mit dem folgenden Fehler fehlschlagen:
+
+`failed with status code 500, error {\"error\":{\"code\":\"app_internal_error\",\"message\":\"Failed to create snapshot. Reason: Snapshot operation not allowed due to clones backed by snapshots. Try again after sometime.`
+
+Informationen zur Behebung dieses Problems finden Sie unter: https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/Snapshot_operation_not_allowed_due_to_clones_backed_by_snapshots["Der Snapshot-Vorgang ist aufgrund von durch Snapshots gesicherten Klonen nicht zulässig"].
+
+
+
+== Einschränkungen
+
+* Bietet keine Unterstützung für Online-Daten oder lediglich für Backup-Protokollierung
+* Keine Unterstützung von Offline-Backups
+* Unterstützt keine Sicherung der Oracle-Datenbank, die sich auf rekursiven Bereitstellungspunkten befindet
+* Unterstützt keine Snapshots von Konsistenzgruppen für Oracle Datenbanken, die sich auf mehreren ASM-Festplattengruppen mit Überschneidungen von FSX Volumes befinden
+* Wenn Ihre Oracle-Datenbanken auf ASM konfiguriert sind, stellen Sie sicher, dass Ihre SVM-Namen für die FSX-Systeme eindeutig sind. Wenn Sie in den FSX-Systemen denselben SVM-Namen haben, werden Backups der auf diesen SVMs befindlichen Oracle Datenbanken nicht unterstützt.
+

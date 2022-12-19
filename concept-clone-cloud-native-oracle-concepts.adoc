@@ -1,0 +1,368 @@
+---
+sidebar: sidebar 
+permalink: concept-clone-cloud-native-oracle-concepts.html 
+keywords: cloud native, application data, clone, Cloud Manager, BlueXP, Oracle database, Oracle, clone limitations, clone methods, clone naming scheme, requirements, clone specification file 
+summary: Verstehen Sie die Klonkonzepte, bevor Sie die Datenbank klonen. 
+---
+= Klonkonzepte und -Anforderungen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können eine Oracle-Datenbank mit dem Backup der Datenbank entweder auf dem Quelldatenbank-Host oder auf einem alternativen Host klonen. Sie können das Backup aus primären Storage-Systemen klonen.
+
+Vor dem Klonen der Datenbank sollten Sie die Klonkonzepte verstehen und sicherstellen, dass alle Anforderungen erfüllt werden.
+
+
+
+== Anforderungen für das Klonen einer Oracle Datenbank
+
+Bevor Sie eine Oracle-Datenbank klonen, sollten Sie sicherstellen, dass die Voraussetzungen erfüllt sind.
+
+* Sie sollten eine Sicherung der Datenbank erstellt haben. Damit der Klonvorgang erfolgreich abgeschlossen wurde, sollten Sie die Online-Daten und das Backup-Protokoll erstellt haben.
+* Im parameter asm_diskstring sollten Sie AFD:* konfigurieren, wenn Sie ASMFD verwenden oder ORCL:* konfigurieren, wenn Sie ASMLIB verwenden.
+* Wenn Sie den Klon auf einem alternativen Host erstellen, sollte der alternative Host folgende Anforderungen erfüllen:
++
+** Das Plug-in sollte auf dem alternativen Host installiert sein.
+** Der Klon-Host sollte in der Lage sein, LUNs vom Storage zu entdecken, wenn Sie eine Datenbank klonen, die sich auf iSCSI SAN Storage befindet. Wenn Sie auf einem alternativen Host klonen, stellen Sie sicher, dass eine iSCSI-Sitzung zwischen dem Storage und dem alternativen Host hergestellt wird.
+** Wenn die Quelldatenbank eine ASM-Datenbank ist:
++
+*** Die ASM-Instanz sollte auf dem Host ausgeführt werden, auf dem der Klon ausgeführt wird.
+*** Die ASM-Festplattengruppe sollte vor dem Klonvorgang bereitgestellt werden, wenn Sie Archivprotokolldateien der geklonten Datenbank in eine dedizierte ASM-Festplattengruppe platzieren möchten.
+*** Der Name der Datendiskgruppe kann konfiguriert werden, aber stellen Sie sicher, dass der Name nicht von einer anderen ASM-Festplattengruppe auf dem Host verwendet wird, auf dem der Klon ausgeführt wird.
+*** Datendateien auf der ASM-Festplattengruppe werden als Teil des Klon-Workflows bereitgestellt.
+
+
+
+
+
+
+
+
+== Einschränkungen beim Klonen
+
+* Geplante Klone (Lifecycle Management für Klone) werden nicht unterstützt.
+* Das Klonen einer geklonten Datenbank wird nicht unterstützt.
+* Das Klonen von Datenbanken auf Qtree wird nicht unterstützt.
+* Das Klonen von Backups für Archivprotokolle wird nicht unterstützt.
+* Das Backup einer geklonten Datenbank wird nicht unterstützt.
+
+
+
+
+== Klonmethoden
+
+Sie können den Klon entweder mit der Basismethode oder mit der Klon-Spezifikations-Datei erstellen.
+
+
+
+=== Klonen mit einfacher Methode
+
+Sie können den Klon mit den Standardkonfigurationen auf Basis der Quelldatenbank und des ausgewählten Backups erstellen.
+
+* Die Datenbankparameter Home und der OS-Benutzer werden standardmäßig auf die Quelldatenbank gesetzt.
+* Die Datendateipfade werden basierend auf dem ausgewählten Benennungsschema benannt.
+* Die vor-, Post- und SQL-Anweisungen können nicht angegeben werden.
+* Die Recovery-Option ist standardmäßig *bis Abbrechen* und es verwendet die Log-Backup mit dem Daten-Backup für die Wiederherstellung verbunden
+
+
+
+
+=== Klonen mit Spezifikationsdatei
+
+Sie können die Konfigurationen in der Klon-Spezifikations-Datei definieren und sie zum Klonen der Datenbank verwenden. Sie können die Spezifikationsdatei herunterladen, an Ihre Anforderung anpassen und anschließend die Datei hochladen. link:task-clone-cloud-native-oracle-data.html["Weitere Informationen ."].
+
+Die verschiedenen Parameter, die in der Spezifikations-Datei definiert sind und die geändert werden können, sind wie folgt:
+
+|===
+| Parameter | Beschreibung 
+
+
+ a| 
+Control_Dateien
+ a| 
+Speicherort der Kontrolldateien für die Klondatenbank
+
+Die Anzahl der Kontrolldateien wird mit der Quelldatenbank identisch sein. Wenn Sie den Pfad der Steuerdatei überschreiben möchten, können Sie einen anderen Pfad für die Steuerdatei angeben. Auf dem Host sollte das Dateisystem oder die ASM-Festplattengruppe vorhanden sein.
+
+
+
+ a| 
+Redo_Logs
+ a| 
+Standort, Größe, Anzahl der Wiederherstellungsprotokolle.
+
+Zum Klonen der Datenbank sind mindestens zwei Wiederherstellungsprotokolle erforderlich. Wenn Sie den Pfad der Redo-Log-Datei überschreiben möchten, können Sie den Pfad der Redo-Log-Datei auf ein anderes Dateisystem als die der Quelldatenbank anpassen.das Dateisystem oder die ASM-Diskgruppe sollte auf dem Host vorhanden sein.
+
+
+
+ a| 
+oracle_Version
+ a| 
+Oracle-Version auf dem Ziel-Host.
+
+
+
+ a| 
+oracle_Home
+ a| 
+Oracle Home auf dem Ziel-Host:
+
+
+
+ a| 
+Enable_Archive_log_Mode
+ a| 
+Steuert den Archivprotokollmodus für die Klondatenbank
+
+
+
+ a| 
+Datenbankparameter
+ a| 
+Datenbankparameter für die geklonte Datenbank
+
+
+
+ a| 
+sql_Anweisungen
+ a| 
+Die SQL-Anweisungen, die nach dem Klonen auf der Datenbank ausgeführt werden sollen
+
+
+
+ a| 
+os_user_Detail
+ a| 
+Oracle OS Benutzer auf der Zielklondatenbank
+
+
+
+ a| 
+Datenbankport
+ a| 
+Port, der für die Kommunikation mit der Datenbank verwendet wird, wenn die OS-Authentifizierung auf dem Host deaktiviert ist.
+
+
+
+ a| 
+asm_Port
+ a| 
+Port, der für die Kommunikation mit der ASM-Datenbank verwendet wird, wenn Anmeldedaten in der Eingabe zum Erstellen eines Klons angegeben sind.
+
+
+
+ a| 
+skip_Recovery
+ a| 
+Führt keinen Wiederherstellungsvorgang aus.
+
+
+
+ a| 
+Bis_scn
+ a| 
+Stellt die Datenbank bis zur angegebenen Systemänderungsnummer (scn) wieder her.
+
+
+
+ a| 
+„Bis_Zeit“
+ a| 
+Stellt die Datenbank bis zum angegebenen Datum und der angegebenen Zeit wieder her.
+
+Das akzeptierte Format lautet _mm/TT/JJJJ hh:mm:ss_.
+
+
+
+ a| 
+Bis_Abbrechen
+ a| 
+Stellen Sie die Wiederherstellung wieder her, indem Sie das Log-Backup mounten, das für das Klonen ausgewählt wurde.
+
+Die geklonte Datenbank wird wiederhergestellt, bis die fehlende oder beschädigte Protokolldatei vorliegt.
+
+
+
+ a| 
+Log_Paths
+ a| 
+Weitere Standorte für Archivprotokolle, die für das Recovery der geklonten Datenbank verwendet werden sollen.
+
+
+
+ a| 
+Source_Location
+ a| 
+Speicherort der Diskgruppe oder des Bereitstellungspunkts auf dem Quell-Datenbank-Host.
+
+
+
+ a| 
+Clone_Location
+ a| 
+Speicherort der Diskgruppe oder des Mount-Punkts, der auf dem Zielhost erstellt werden muss, der dem Quellspeicherort entspricht.
+
+
+
+ a| 
+Location_type
+ a| 
+Es kann entweder ASM_Diskgroup oder Mountpoint sein.
+
+Die Werte werden beim Herunterladen der Datei automatisch ausgefüllt. Sie sollten diesen Parameter nicht bearbeiten.
+
+
+
+ a| 
+Pre_Script
+ a| 
+Skript, das auf dem Zielhost ausgeführt werden soll, bevor der Klon erstellt wird.
+
+
+
+ a| 
+Post_Script
+ a| 
+Skript, das auf dem Zielhost ausgeführt werden soll, nachdem der Klon erstellt wurde.
+
+
+
+ a| 
+Pfad
+ a| 
+Absoluter Pfad des Skripts auf dem Klon-Host.
+
+Sie sollten das Skript entweder in /var/opt/snapcenter/spl/scripts oder in einem beliebigen Ordner in diesem Pfad speichern.
+
+
+
+ a| 
+Zeitüberschreitung
+ a| 
+Die für das auf dem Zielhost ausgeführte Skript festgelegte Zeitüberschreitung.
+
+
+
+ a| 
+Argumente
+ a| 
+Für die Skripte angegebene Argumente.
+
+|===
+
+
+== Benennungsschema für Klone
+
+Clone Benennungsschema definiert den Speicherort der Mount-Punkte und den Namen der Festplattengruppen der geklonten Datenbank. Sie können entweder *identisch* oder *automatisch generiert* wählen.
+
+
+
+=== Identisches Benennungsschema
+
+Wenn Sie das Namensschema für den Klon als *identisch* auswählen, wird der Speicherort der Mount-Punkte und der Name der Diskgroups der geklonten Datenbank mit der Quelldatenbank identisch sein.
+
+Wenn der Mount-Punkt der Quelldatenbank beispielsweise _/netapp_sourceb/Data_1 , +DATA1_DG_ ist, bleibt der Mount-Punkt für die geklonte Datenbank sowohl für NFS als auch für ASM auf SAN gleich.
+
+* Konfigurationen wie Anzahl und Pfad von Kontrolldateien und Wiederherstellungsdateien werden mit der Quelle identisch sein.
++
+
+NOTE: Wenn sich die Redo-Logs oder Kontrolldateipfade auf den nicht-Daten-Volumes befinden, sollte der Benutzer die ASM-Festplattengruppe oder den Bereitstellungspunkt im Ziel-Host bereitgestellt haben.
+
+* Oracle OS-Benutzer und die Oracle Version werden mit der Quelldatenbank identisch sein.
+* Der Name des Klon-Storage Volumes hat das folgende Format: SourceVolNameSCS_Clone_CurrentTimeStampNumber.
++
+Wenn der Volume-Name auf der Quelldatenbank beispielsweise _sourceVolName_ lautet, lautet der geklonte Volume-Name _sourceVolNameSCS_Clone_1661420020304608825_.
+
++
+
+NOTE: Die _CurrentTimeStampNumber_ bietet die Einzigartigkeit im Volumennamen.
+
+
+
+
+
+=== Automatisch generiertes Benennungsschema
+
+Wenn Sie das Klon-Schema als *automatisch generiert* auswählen, wird der Speicherort der Mount-Punkte und der Name der Diskgroups der geklonten Datenbank mit einem Suffix angehängt. * Wenn Sie die grundlegende Clone-Methode ausgewählt haben, ist das Suffix die *Clone-SID*. * Wenn Sie die Methode der Spezifikatei ausgewählt haben, ist das Suffix *Suffix*, das beim Herunterladen der Klon-Spezifikations-Datei angegeben wurde.
+
+Wenn zum Beispiel der Mount-Punkt der Quelldatenbank _/netapp_sourcedb/Data_1_ und der *Clone SID* oder der *Suffix* _HR_ ist, dann ist der Mount-Punkt der geklonten Datenbank _/netapp_sourcedb/Data_1_HR_.
+
+* Die Anzahl der Kontrolldateien und Wiederherstellungsprotokolle wird mit der Quelle identisch sein.
+* Alle Redo-Log-Dateien und Kontrolldateien befinden sich auf einem der geklonten Datenmontagepunkte oder Daten-ASM-Festplattengruppen.
+* Der Name des Klon-Storage Volumes hat das folgende Format: SourceVolNameSCS_Clone_CurrentTimeStampNumber.
++
+Wenn der Volume-Name auf der Quelldatenbank beispielsweise _sourceVolName_ lautet, lautet der geklonte Volume-Name _sourceVolNameSCS_Clone_1661420020304608825_.
+
++
+
+NOTE: Die _CurrentTimeStampNumber_ bietet die Einzigartigkeit im Volumennamen.
+
+* Das Format des NAS-Mount-Punkts ist _SourceNASMuntPoint_Suffix_.
+* Das Format der ASM-Festplattengruppe ist _SourceDiskgroup_Suffix_.
++
+
+NOTE: Wenn die Anzahl der Zeichen in der Clone-Festplattengruppe größer als 25 ist, hat sie _SC_HashCode_Suffix_.
+
+
+
+
+
+== Datenbankparameter
+
+Der Wert der folgenden Datenbankparameter entspricht unabhängig vom Namenskonvention des Klons dem der Quelldatenbank.
+
+* Log_Archive_Format
+* Audit_Trail
+* Prozessen
+* pga_Aggregate_Target
+* Remote_Login_passwordfile
+* Undo_Tablespace
+* Open_Cursors
+* sga_Target
+* db_Block_size
+
+
+Der Wert der folgenden Datenbankparameter wird mit einem Suffix basierend auf der Clone-SID angehängt.
+
+* Audit_file_dest = {sourceDatabase_parametervalue}_Suffix
+* Log_Archive_dest_1 = {sourceDatabase_oraclehome}_Suffix
+
+
+
+
+== Unterstützte vordefinierte Umgebungsvariablen für das Klonen spezifischer Preskript und Postscript
+
+Sie können die unterstützten vordefinierten Umgebungsvariablen verwenden, wenn Sie das Prescript und das Postscript beim Klonen einer Datenbank ausführen.
+
+* SC_ORIGINAL_SID gibt die SID der Quelldatenbank an. Dieser Parameter wird für Anwendungs-Volumes ausgefüllt. Beispiel: NFSB32
+* SC_ORIGINAL_HOST gibt den Namen des Quellhosts an. Dieser Parameter wird für Anwendungs-Volumes ausgefüllt. Beispiel: asmrac1.gdl.englab.netapp.com
+* SC_ORACLE_HOME gibt den Pfad des Oracle-Home-Verzeichnisses der Zieldatenbank an. Beispiel: /Ora01/App/oracle/Product/18.1.0/db_1
+* SC_BACKUP_NAME“ gibt den Namen des Backups an. Dieser Parameter wird für Anwendungs-Volumes ausgefüllt. Beispiele:
++
+** Wenn die Datenbank nicht im ARCHIVELOG-Modus ausgeführt wird: DATEN@RG2_scspr2417819002_07-20- 2021_12.16.48.9267_0_LOG@RG2_scspr2417819002_07-20-2021_12.16.48.9267_1
+** Wenn die Datenbank im ARCHIVELOG-Modus ausgeführt wird: DATEN@@RG2_scspr2417819002_07-20- 2021_12.16.48.9267_0 RG2_scspr2417819002_07-20- 2021_12.16.48.9267_1,RG2_scspr2417819002_07-21- 2021_12.16.48.9267_1,RG2_scspr2417819002_07_22_2021_12.16.48.9267_1__1___1__1_1____1_1_1__
+
+
+* SC_ORIGINAL_OS_USER gibt den Betriebssystembesitzer der Quelldatenbank an. Beispiel: oracle
+* SC_ORIGINAL_OS_GROUP gibt die Betriebssystemgruppe der Quelldatenbank an. Beispiel: Oinstall
+* SC_TARGET_SID“ gibt die SID der geklonten Datenbank an. Bei PDB-Klon-Workflow ist der Wert dieses Parameters nicht vordefiniert. Dieser Parameter wird für Anwendungs-Volumes ausgefüllt. Beispiel: Clonedb
+* SC_TARGET_HOST gibt den Namen des Hosts an, auf dem die Datenbank geklont werden soll. Dieser Parameter wird für Anwendungs-Volumes ausgefüllt. Beispiel: asmrac1.gdl.englab.netapp.com
+* SC_TARGET_OS_USER gibt den Betriebssystembesitzer der geklonten Datenbank an. Bei PDB-Klon-Workflow ist der Wert dieses Parameters nicht vordefiniert. Beispiel: oracle
+* SC_TARGET_OS_GROUP gibt die Betriebssystemgruppe der geklonten Datenbank an. Bei PDB-Klon-Workflow ist der Wert dieses Parameters nicht vordefiniert. Beispiel: Oinstall
+* SC_TARGET_DB_PORT gibt den Datenbank-Port der geklonten Datenbank an. Bei PDB-Klon-Workflow ist der Wert dieses Parameters nicht vordefiniert. Beispiel: 1521
+
+
+
+
+=== Unterstützte Trennzeichen
+
+* @ Wird verwendet, um Daten von seinem Datenbanknamen zu trennen und den Wert von seinem Schlüssel zu trennen. Beispiel: DATEN@RG2_scspr2417819002_07-20- 2021_12.16.48.9267_0_LOG@RG2_scspr2417819002_07-20-2021_12.16.48.9267_1
+* Wird verwendet, um die Daten zwischen zwei verschiedenen Entitäten für SC_BACKUP_NAME Parameter zu trennen. Beispiel: DATA@RG2_scspr2417819002_07-20-2021_12.16.48.9267_0 LOG@RG2_scspr2417819002_07-20-2021_12.16.48.9267_1
+* , Wird verwendet, um Satz von Variablen für den gleichen Schlüssel zu trennen. Beispiel: DATEN@RG2_scspr2417819002_07-20- 2021_12.16.48.9267_0 LOGBUCH@RG2_scspr2417819002_07-20- 2021_12.16.48.9267_1,RG2_scspr2417819002_07-21- 2021_12.16.48.9267_1,RG2_scspr2417819002_07-22-2021_12.16.48.9267_1
+

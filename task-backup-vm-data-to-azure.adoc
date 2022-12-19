@@ -16,6 +16,8 @@ summary: Sichern Sie Ihre Datenspeicher von On-Premises ONTAP nach Azure.
 [role="lead"]
 Durch Integration des SnapCenter Plug-ins für VMware vSphere mit BlueXP können Sie ein oder mehrere Datastores in Microsoft Azure sichern. So können VM-Administratoren Daten für Storage-Effizienz einfach und schnell sichern und archivieren und die Cloud-Transition beschleunigen.
 
+Wenn der Datenspeicher einer Archivierungsrichtlinie zugeordnet ist, erhalten Sie eine Option zur Auswahl der Archivebene. Die unterstützte Archivierungs-Tier ist Azure Archive Blob Storage.
+
 
 NOTE: Stellen Sie sicher, dass Sie alle erfüllt haben link:concept-protect-vm-data.html#Requirements["Anforderungen"] Vor dem Backup von Datastores in der Cloud.
 
@@ -44,6 +46,10 @@ Konfigurieren Sie die ONTAP-Cluster, die BlueXP zum Sichern Ihrer Datenspeicher 
 .. Wählen Sie den Bereich aus, in dem Sie die Backups erstellen möchten.
 .. Erstellen Sie eine neue Ressourcengruppe oder verwenden Sie eine vorhandene Ressourcengruppe.
 .. Geben Sie die IP-Adressen der ONTAP-Cluster an, die als Arbeitsumgebung hinzugefügt wurden.
+.. Wählen Sie die Archivebene aus.
++
+Es wird empfohlen, die Archivebene einzustellen, da dies eine einmalige Aktivität ist und Sie sie später nicht einrichten können.
+
 
 
 . Überprüfen Sie die Details und klicken Sie auf *Backup aktivieren*.

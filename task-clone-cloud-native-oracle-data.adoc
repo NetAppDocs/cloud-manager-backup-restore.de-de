@@ -1,0 +1,92 @@
+---
+sidebar: sidebar 
+permalink: task-clone-cloud-native-oracle-data.html 
+keywords: cloud native, application data, restore, data files, control files, recovery, Cloud Manager, BlueXP, Oracle database, Oracle 
+summary: Klonen der Datenbank entweder auf dem Quell- oder auf dem alternativen Host. 
+---
+= Klonen Cloud-nativer Oracle Datenbank
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können eine Oracle-Datenbank mit dem Backup der Datenbank entweder auf dem Quelldatenbank-Host oder auf einem alternativen Host klonen.
+
+Sie können Datenbanken aus den folgenden Gründen klonen:
+
+* Funktionen zu testen, die während der Applikationsentwicklungszyklen mit der aktuellen Datenbankstruktur und Inhalten implementiert werden müssen
+* Um Data Warehouses mit Tools zur Datenextraktion und -Bearbeitung zu befüllen.
+* Zum Wiederherstellen von Daten, die versehentlich gelöscht oder geändert wurden.
+
+
+*Was Sie brauchen*
+
+Vor dem Klonen der Datenbank sollten Sie die Klonkonzepte verstehen und sicherstellen, dass alle Anforderungen erfüllt werden. link:concept-clone-cloud-native-oracle-concepts.html["Weitere Informationen ."].
+
+*Schritte*
+
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Datenbank, die Sie klonen möchten, und klicken Sie auf *Details anzeigen*.
+. Klicken Sie Auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Datensicherung und klicken Sie auf *Clone*.
+. Wählen Sie auf der Seite Klondetails eine der Klonoptionen aus.
+. Führen Sie je nach gewählter Option die folgenden Aktionen durch:
++
+|===
+| Wenn Sie ausgewählt haben... | Tun Sie das... 
+
+
+ a| 
+*Einfach*
+ a| 
+.. Wählen Sie den Klon-Host aus.
++
+Wenn Sie den Klon auf einem anderen Host erstellen möchten, wählen Sie den Host aus, der dieselbe Version von Oracle und dasselbe Betriebssystem wie der des Quelldatenbankhosts hat.
+
+.. Geben Sie die SID des Klons an.
+.. Wählen Sie das Benennungsschema für den Klon aus.
++
+Wenn die Datenbank zum Quell-Host geklont wird, wird das Benennungsschema automatisch generiert. Wenn die Datenbank auf einem alternativen Host geklont wird, ist das Benennungsschema von Klonen identisch.
+
+.. Geben Sie den Oracle Home Path an.
+.. (Optional) Geben Sie die Datenbankanmeldeinformationen an.
++
+*** Datenbank-Anmeldeinformationen: Wenn die OS-Benutzerauthentifizierung deaktiviert ist, sollten Sie ein Passwort für den sys-Benutzer angeben, um es auf dem Ziel-Host zu definieren.
+*** ASM-Anmeldedaten: Wenn die Authentifizierung des OS-Benutzers auf dem Zielhost deaktiviert ist, sollten Sie die Anmeldeinformationen eines sysasm-privilegierten Benutzers angeben, um eine Verbindung zur ASM-Instanz auf dem Zielhost herzustellen.
+
+
+.. Klicken Sie Auf *Weiter*.
+.. Klicken Sie Auf *Clone*.
+
+
+
+
+ a| 
+*Spezifikations-Datei*
+ a| 
+.. Klicken Sie auf *Datei herunterladen*, um die Spezifikationsdatei herunterzuladen.
+.. Wählen Sie das Benennungsschema für den Klon aus.
++
+Wenn Sie *automatisch generiert* auswählen, sollten Sie das Suffix angeben.
+
+.. Bearbeiten Sie die Spezifikationsdatei gemäß der Anforderung und laden Sie sie hoch, indem Sie auf die Schaltfläche *Durchsuchen* klicken.
+.. Wählen Sie den Klon-Host aus.
++
+Wenn Sie den Klon auf einem anderen Host erstellen möchten, wählen Sie den Host aus, der dieselbe Version von Oracle und dasselbe Betriebssystem wie der des Quelldatenbankhosts hat.
+
+.. Geben Sie die SID des Klons an.
+.. (Optional) Geben Sie die Datenbankanmeldeinformationen an.
++
+*** Datenbank-Anmeldeinformationen: Wenn die OS-Benutzerauthentifizierung deaktiviert ist, sollten Sie ein Passwort für den sys-Benutzer angeben, um es auf dem Ziel-Host zu definieren.
+*** ASM-Anmeldedaten: Wenn die Authentifizierung des OS-Benutzers auf dem Zielhost deaktiviert ist, sollten Sie die Anmeldeinformationen eines sysasm-privilegierten Benutzers angeben, um eine Verbindung zur ASM-Instanz auf dem Zielhost herzustellen.
+
+
+.. Klicken Sie Auf *Weiter*.
+.. Klicken Sie Auf *Clone*.
+
+
+|===
+. Klicken Sie Auf image:button_plus_sign_square.png["Symbol, um die Aktion auszuwählen"] Neben *Filter by* und wählen Sie *Clone-Optionen* > *Klone*, um die Klone anzuzeigen.
+

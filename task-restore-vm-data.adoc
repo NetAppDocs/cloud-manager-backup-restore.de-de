@@ -14,7 +14,7 @@ summary: Sie können Virtual Machines aus der Cloud in der lokalen SnapCenter wi
 
 
 [role="lead"]
-Sie können Virtual Machines aus der Cloud wieder in vCenter vor Ort wiederherstellen. Das Backup wird an genau demselben Ort wiederhergestellt, von wo aus das Backup durchgeführt wurde. Sie können das Backup nicht an einem anderen alternativen Speicherort wiederherstellen. Sie können Virtual Machines aus dem Datastore oder aus der VM-Ansicht wiederherstellen.
+Sie können Virtual Machines aus der Cloud wieder in vCenter vor Ort wiederherstellen. Das Backup wird an genau demselben Ort wiederhergestellt, von wo aus das Backup durchgeführt wurde. Wenn die Virtual Machine über eine Archivierungsrichtlinie gesichert wurde, können Sie die Restore-Priorität für das Archiv festlegen.
 
 
 NOTE: Sie können keine virtuellen Maschinen wiederherstellen, die von mehreren Datenspeichern verteilt sind.
@@ -33,14 +33,22 @@ NOTE: Wenn die virtuelle Quellmaschine an einen anderen Speicherort (vMotion) ve
 +
 .. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend dem Datenspeicher, den Sie wiederherstellen möchten, und klicken Sie auf *Details anzeigen*.
 .. Klicken Sie auf *Wiederherstellen*, die der Sicherungskopie entsprechen, die Sie wiederherstellen möchten.
-.. Wählen Sie die virtuelle Maschine aus, die Sie aus dem Backup wiederherstellen möchten, und klicken Sie auf *Weiter*.
+.. Wählen Sie die virtuelle Maschine aus, die Sie aus dem Backup wiederherstellen möchten.
+.. Wählen Sie die Option * Archival Restore Priority* aus und klicken Sie auf *Next*.
++
+Diese Option ist nur verfügbar, wenn die virtuelle Maschine mit einer Richtlinie geschützt war, in der Archivierungseinstellungen konfiguriert waren. Die unterstützte Restore-Priorität bei der Archivierung von Amazon Web Services ist hoch, Standard und niedrig und die unterstützte Restore-Priorität bei der Archivierung für Microsoft Azure ist Standard und hoch.
+
 .. Überprüfen Sie die Details und klicken Sie auf *Wiederherstellen*.
 
 
 . So stellen Sie Daten von virtuellen Maschinen wieder her:
 +
 .. Klicken Sie Auf image:icon-action.png["Aktion"] Entsprechend der virtuellen Maschine, die Sie wiederherstellen möchten, und klicken Sie auf *Wiederherstellen*.
-.. Wählen Sie das Backup aus, über das Sie die virtuelle Maschine wiederherstellen möchten, und klicken Sie auf *Weiter*.
+.. Wählen Sie das Backup aus, über das Sie die virtuelle Maschine wiederherstellen möchten.
+.. Wählen Sie die Option * Archival Restore Priority* aus und klicken Sie auf *Next*.
++
+Diese Option ist nur verfügbar, wenn die virtuelle Maschine mit einer Richtlinie geschützt war, in der Archivierungseinstellungen konfiguriert waren. Die unterstützte Restore-Priorität bei der Archivierung von Amazon Web Services ist hoch, Standard und niedrig und die unterstützte Restore-Priorität bei der Archivierung für Microsoft Azure ist Standard und hoch.
+
 .. Überprüfen Sie die Details und klicken Sie auf *Wiederherstellen*.
 
 

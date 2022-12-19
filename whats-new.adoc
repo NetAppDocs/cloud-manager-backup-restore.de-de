@@ -18,6 +18,47 @@ Alles zum Thema Cloud Backup:
 
 
 
+== Bis 19. Dezember 2022
+
+
+
+=== Erweiterungen für Cloud Backup für Applikationen
+
+* SAP HANA Datenbanken
++
+** Unterstützung für richtlinienbasiertes Backup und Restore von SAP HANA Datenbanken in Azure NetApp Files (ANF)
+** Unterstützt benutzerdefinierte Richtlinien
+
+
+* Oracle Datenbanken
++
+** Hosts hinzufügen und Plug-in automatisch implementieren
+** Unterstützt benutzerdefinierte Richtlinien
+** Unterstützung von richtlinienbasierten Backups, Restores und Klonen von Oracle Datenbanken auf Cloud Volumes ONTAP
+** Unterstützung von richtlinienbasiertem Backup und Restore von Oracle Datenbanken in Amazon FSX für NetApp ONTAP
+** Unterstützt die Wiederherstellung von Oracle Datenbanken mithilfe von Connect-and-Copy-Methode
+** Unterstützt Oracle 21c
+** Das Klonen von Cloud-nativer Oracle Database wird unterstützt
+
+
+
+
+
+
+=== Erweiterungen für Cloud Backup
+
+* Virtual Machines
++
+** Backup von Virtual Machines aus sekundärem On-Premises-Storage
+** Unterstützt benutzerdefinierte Richtlinien
+** Unterstützt Google Cloud Platform (GCP) für den Backup von einem oder mehreren Datastores
+** Unterstützt kostengünstigen Cloud-Storage wie Glacier, Deep Glacier und Azure Archive
+
+
+
+
+
+
 == Bis 6. Dezember 2022
 
 

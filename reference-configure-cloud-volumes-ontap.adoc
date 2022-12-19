@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: reference-configure-cloud-volumes-ontap.html 
+keywords: Cloud Manager, Cloud Volumes ONTAP, working environment, Connector, BlueXP 
+summary: Erstellung der Cloud Volumes ONTAP-Arbeitsumgebung und des Connectors 
+---
+= Konfigurieren Sie Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie sollten die Cloud Volumes ONTAP-Arbeitsumgebung und den Connector erstellen.
+
+
+
+== Cloud Volumes ONTAP Arbeitsumgebung erstellen
+
+Sie können vorhandene Cloud Volumes ONTAP-Systeme entdecken und zu BlueXP hinzufügen. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-adding-systems.html["Hinzufügen vorhandener Cloud Volumes ONTAP-Systeme zu BlueXP"].
+
+
+
+== Einen Konnektor erstellen
+
+Erste Schritte mit Cloud Volumes ONTAP für Ihre Cloud-Umgebung. Weitere Informationen finden Sie im Folgenden:
+
+* link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-getting-started-aws.html["Schnellstart für Cloud Volumes ONTAP in AWS"]
+* link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-getting-started-azure.html["Schnellstart für Cloud Volumes ONTAP in Azure"]
+* link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-getting-started-gcp.html["Schnellstart für Cloud Volumes ONTAP in Google Cloud"]
+
+
+Sie sollten denselben Konnektor verwenden, um sowohl die CVO-Arbeitsumgebung als auch Oracle-Datenbanken zu verwalten.
+
+* Wenn die CVO Arbeitsumgebung und Oracle-Datenbanken im selben VPC oder vnet sind, können Sie den Connector in demselben VPC oder vnet implementieren.
+* Wenn Sie über die CVO-Arbeitsumgebung und Oracle-Datenbanken in verschiedenen VPCs oder VNets verfügen, stellen Sie sicher, dass die VPCs oder VNets erreicht sind.
+

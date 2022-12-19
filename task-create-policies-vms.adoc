@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: task-create-policies-vms.html 
 keywords: create policy, protection policies, predefined policies, custom policies 
-summary: Sichern Sie Ihre Datenspeicher von lokalen ONTAP Systemen auf AWS. 
+summary: Erstellen einer Richtlinie zum Backup von Virtual Machines 
 ---
 = Erstellen einer Richtlinie zum Backup von Virtual Machines
 :hardbreaks:
@@ -60,10 +60,19 @@ Sie sollten Richtlinien erstellen, wenn Sie die vordefinierten Richtlinien nicht
 .Schritte
 . Wählen Sie auf der Seite Virtuelle Maschinen aus der Dropdown-Liste Einstellungen die Option *Richtlinien* aus.
 . Klicken Sie auf *Create Policy*.
-. Geben Sie einen Richtliniennamen an.
-. Geben Sie den Zeitplan und die Aufbewahrungsdetails an.
+. Geben Sie im Abschnitt Richtliniendetails den Richtliniennamen an.
+. Wählen Sie im Abschnitt Aufbewahrung einen Aufbewahrungstyp aus und geben Sie die Anzahl der zu behaltenden Backups an.
+. Wählen Sie Primary oder Secondary als Backup-Speicherquelle aus.
+. (Optional) Wenn Sie Backups nach einer bestimmten Anzahl von Tagen zur Kostenoptimierung vom Objektspeicher in den Archivspeicher verschieben möchten, aktivieren Sie das Kontrollkästchen *Tiering Backups in Archival* und geben Sie die Anzahl der Tage ein, nach denen das Backup archiviert werden soll.
 +
-Standardmäßig wird die Sicherungsquelle als primäre Quelle ausgewählt.
+Sie können Backups nur dann von einem Objektspeicher in einen Archiv-Storage verschieben, wenn Sie ONTAP 9.10.1 oder höher und Amazon Web Services oder Azure als Cloud-Provider verwenden. Sie sollten die Zugriffsebene für den Archiv für jeden Cloud-Provider konfigurieren.
 
 . Klicken Sie Auf *Erstellen*.
++
+Sie können die angepassten Richtlinien bearbeiten, kopieren und löschen.
+
++
+
+NOTE: Eine Richtlinie, die einer virtuellen Maschine zugeordnet ist, kann nicht bearbeitet oder gelöscht werden.
+
 

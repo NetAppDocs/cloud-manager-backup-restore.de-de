@@ -1,0 +1,247 @@
+---
+sidebar: sidebar 
+permalink: task-backup-cloud-native-sap-hana-data.html 
+keywords: cloud native, application data, back up, policy, pre-canned policies, scheduled backups, on-demand backups, cloud manager, BlueXP, add hosts, create policy, SAP HANA Database 
+summary: Erstellen von geplanten oder On-Demand-Backups der SAP HANA Datenbank 
+---
+= Backup der nativen Cloud-SAP HANA-Datenbank
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Bevor Sie ein Backup der SAP HANA-Datenbank erstellen, sollten Sie die SAP HANA-Datenbank-Hosts hinzufügen und entweder eine vordefinierte Richtlinie oder die von Ihnen erstellte Richtlinie zuweisen.
+
+
+
+== Fügen Sie SAP HANA Datenbank-Hosts hinzu
+
+Sie sollten SAP HANA-Datenbank-Hosts manuell hinzufügen, um Richtlinien zuzuweisen und Backups zu erstellen. Die automatische Erkennung des SAP HANA-Datenbank-Hosts wird nicht unterstützt.
+
+*Was Sie brauchen*
+
+* Sie sollten die Arbeitsumgebung hinzugefügt und den Connector erstellt haben.
+* Stellen Sie sicher, dass der Connector mit der Arbeitsumgebung verbunden ist
+* Stellen Sie sicher, dass der BlueXP-Benutzer über die Rolle „Account Admin“ verfügt.
+* Sie sollten das SnapCenter Plug-in für SAP HANA implementiert haben. link:task-deploy-snapcenter-plugin-for-sap-hana.html["Weitere Informationen ."]
+* Beim Hinzufügen der SAP HANA-Datenbank-Hosts sollten Sie die HDB-Benutzerspeicherschlüssel hinzufügen. Der HDB Secure User Store-Schlüssel wird verwendet, um die Verbindungsinformationen der SAP HANA Datenbank-Hosts sicher auf dem Client zu speichern und HDBSQL-Client verwendet den sicheren User Store-Schlüssel für die Verbindung zum SAP HANA-Datenbank-Host.
+* Für HANA System Replication (HSR) sollten Sie zum Schutz der HANA-Systeme sowohl primäre als auch sekundäre HANA-Systeme manuell registrieren.
+
+
+*Schritte*
+
+. Klicken Sie in der Benutzeroberfläche *BlueXP* auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Klicken Sie Auf *Anwendungen Entdecken*.
+. Wählen Sie *Cloud Native* > *SAP HANA* und klicken Sie auf *Next*.
+. Klicken Sie auf der Seite *Anwendungen* auf *System hinzufügen*.
+. Führen Sie auf der Seite *Systemdetails* die folgenden Aktionen durch:
++
+.. Wählen Sie den Systemtyp als mandantenfähiger Datenbankcontainer oder einzelner Container aus.
+.. Geben Sie den SAP HANA-Systemnamen ein.
+.. Geben Sie die SID des SAP HANA-Systems an.
+.. (Optional) Geben Sie den HDBSQL OS-Benutzer an.
+.. Wählen Sie Plug-in-Host. (Optional) Wenn der Host nicht hinzugefügt wird oder Sie mehrere Hosts hinzufügen möchten, klicken Sie auf *Add Plug-in Host*.
+.. Wenn HANA-System mit HANA System Replication konfiguriert ist, aktivieren Sie *HANA System Replication (HSR) System*.
+.. Klicken Sie auf * HDB Secure User Store Keys* Textfeld, um Details zu den Benutzerspeicherschlüsseln hinzuzufügen.
++
+Geben Sie den Schlüsselnamen, die Systemdetails, den Benutzernamen und das Passwort an und klicken Sie auf *Schlüssel hinzufügen*.
+
++
+Sie können die Benutzerspeicherschlüssel löschen oder ändern.
+
+
+
+. Klicken Sie Auf *Weiter*.
+. Klicken Sie auf der Seite *Storage Footprint* auf *Speicher hinzufügen* und führen Sie Folgendes aus:
++
+.. Wählen Sie die Arbeitsumgebung aus und geben Sie den NetApp Account an.
++
+Gehen Sie zur Seite *Canvas*, um eine neue Arbeitsumgebung hinzuzufügen
+
+.. Wählen Sie die erforderlichen Volumes aus.
+.. Klicken Sie Auf *Speicher Hinzufügen*.
+
+
+. Überprüfen Sie alle Details und klicken Sie auf *System hinzufügen*.
+
+
+
+NOTE: Der Filter zum Anzeigen eines bestimmten Hosts funktioniert nicht. Wenn Sie im Filter einen Hostnamen angeben, werden alle Hosts angezeigt
+
+Sie können SAP HANA-Systeme mithilfe DER REST-API ändern und entfernen. Vor dem Entfernen des HANA-Systems sollten Sie alle damit verbundenen Backups löschen und den Schutz entfernen.
+
+
+
+== Hinzufügen Von Nicht-Daten-Volumes
+
+Nach dem Hinzufügen eines mandantenfähigen Datenbank-Containers oder eines einzelnen SAP HANA-Systems lassen sich die nicht-Daten-Volumes des HANA-Systems hinzufügen.
+
+*Schritte*
+
+. Klicken Sie in der Benutzeroberfläche *BlueXP* auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Klicken Sie Auf *Anwendungen Entdecken*.
+. Wählen Sie *Cloud Native* > *SAP HANA* und klicken Sie auf *Next*.
+. Klicken Sie auf der Seite *Anwendungen* auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend dem System, für das Sie die nicht-Daten-Volumes hinzufügen möchten, und wählen Sie *System verwalten* > *nicht-Daten-Volume*.
+
+
+
+
+== Hinzufügen Von Globalen, Nicht Datenbasierten Volumes
+
+Nach dem Hinzufügen eines mandantenfähigen Datenbank-Containers oder eines einzelnen SAP HANA-Systems lassen sich die globalen nicht-Data-Volumes des HANA-Systems hinzufügen.
+
+*Schritte*
+
+. Klicken Sie in der Benutzeroberfläche *BlueXP* auf *Schutz* > *Sicherung und Wiederherstellung* > *Anwendungen*.
+. Klicken Sie Auf *Anwendungen Entdecken*.
+. Wählen Sie *Cloud Native* > *SAP HANA* und klicken Sie auf *Next*.
+. Klicken Sie auf der Seite *Anwendungen* auf *System hinzufügen*.
+. Führen Sie auf der Seite *Systemdetails* die folgenden Aktionen durch:
++
+.. Wählen Sie aus der Dropdown-Liste Systemtyp *globales Volume ohne Daten* aus.
+.. Geben Sie den SAP HANA-Systemnamen ein.
+.. Geben Sie die zugehörigen SIDs des SAP HANA-Systems an.
+.. Wählen Sie den Plug-in-Host aus
++
+(Optional) um mehrere Hosts hinzuzufügen, klicken Sie auf *Add Plug-in Host* und geben Sie den Hostnamen und Port an und klicken Sie auf *Add Host*.
+
+.. Klicken Sie Auf *Weiter*.
+.. Überprüfen Sie alle Details und klicken Sie auf *System hinzufügen*.
+
+
+
+
+
+
+== Vorschriften und Postskripte
+
+Sie können Prescripts, Postskripte bereitstellen und Skripte beenden, während Sie eine Richtlinie erstellen. Diese Skripte werden auf dem HANA-Host während der Erstellung von Backups ausgeführt.
+
+Das unterstützte Format für Skripte sind .sh, Python script, Perl script usw.
+
+Das Prescript und das Postscript sollten vom Hostadministrator registriert werden `/opt/NetApp/snapcenter/scc/etc/allowed_commands.config file`
+
+`[root@scspa2622265001 etc]# cat allowed_commands.config
+command: mount
+command: umount
+command: /mnt/scripts/pre_script.sh
+command: /mnt/scripts/post_script.sh`
+
+
+
+== Umgebungsvariablen
+
+Für den Wiederherstellungsworkflow stehen die folgenden Umgebungsvariablen als Teil von Prescript und Postscript zur Verfügung.
+
+|===
+| Umgebungsvariable | Beschreibung 
+
+
+ a| 
+SID
+ a| 
+Die Systemkennung der zur Wiederherstellung ausgewählten HANA-Datenbank
+
+
+
+ a| 
+BackupName
+ a| 
+Für den Wiederherstellungsvorgang ausgewählte Sicherungsname
+
+
+
+ a| 
+UserStoreKeyNames
+ a| 
+Konfigurierter Benutzerspeicherschlüssel für die HANA-Datenbank
+
+
+
+ a| 
+OSDBUser
+ a| 
+OSDBUser für die HANA-Datenbank konfiguriert
+
+
+
+ a| 
+PolicyName
+ a| 
+Nur für geplante Backups
+
+
+
+ a| 
+Schedule_TYPE
+ a| 
+Nur für geplante Backups
+
+|===
+
+
+== Erstellen einer Richtlinie zum Schutz von SAP HANA Datenbanken
+
+Sie können Richtlinien erstellen, wenn Sie die vordefinierten Richtlinien nicht verwenden oder bearbeiten möchten.
+
+. Wählen Sie auf der Seite *Anwendungen* aus der Dropdown-Liste Einstellungen die Option *Richtlinien* aus.
+. Klicken Sie auf *Create Policy*.
+. Geben Sie einen Richtliniennamen an.
+. (Optional) Bearbeiten Sie das Format des Namens der Snapshot Kopie.
+. Wählen Sie den Richtlinientyp aus.
+. Geben Sie den Zeitplan und die Aufbewahrungsdetails an.
+. (Optional) Geben Sie die Skripte an.
+. Klicken Sie Auf *Erstellen*.
+
+
+
+
+== Backup der SAP HANA Datenbank erstellen
+
+Sie können entweder eine vordefinierte Richtlinie zuweisen oder eine Richtlinie erstellen und sie dann der Datenbank zuweisen. Sobald die Richtlinie zugewiesen ist, werden die Backups gemäß dem in der Richtlinie definierten Zeitplan erstellt.
+
+*Über diese Aufgabe*
+
+Bei HANA System Replication (HSR) wird der geplante Backup-Job nur für das primäre HANA-System ausgelöst und wenn das System auf das sekundäre HANA-System überfällt, werden die bestehenden Zeitpläne ein Backup auf dem aktuellen primären HANA-System auslösen. Wird die Richtlinie nicht sowohl dem HANA-System zugewiesen, so schlägt nach dem Failover die Planung fehl.
+
+Wenn den HSR-Systemen unterschiedliche Richtlinien zugewiesen werden, wird das geplante Backup sowohl für die Systeme ausgelöst, als auch das Backup schlägt für das sekundäre HANA-System fehl.
+
+*Schritte*
+
+. Wenn die Datenbank nicht mit einer Richtlinie geschützt ist, klicken Sie auf der Seite Anwendungen auf *Richtlinie zuweisen*.
++
+Wenn die Datenbank mit einer oder mehreren Richtlinien geschützt ist, können Sie durch Klicken auf weitere Richtlinien zuweisen image:icon-action.png["Symbol, um die Aktion auszuwählen"] > *Richtlinie Zuweisen*.
+
+. Wählen Sie die Richtlinie aus und klicken Sie auf *Zuweisen*.
++
+Die Backups werden gemäß dem in der Richtlinie definierten Zeitplan erstellt.
+
++
+
+NOTE: Das Servicekonto (_SnapCenter-Account-<Account_id>_) wird zur Ausführung der geplanten Backup-Vorgänge verwendet.
+
+
+
+
+
+== On-Demand-Backup der SAP HANA-Datenbank erstellen
+
+Nach der Zuweisung der Richtlinie können Sie ein On-Demand-Backup der Applikation erstellen.
+
+*Schritte*
+
+. Klicken Sie auf der Seite *Anwendungen* auf image:icon-action.png["Symbol, um die Aktion auszuwählen"] Entsprechend der Anwendung und klicken Sie auf *On-Demand Backup*.
+. Wählen Sie den Backup-Typ nach Bedarf aus.
+. Wählen Sie für eine Policy-basierte Sicherung die Policy, die Aufbewahrungsebene aus und klicken Sie dann auf *Backup erstellen*.
+. Führen Sie zunächst die folgenden Schritte aus:
++
+.. Wählen Sie den Aufbewahrungswert aus, und geben Sie den Backup-Namen an.
+.. (Optional) Geben Sie die Skripte und den Pfad für die Skripte an.
+.. Klicken Sie Auf *Backup Erstellen*.
+
+
+

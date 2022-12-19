@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
-permalink: task-restore-cloud-native-app-data.html 
-keywords: cloud native, application data, restore, data files, control files, recovery 
+permalink: task-restore-cloud-native-oracle-data.html 
+keywords: cloud native, application data, restore, data files, control files, recovery, Cloud Manager, BlueXP, Oracle database, Oracle 
 summary: Stellen Sie die Datendateien, Kontrolldateien oder beides wieder her, und stellen Sie dann die Datenbank wieder her. 
 ---
-= Stellen Sie Cloud-native Applikationsdaten wieder her
+= Wiederherstellung nativer Oracle Datenbank in der Cloud
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -15,6 +15,11 @@ summary: Stellen Sie die Datendateien, Kontrolldateien oder beides wieder her, u
 
 [role="lead"]
 Im Falle eines Datenverlustes können Sie die Datendateien, Kontrolldateien oder beides wiederherstellen. Anschließend können Sie die Datenbank wiederherstellen.
+
+*Was Sie brauchen*
+
+Wenn sich die Oracle 21c-Datenbank im STARTZUSTAND befindet, schlägt der Wiederherstellungsvorgang fehl. Sie sollten Folgendes ausführen, um die Datenbank erfolgreich wiederherzustellen.
+`cp -f <ORACLE_HOME>/jdbc/lib/ojdbc8.jar /opt/NetApp/snapcenter/spl/plugins/sco/lib ojdbc8-8.jar`
 
 *Schritte*
 
@@ -54,7 +59,18 @@ NOTE: Die Wiederherstellung von Datendateien mit Kontrolldateien oder nur Kontro
 Sie können auch das Kontrollkästchen *in-Place-Wiederherstellung erzwingen* aktivieren.
 
 +
-Die Option *Kraft in-Place Restore* überschreibt die Datei spfile, Password file und Archivprotokolldateien aus der Diskgroup der Datendateien. Sie sollten das neueste Backup verwenden, wenn die Option *in-Place Restore* erzwingen ausgewählt ist.
+Wenn das SnapCenter Plug-in für Oracle im SAN-Layout fremde Dateien als Oracle-Datendateien auf der ASM-Festplattengruppe findet, wird die connect and Copy Restore-Methode durchgeführt. Die Fremddateien können eine oder mehrere der folgenden Typen sein:
+
++
+** Parameter
+** Passwort
+** Archivprotokoll
+** Online-Protokoll
+** ASM-Parameterdatei.
++
+Die Option *Kraft in-Place Restore* überschreibt die fremden Dateien von Typ-Parameter, Passwort und Archivprotokoll. Sie sollten das neueste Backup verwenden, wenn die Option *in-Place Restore* erzwingen ausgewählt ist.
+
+
 
 . Führen Sie im Abschnitt „Recovery Scope“ die folgenden Schritte aus:
 +
@@ -97,4 +113,15 @@ Aktivieren Sie das Kontrollkästchen, wenn Sie die Datenbank nach der Wiederhers
 
 . Klicken Sie auf *Weiter* und prüfen Sie die Details.
 . Klicken Sie Auf *Wiederherstellen*.
+
+
+
+
+== Einschränkungen
+
+* Keine Unterstützung für granulare Restores, beispielsweise beim Wiederherstellen von Tabellen und PDBs
+* Sowohl in-Place als auch connect-and-copy Wiederherstellungsmethoden werden verwendet, wenn einige Festplattengruppen fremde Dateien enthalten. Die Verwendung beider Methoden zur gleichen Zeit zur Wiederherstellung wird jedoch nicht unterstützt und der Wiederherstellungsvorgang schlägt fehl. Die Datenbank wird im Status „angehängt“ belassen und Sie müssen die Datenbank manuell in den Status „Öffnen“ versetzen.
++
+Aufgrund eines bekannten Problems wird die Fehlermeldung aufgrund von Fremddateien nicht auf der Jobseite in der UI angezeigt. Prüfen Sie die Connector-Protokolle, wenn während der Phase der SAN-Vorabwiederherstellung ein Fehler auftritt, um die Ursache des Problems zu ermitteln.
+
 
