@@ -1601,7 +1601,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-19 11:34:26 +0000">12/19/2022</time>
+    <time datetime="2023-01-06 11:11:03 +0000">01/06/2023</time>
     
   
 
@@ -1646,14 +1646,14 @@ Vergewissern Sie sich, dass auf jedem der SAP HANA-Datenbank-Hosts Java 11 (64-B
 </li>
 <li>
 <p>Laden Sie die Linux-Host-Plug-in-Binärdatei herunter.<br>
-<code>sudo docker exec -it cloudmanager_scs_cloud curl -X GET 'http://127.0.0.1/deploy/downloadLinuxPlugin'`</code></p>
+<code>sudo docker exec -it cloudmanager_scs_cloud curl -X GET 'http://127.0.0.1/deploy/downloadLinuxPlugin'</code></p>
 </li>
 <li>
 <p>Ermitteln Sie den Mount-Pfad für die Basis.<br>
 <code>sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint</code></p>
 </li>
 <li>
-<p>Kopieren Sie Zeilen 1 bis 16 aus dem <code>oracle_checksum_scs.txt`</code> Datei befindet sich unter <code>base_mount_path/version/sc-linux-host-plugin/</code></p>
+<p>Kopieren Sie Zeilen 1 bis 16 aus dem <code>oracle_checksum_scs.txt</code> Datei befindet sich unter <code>base_mount_path/version/sc-linux-host-plugin/</code></p>
 </li>
 <li>
 <p>Melden Sie sich beim SAP HANA Datenbank-Host an, und führen Sie die folgenden Schritte aus:</p>
@@ -1667,60 +1667,6 @@ Vergewissern Sie sich, dass auf jedem der SAP HANA-Datenbank-Hosts Java 11 (64-B
 <div class="paragraph">
 <p>Ersetzen Sie in den obigen Zeilen den &lt;LINUXUSER&gt; durch den nicht-Root-Benutzer, den Sie im Visuod-Dienstprogramm erstellt und gespeichert haben.</p>
 </div>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stellen-sie-das-plug-in-manuell-bereit">Stellen Sie das Plug-in manuell bereit</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Wenn die SSH-Schlüsselauthentifizierung auf dem HANA-Host nicht aktiviert ist, sollten Sie zur Bereitstellung des Plug-ins die folgenden manuellen Schritte durchführen.</p>
-</div>
-<div class="paragraph">
-<p><strong>Schritte</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Melden Sie sich bei der Connector-VM an.</p>
-</li>
-<li>
-<p>Laden Sie die Linux-Host-Plug-in-Binärdatei herunter.<br>
-<code># sudo docker exec -it cloudmanager_scs_cloud curl -X GET 'http://127.0.0.1/deploy/downloadLinuxPlugin'`</code></p>
-</li>
-<li>
-<p>Ermitteln Sie den Mount-Pfad für die Basis.<br>
-<code>sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint`</code></p>
-</li>
-<li>
-<p>Den Binärpfad des heruntergeladenen Plug-ins abrufen.<br>
-<code>sudo ls &lt;base_mount_path&gt; $(sudo docker ps|grep -Po "cloudmanager_scs_cloud:.*? "|sed -e 's/ *$//'|cut -f2 -d":")/sc-linux-host-plugin/snapcenter_linux_host_plugin_scs.bin`</code></p>
-</li>
-<li>
-<p>Kopieren <code>snapcenter_linux_host_plugin_scs.bin`</code> Auf jeden der SAP HANA-Datenbank-Hosts entweder mit scp oder anderen alternativen Methoden.</p>
-</li>
-<li>
-<p>Führen Sie auf dem SAP HANA-Datenbank-Host den folgenden Befehl aus, um Berechtigungen für die Binärdatei auszuführen.<br>
-<code>chmod +x snapcenter_linux_host_plugin_scs.bin</code></p>
-</li>
-<li>
-<p>Bereitstellen des SAP HANA-Plug-ins als sudo-Non-Root-Benutzer<code>./snapcenter_linux_host_plugin_scs.bin -i silent -DSPL_USER=&lt;non-root-user&gt;</code></p>
-</li>
-<li>
-<p>Kopieren Auf dem Plug-in-Host.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Navigieren Sie zu `/var/opt/snapcenter/spl/etc<code> and execute the keytool command to import the certificate.<br>
-`keytool -v -importkeystore -srckeystore certificate.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS -srcstorepass snapcenter -deststorepass snapcenter -srcalias agentcert -destalias agentcert -noprompt</code></p>
-</li>
-<li>
-<p>SPL neu starten: <code>systemctl restart spl`</code></p>
 </li>
 </ol>
 </div>
@@ -1771,6 +1717,61 @@ Vergewissern Sie sich, dass auf jedem der SAP HANA-Datenbank-Hosts Java 11 (64-B
 <p>Install_dir: Verzeichnis, in dem das Plug-in bereitgestellt wird, und dies ist ein optionaler Parameter. Standardwert ist /opt.</p>
 </li>
 </ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stellen-sie-das-plug-in-manuell-bereit">Stellen Sie das Plug-in manuell bereit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wenn die SSH-Schlüsselauthentifizierung auf dem HANA-Host nicht aktiviert ist, sollten Sie zur Bereitstellung des Plug-ins die folgenden manuellen Schritte durchführen.</p>
+</div>
+<div class="paragraph">
+<p><strong>Schritte</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Melden Sie sich bei der Connector-VM an.</p>
+</li>
+<li>
+<p>Laden Sie die Linux-Host-Plug-in-Binärdatei herunter.<br>
+<code># sudo docker exec -it cloudmanager_scs_cloud curl -X GET 'http://127.0.0.1/deploy/downloadLinuxPlugin'</code></p>
+</li>
+<li>
+<p>Ermitteln Sie den Mount-Pfad für die Basis.<br>
+<code>sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint</code></p>
+</li>
+<li>
+<p>Den Binärpfad des heruntergeladenen Plug-ins abrufen.<br>
+<code>sudo ls &lt;base_mount_path&gt; $(sudo docker ps|grep -Po "cloudmanager_scs_cloud:.*? "|sed -e 's/ *$//'|cut -f2 -d":")/sc-linux-host-plugin/snapcenter_linux_host_plugin_scs.bin</code></p>
+</li>
+<li>
+<p>Kopieren <code>snapcenter_linux_host_plugin_scs.bin</code> Auf jeden der SAP HANA-Datenbank-Hosts entweder mit scp oder anderen alternativen Methoden.</p>
+</li>
+<li>
+<p>Führen Sie auf dem SAP HANA-Datenbank-Host den folgenden Befehl aus, um Berechtigungen für die Binärdatei auszuführen.<br>
+<code>chmod +x snapcenter_linux_host_plugin_scs.bin</code></p>
+</li>
+<li>
+<p>Bereitstellen des SAP HANA-Plug-ins als sudo-Non-Root-Benutzer<br>
+<code>./snapcenter_linux_host_plugin_scs.bin -i silent -DSPL_USER=&lt;non-root-user&gt;</code></p>
+</li>
+<li>
+<p>Kopieren <code>certificate.p12</code> Von <code>&lt;base_mount_path&gt;/client/certificate/</code> Pfad der Connector-VM zu <code>/var/opt/snapcenter/spl/etc/</code> Auf dem Plug-in-Host.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Navigieren Sie zu <code>/var/opt/snapcenter/spl/etc</code> Und führen Sie den keytool-Befehl aus, um das Zertifikat zu importieren.<br>
+<code>keytool -v -importkeystore -srckeystore certificate.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS -srcstorepass snapcenter -deststorepass snapcenter -srcalias agentcert -destalias agentcert -noprompt</code></p>
+</li>
+<li>
+<p>SPL neu starten: <code>systemctl restart spl</code></p>
+</li>
+</ol>
 </div>
 </li>
 </ol>

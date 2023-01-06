@@ -1536,7 +1536,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-19 11:34:26 +0000">12/19/2022</time>
+    <time datetime="2023-01-06 11:11:03 +0000">01/06/2023</time>
     
   
 
@@ -1628,6 +1628,56 @@
 </div>
 </div>
 <div class="sect2">
+<h3 id="stellen-sie-das-plug-in-mithilfe-von-skripten-bereit">Stellen Sie das Plug-in mithilfe von Skripten bereit</h3>
+<div class="paragraph">
+<p>Wenn die SSH-Schlüsselauthentifizierung auf dem Oracle-Host für den nicht-Root-Benutzer aktiviert ist, können Sie die folgenden Schritte durchführen, um das Plug-in bereitzustellen. Bevor Sie die Schritte durchführen, stellen Sie sicher, dass die SSH-Verbindung zum Connector aktiviert ist.</p>
+</div>
+<div class="paragraph">
+<p><strong>Schritte</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Melden Sie sich bei der Connector-VM an.</p>
+</li>
+<li>
+<p>Ermitteln Sie den Mount-Pfad für die Basis.<br>
+<code>sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint</code></p>
+</li>
+<li>
+<p>Stellen Sie das Plug-in mithilfe des im Konnektor enthaltenen Hilfsskripts bereit.<br>
+<code>sudo &lt;base_mount_path&gt;/scripts/oracle_plugin_copy_and_install.sh --host &lt;host_name&gt; --sshkey &lt;ssh_key_file&gt; --username &lt;user_name&gt; --port &lt;ssh_port&gt; --pluginport &lt;plugin_port&gt; --installdir &lt;install_dir&gt;</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Host_Name ist der Name des Oracle-Hosts, und dies ist ein obligatorischer Parameter.</p>
+</li>
+<li>
+<p>ssh_Key_file ist der SSH-Schlüssel des nicht-root-Benutzers und wird für die Verbindung zum Oracle-Host verwendet. Dies ist ein obligatorischer Parameter.</p>
+</li>
+<li>
+<p>User_Name: Nicht-Root-Benutzer mit SSH-Berechtigungen auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist ec2-user.</p>
+</li>
+<li>
+<p>ssh_Port: SSH-Port auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist 22</p>
+</li>
+<li>
+<p>Plugin_Port: Port verwendet vom Plug-in und dies ist ein optionaler Parameter. Der Standardwert ist 8145</p>
+</li>
+<li>
+<p>Install_dir: Verzeichnis, in dem das Plug-in bereitgestellt wird und dies ein optionaler Parameter ist. Standardwert ist /opt.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Beispiel:<br>
+<code>sudo /var/lib/docker/volumes/service-manager-2_cloudmanager_scs_cloud_volume/_data/scripts/oracle_plugin_copy_and_install.sh --host xxx.xx.x.x --sshkey /keys/netapp-ssh.ppk</code></p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="stellen-sie-das-plug-in-manuell-bereit">Stellen Sie das Plug-in manuell bereit</h3>
 <div class="paragraph">
 <p>Wenn die SSH-Schlüsselauthentifizierung auf dem Oracle-Host nicht aktiviert ist, sollten Sie die folgenden manuellen Schritte durchführen, um das Plug-in bereitzustellen.</p>
@@ -1677,56 +1727,6 @@
 <p>SPL neu starten: <code>systemctl restart spl</code></p>
 </li>
 </ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="stellen-sie-das-plug-in-mithilfe-von-skripten-bereit">Stellen Sie das Plug-in mithilfe von Skripten bereit</h3>
-<div class="paragraph">
-<p>Wenn die SSH-Schlüsselauthentifizierung auf dem Oracle-Host für den nicht-Root-Benutzer aktiviert ist, können Sie die folgenden Schritte durchführen, um das Plug-in bereitzustellen. Bevor Sie die Schritte durchführen, stellen Sie sicher, dass die SSH-Verbindung zum Connector aktiviert ist.</p>
-</div>
-<div class="paragraph">
-<p><strong>Schritte</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Melden Sie sich bei der Connector-VM an.</p>
-</li>
-<li>
-<p>Ermitteln Sie den Mount-Pfad für die Basis.<br>
-<code>sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint</code></p>
-</li>
-<li>
-<p>Stellen Sie das Plug-in mithilfe des im Konnektor enthaltenen Hilfsskripts bereit.<br>
-<code>sudo &lt;base_mount_path&gt;/scripts/oracle_plugin_copy_and_install.sh --host &lt;host_name&gt; --sshkey &lt;ssh_key_file&gt; --username &lt;user_name&gt; --port &lt;ssh_port&gt; --pluginport &lt;plugin_port&gt; --installdir &lt;install_dir&gt;</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Host_Name ist der Name des Oracle-Hosts, und dies ist ein obligatorischer Parameter.</p>
-</li>
-<li>
-<p>ssh_Key_file ist der SSH-Schlüssel des nicht-root-Benutzers und wird für die Verbindung zum Oracle-Host verwendet. Dies ist ein obligatorischer Parameter.</p>
-</li>
-<li>
-<p>User_Name: Nicht-Root-Benutzer mit SSH-Berechtigungen auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist ec2-user.</p>
-</li>
-<li>
-<p>ssh_Port: SSH-Port auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist 22</p>
-</li>
-<li>
-<p>Plugin_Port: Port verwendet vom Plug-in und dies ist ein optionaler Parameter. Der Standardwert ist 8145</p>
-</li>
-<li>
-<p>Install_dir: Verzeichnis, in dem das Plug-in bereitgestellt wird und dies ein optionaler Parameter ist. Standardwert ist /opt.</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Beispiel:<br>
-<code>sudo /var/lib/docker/volumes/service-manager-2_cloudmanager_scs_cloud_volume/_data/scripts/oracle_plugin_copy_and_install.sh --host xxx.xx.x.x --sshkey /keys/netapp-ssh.ppk</code></p>
 </div>
 </div>
 </div>
