@@ -60,6 +60,33 @@ Ersetzen Sie in den obigen Zeilen den <LINUXUSER> durch den nicht-Root-Benutzer,
 
 
 
+=== Stellen Sie das Plug-in mithilfe von Skripten bereit
+
+Wenn die SSH-Schlüsselauthentifizierung auf dem Oracle-Host für den nicht-Root-Benutzer aktiviert ist, können Sie die folgenden Schritte durchführen, um das Plug-in bereitzustellen. Bevor Sie die Schritte durchführen, stellen Sie sicher, dass die SSH-Verbindung zum Connector aktiviert ist.
+
+*Schritte*
+
+. Melden Sie sich bei der Connector-VM an.
+. Ermitteln Sie den Mount-Pfad für die Basis.
+`sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint`
+. Stellen Sie das Plug-in mithilfe des im Konnektor enthaltenen Hilfsskripts bereit.
+`sudo <base_mount_path>/scripts/oracle_plugin_copy_and_install.sh --host <host_name> --sshkey <ssh_key_file> --username <user_name> --port <ssh_port> --pluginport <plugin_port> --installdir <install_dir>`
++
+** Host_Name ist der Name des Oracle-Hosts, und dies ist ein obligatorischer Parameter.
+** ssh_Key_file ist der SSH-Schlüssel des nicht-root-Benutzers und wird für die Verbindung zum Oracle-Host verwendet. Dies ist ein obligatorischer Parameter.
+** User_Name: Nicht-Root-Benutzer mit SSH-Berechtigungen auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist ec2-user.
+** ssh_Port: SSH-Port auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist 22
+** Plugin_Port: Port verwendet vom Plug-in und dies ist ein optionaler Parameter. Der Standardwert ist 8145
+** Install_dir: Verzeichnis, in dem das Plug-in bereitgestellt wird und dies ein optionaler Parameter ist. Standardwert ist /opt.
+
+
+
+
+Beispiel:
+`sudo /var/lib/docker/volumes/service-manager-2_cloudmanager_scs_cloud_volume/_data/scripts/oracle_plugin_copy_and_install.sh --host xxx.xx.x.x --sshkey /keys/netapp-ssh.ppk`
+
+
+
 === Stellen Sie das Plug-in manuell bereit
 
 Wenn die SSH-Schlüsselauthentifizierung auf dem Oracle-Host nicht aktiviert ist, sollten Sie die folgenden manuellen Schritte durchführen, um das Plug-in bereitzustellen.
@@ -86,33 +113,6 @@ Das _snapcenter_linux_Host_Plugin_scs.bin_ sollte an einen Speicherort kopiert w
 `keytool -v -importkeystore -srckeystore certificate.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS -srcstorepass snapcenter -deststorepass snapcenter -srcalias agentcert -destalias agentcert -noprompt`
 . SPL neu starten: `systemctl restart spl`
 
-
-
-
-=== Stellen Sie das Plug-in mithilfe von Skripten bereit
-
-Wenn die SSH-Schlüsselauthentifizierung auf dem Oracle-Host für den nicht-Root-Benutzer aktiviert ist, können Sie die folgenden Schritte durchführen, um das Plug-in bereitzustellen. Bevor Sie die Schritte durchführen, stellen Sie sicher, dass die SSH-Verbindung zum Connector aktiviert ist.
-
-*Schritte*
-
-. Melden Sie sich bei der Connector-VM an.
-. Ermitteln Sie den Mount-Pfad für die Basis.
-`sudo docker volume ls | grep scs_cloud_volume | awk {'print $2'} | xargs sudo docker volume inspect | grep Mountpoint`
-. Stellen Sie das Plug-in mithilfe des im Konnektor enthaltenen Hilfsskripts bereit.
-`sudo <base_mount_path>/scripts/oracle_plugin_copy_and_install.sh --host <host_name> --sshkey <ssh_key_file> --username <user_name> --port <ssh_port> --pluginport <plugin_port> --installdir <install_dir>`
-+
-** Host_Name ist der Name des Oracle-Hosts, und dies ist ein obligatorischer Parameter.
-** ssh_Key_file ist der SSH-Schlüssel des nicht-root-Benutzers und wird für die Verbindung zum Oracle-Host verwendet. Dies ist ein obligatorischer Parameter.
-** User_Name: Nicht-Root-Benutzer mit SSH-Berechtigungen auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist ec2-user.
-** ssh_Port: SSH-Port auf dem Oracle-Host und dies ist ein optionaler Parameter. Der Standardwert ist 22
-** Plugin_Port: Port verwendet vom Plug-in und dies ist ein optionaler Parameter. Der Standardwert ist 8145
-** Install_dir: Verzeichnis, in dem das Plug-in bereitgestellt wird und dies ein optionaler Parameter ist. Standardwert ist /opt.
-
-
-
-
-Beispiel:
-`sudo /var/lib/docker/volumes/service-manager-2_cloudmanager_scs_cloud_volume/_data/scripts/oracle_plugin_copy_and_install.sh --host xxx.xx.x.x --sshkey /keys/netapp-ssh.ppk`
 
 
 
