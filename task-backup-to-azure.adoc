@@ -24,7 +24,7 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Überprüfen Sie die Unterstützung Ihrer Konfiguration
 [role="quick-margin-list"]
-* Sie verwenden Cloud Volumes ONTAP 9.7P5 oder höher in Azure.
+* Sie verwenden Cloud Volumes ONTAP 9.7P5 oder höher in Azure (ONTAP 9.8P13 und höher wird empfohlen).
 * Sie verfügen über ein gültiges Cloud-Provider-Abonnement für den Speicherplatz, auf dem sich Ihre Backups befinden.
 * Sie haben sich für das angemeldet https://azuremarketplace.microsoft.com/en-us/marketplace/apps/netapp.cloud-manager?tab=Overview["BlueXP Marketplace Backup-Angebot"^], Oder Sie haben gekauft link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Und aktiviert"^] Eine Cloud Backup BYOL-Lizenz von NetApp
 
@@ -116,9 +116,11 @@ Sie müssen den Azure Synapse Analytics Resource Provider mit Ihrem Abonnement r
 "Microsoft.Synapse/register/action",
 "Microsoft.Synapse/checkNameAvailability/action",
 "Microsoft.Synapse/workspaces/operationStatuses/read",
+"Microsoft.Synapse/workspaces/firewallRules/write",
 "Microsoft.Synapse/workspaces/firewallRules/read",
 "Microsoft.Synapse/workspaces/replaceAllIpFirewallRules/action",
-"Microsoft.Synapse/workspaces/operationResults/read"
+"Microsoft.Synapse/workspaces/operationResults/read",
+"Microsoft.Synapse/workspaces/privateEndpointConnectionsApproval/action"
 ----
 +
 https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-permissions-azure.html["Zeigen Sie das vollständige JSON-Format für die Richtlinie an"^]

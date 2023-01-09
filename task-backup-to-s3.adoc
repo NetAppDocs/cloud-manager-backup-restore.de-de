@@ -24,7 +24,7 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Überprüfen Sie die Unterstützung Ihrer Konfiguration
 [role="quick-margin-list"]
-* Sie nutzen Cloud Volumes ONTAP 9.7P5 oder höher in AWS.
+* Sie verwenden Cloud Volumes ONTAP 9.7P5 oder höher in AWS (ONTAP 9.8P13 und höher wird empfohlen).
 * Sie verfügen über ein gültiges Cloud-Provider-Abonnement für den Speicherplatz, auf dem sich Ihre Backups befinden.
 * Sie haben sich für das angemeldet https://aws.amazon.com/marketplace/pp/prodview-oorxakq6lq7m4?sr=0-8&ref_=beagle&applicationId=AWSMPContessa["BlueXP Marketplace Backup-Angebot"], An https://aws.amazon.com/marketplace/pp/B086PDWSS8["AWS Jahresvertrag"], Oder Sie haben gekauft link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Und aktiviert"] Eine Cloud Backup BYOL-Lizenz von NetApp
 * Die IAM-Rolle, die den BlueXP Connector mit Berechtigungen bereitstellt, umfasst die neuesten S3-Berechtigungen https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-permissions.html["BlueXP-Richtlinie"^].

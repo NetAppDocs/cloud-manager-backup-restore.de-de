@@ -24,7 +24,7 @@ Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den ve
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Überprüfen Sie die Unterstützung Ihrer Konfiguration
 [role="quick-margin-list"]
-* In GCP wird Cloud Volumes ONTAP 9.7P5 oder höher verwendet.
+* Sie verwenden Cloud Volumes ONTAP 9.7P5 oder höher in GCP (ONTAP 9.8P13 und höher wird empfohlen).
 * Sie verfügen über ein gültiges GCP-Abonnement für den Speicherplatz, in dem sich Ihre Backups befinden.
 * Sie verfügen über ein Service-Konto in Ihrem Google Cloud Projekt, das über die vordefinierte Rolle „Storage Admin“ verfügt.
 * Sie haben sich für das angemeldet https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["BlueXP Marketplace Backup-Angebot"^], Oder Sie haben gekauft link:task-licensing-cloud-backup.html#use-a-cloud-backup-byol-license["Und aktiviert"^] Eine Cloud Backup BYOL-Lizenz von NetApp
@@ -41,7 +41,7 @@ image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cl
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"] Geben Sie die Anbieterdetails ein
 [role="quick-margin-para"]
-Wählen Sie das Google Cloud Projekt aus, in dem der Google Cloud Storage-Bucket für Backups erstellt werden soll.
+Wählen Sie das Google Cloud Projekt und die Region aus, in der der Google Cloud Storage-Bucket für Backups erstellt werden soll. Sie haben auch die Wahl zwischen Ihren eigenen, vom Kunden gemanagten Schlüsseln für die Datenverschlüsselung, anstatt den von Google administrierten Standardschlüssel zu verwenden.
 
 [role="quick-margin-para"]
 image:screenshot_backup_provider_settings_gcp.png["In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."]
@@ -104,6 +104,32 @@ bigquery.tables.create
 
 
 --
+Erforderliche Informationen zur Nutzung von vom Kunden gemanagten Verschlüsselungsschlüsseln (CMEK):: Sie können Ihre eigenen, von Kunden gemanagten Schlüssel zur Datenverschlüsselung verwenden, statt die von Google standardmäßig gemanagten Verschlüsselungsschlüssel zu verwenden. In diesem Fall benötigen Sie den Schlüsselring und den Schlüsselnamen, damit Sie diese Informationen in den Aktivierungsassistenten einfügen können. https://cloud.google.com/kms/docs/cmek["Erfahren Sie mehr über vom Kunden verwaltete Verschlüsselungsschlüssel"^].
++
+--
+Außerdem müssen Sie diese erforderlichen Berechtigungen in der Rolle hinzufügen, damit der Connector für CMEK funktioniert:
+
+[source, json]
+----
+cloudkms.cryptoKeys.get
+cloudkms.cryptoKeys.getIamPolicy
+cloudkms.cryptoKeys.list
+cloudkms.cryptoKeys.setIamPolicy
+cloudkms.keyRings.get
+cloudkms.keyRings.getIamPolicy
+cloudkms.keyRings.list
+cloudkms.keyRings.setIamPolicy
+----
+*CMEK-Überlegungen:*
+
+* Es werden sowohl HSM (Hardware-gesichert) als auch softwaregenerierte Schlüssel unterstützt.
+* Es werden sowohl neu erstellte als auch importierte Cloud KMS-Schlüssel unterstützt.
+* Es werden nur regionale Schlüssel unterstützt, globale Schlüssel werden nicht unterstützt.
+* Derzeit wird nur der Zweck „symmetrische Verschlüsselung/Entschlüsselung“ unterstützt.
+* Dem mit dem Speicherkonto verknüpften Service-Agent wird die IAM-Rolle „CryptoKey-Verschlüsselung/Dekrypter (Rollen/cloudkms.KryptoKeyVerschlüsseler)“ von Cloud Backup zugewiesen.
+
+
+--
 
 
 
@@ -158,12 +184,17 @@ Wenn das Ziel von Google Cloud Storage für Ihre Backups als Arbeitsumgebung auf
 +
 image:screenshot_backup_cvo_enable.png["Ein Screenshot, der die Schaltfläche Cloud Backup Settings zeigt, die nach der Auswahl einer Arbeitsumgebung verfügbar ist."]
 
-. Wählen Sie das Google Cloud Projekt und die Region aus, in der der Google Cloud Storage Bucket für Backups erstellt werden soll, und klicken Sie auf *Weiter*.
+. Wählen Sie die Provider-Details aus und klicken Sie auf *Weiter*.
++
+.. Das Google Cloud Projekt und die Region, in der der Google Cloud Storage-Bucket für Backups erstellt werden soll.
+.. Unabhängig davon, ob Sie den von Google gemanagten Standardschlüssel verwenden oder Ihren eigenen, vom Kunden gemanagten Schlüssel zum Management der Verschlüsselung Ihrer Daten wählen möchten. Um einen CMEK zu verwenden, müssen Sie den Schlüsselring und den Schlüsselnamen haben. https://cloud.google.com/kms/docs/cmek["Erfahren Sie mehr über vom Kunden verwaltete Verschlüsselungsschlüssel"^].
 +
 image:screenshot_backup_provider_settings_gcp.png["In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."]
 
 +
 Beachten Sie, dass das Projekt über ein Servicekonto verfügt, das über die vordefinierte Rolle „Speicheradministrator“ verfügt.
+
+
 
 . Geben Sie die Backup Policy Details ein, die für Ihre Standard Policy verwendet werden, und klicken Sie auf *Weiter*. Sie können eine vorhandene Richtlinie auswählen oder eine neue Richtlinie erstellen, indem Sie in den einzelnen Abschnitten Ihre Auswahl eingeben:
 +

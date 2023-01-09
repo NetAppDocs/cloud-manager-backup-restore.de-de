@@ -21,9 +21,6 @@ Wenn Sie Cloud Backup in einer SaaS-Umgebung nutzen, in der der BlueXP Connector
 In diesem Thema wird beschrieben, wie Sie kritische Cloud-Backup-Daten auf Ihrem verbundenen StorageGRID-System sichern. Außerdem wird beschrieben, wie die Daten bei Bedarf auf einem neuen Konnektor wiederhergestellt werden.
 
 
-NOTE: Sie sollten diese Cloud Backup-Daten in regelmäßigen Abständen sichern, damit Sie stets Zugriff auf die neuesten Daten haben.
-
-
 
 == Backup wichtiger Cloud-Backup-Daten
 
@@ -33,7 +30,10 @@ Es gibt zwei Datentypen, die gesichert werden müssen:
 * Indizierte Katalogdateien (für Such- und Wiederherstellungsfunktionen verwendet)
 
 
-Volume-Daten werden je nicht in die Cloud Backup-Datenbank oder in indizierte Katalogdateien enthalten.
+
+NOTE: Sie sollten diese Cloud Backup-Daten in regelmäßigen Abständen sichern, damit Sie stets Zugriff auf die neuesten Daten haben.
+
+Beachten Sie, dass keine Volume-Daten je in der Cloud Backup-Datenbank oder in indizierten Katalogdateien enthalten sind.
 
 
 
@@ -51,7 +51,7 @@ docker exec -it ds_mysql_1 sh
 ----
 . In der Container-Shell, stellen Sie die "env".
 . Sie benötigen das MySQL DB Passwort, kopieren Sie also den Wert des Schlüssels "MYSQL_ROOT_PASSWORD".
-. Sichern Sie die Cloud Backup MySQL DB und geben Sie den folgenden Befehl ein:
+. Sichern Sie die Cloud Backup MySQL DB, indem Sie den folgenden Befehl eingeben:
 +
 [source, cli]
 ----
@@ -63,14 +63,14 @@ mysqldump --user root --password -p cloud_backup --result-file=mysql.dump.cloud_
 ----
 docker cp ds_mysql_1:/mysql.dump.cloud_backup.sql .
 ----
-. Kopieren Sie das Backup an einen sicheren Ort in Ihrem Netzwerk. Sie können ein lokales StorageGRID-System verwenden, wenn Sie ONTAP Volume Backups an diesem Speicherort erstellen.
+. Kopieren Sie die Backups an einen sicheren Ort in Ihrem Netzwerk. Sie können ein lokales StorageGRID-System verwenden, wenn Sie ONTAP Volume Backups an diesem Speicherort erstellen.
 
 
 
 
 === Sichern Sie die indizierten Katalogdateien
 
-Der indexierte Katalog wird für die Such- und Wiederherstellungsfunktion verwendet. Es enthält Informationen über jedes Volume und jede Backup-Datei, sodass Ihre Suchvorgänge bei der Wiederherstellung von Volume-Daten sehr schnell und effizient erfolgen.
+Der indexierte Katalog wird für die Such- und Wiederherstellungsfunktion verwendet. Es enthält Informationen über jedes Volume und jede Backup-Datei, sodass Ihre Suchvorgänge bei der Suche nach Volume-Daten, die wiederhergestellt werden sollen, sehr schnell und effizient sind.
 
 . Ändern Sie auf dem Connector-Host-System das Verzeichnis in „/tmp“.
 . Suchen Sie den Ordner Index Catalog. Es beginnt mit der Zeichenfolge *catalog*.
@@ -91,20 +91,29 @@ Wenn der On-Premises-Connector einen katastrophalen Ausfall hat, müssen Sie ein
 
 Es gibt 4 Aufgaben, die Sie durchführen müssen, um Ihr Cloud-Backup-System in einen Arbeitszustand zurückzusetzen:
 
-* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-onprem-no-internet.html["Installieren Sie einen neuen Konnektor auf einem neuen lokalen Linux-Host"^]
+* Installieren Sie einen neuen BlueXP Connector
 * Wiederherstellung der Cloud-Backup-Datenbank
 * Stellen Sie die indizierten Katalogdateien wieder her
-* Alle On-Prem-ONTAP-Systeme werden auf der BlueXP-Benutzeroberfläche wiederentdeckt
+* Alle On-Prem-ONTAP-Systeme und StorageGRID-Systeme finden Sie in der BlueXP-Benutzeroberfläche wieder
 
 
 Sobald Sie überprüfen, ob Ihr System wieder in einem Arbeitsauftrag ist, empfehlen wir Ihnen, neue Sicherungsdateien zu erstellen.
 
 
 
+=== Installieren Sie einen neuen Konnektor auf einem neuen lokalen Linux-Host
+
+Wenn Sie einen neuen BlueXP Connector installieren, stellen Sie sicher, dass Sie die gleiche Version von Software herunterladen, die Sie auf dem ursprünglichen Connector installiert hatten. Durch regelmäßige Änderungen an der Datenbankstruktur von Cloud Backup sind neuere Softwareversionen möglicherweise mit den ursprünglichen Datenbank-Backups inkompatibel. Das können Sie https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-managing-connectors.html#upgrade-the-connector-on-prem-without-internet-access["Aktualisieren Sie die Connector-Software auf die aktuellste Version, nachdem Sie die Backup-Datenbank wiederhergestellt haben"^].
+
+. https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-onprem-no-internet.html["Installieren Sie den BlueXP Connector auf einem neuen lokalen Linux-Host"^]
+. Melden Sie sich mit den soeben erstellten Admin-Benutzeranmeldeinformationen bei BlueXP an.
+
+
+
+
 === Wiederherstellung der Cloud-Backup-Datenbank
 
-. Melden Sie sich nach der Installation des neuen Connectors mit den entsprechenden Anmeldedaten am Connector-Hostsystem an.
-. Kopieren Sie die MySQL-Sicherung vom sicheren Speicherort auf den neuen Connector-Host.
+. Kopieren Sie die MySQL-Backups vom sicheren Speicherort auf den neuen Connector-Host.
 . Kopieren Sie das Backup mit dem folgenden Befehl in den MySQL-Docker-Container:
 +
 [source, cli]
@@ -161,17 +170,67 @@ unzip catalogxxxxxx.zip
 
 
 
-=== Ermitteln der Cluster und Überprüfen der Cloud-Backup-Einstellungen
+=== Erkennen Sie Ihre ONTAP Cluster und StorageGRID Systeme
 
-. https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html#discovering-clusters-from-the-canvas-page["Hier finden Sie alle On-Premises-ONTAP-Arbeitsumgebungen"^] Die in Ihrer vorherigen Umgebung verfügbar waren.
-. Optional https://docs.netapp.com/us-en/cloud-manager-storagegrid/task-discover-storagegrid.html["Erkennen Sie Ihre StorageGRID Systeme"^].
+. https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html#discover-clusters-using-a-connector["Hier finden Sie alle On-Premises-ONTAP-Arbeitsumgebungen"^] Die in Ihrer vorherigen Umgebung verfügbar waren.
+. https://docs.netapp.com/us-en/cloud-manager-storagegrid/task-discover-storagegrid.html["Erkennen Sie Ihre StorageGRID Systeme"^].
+
+
+
+
+=== Richten Sie die Details zur StorageGRID Umgebung ein
+
+Fügen Sie die Details des StorageGRID-Systems zu Ihren ONTAP-Arbeitsumgebungen hinzu, da diese auf dem ursprünglichen Konnektor-Setup mithilfe der eingerichtet wurden https://docs.netapp.com/us-en/cloud-manager-automation/index.html["BlueXP APIs"^].
+
+Sie müssen diese Schritte für jedes ONTAP System durchführen, das Daten in StorageGRID sichert.
+
+. Extrahieren Sie das Autorisierungs-Token mithilfe der folgenden oauth/Token-API.
++
+[source, http]
+----
+curl 'http://10.193.192.202/oauth/token' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:100101 Firefox/108.0' -H 'Accept: application/json' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate' -H 'Content-Type: application/json' -d '{"username":admin@netapp.com,"password":"Netapp@123","grant_type":"password"}
+> '
+----
++
+Diese API gibt eine Antwort wie die folgende zurück. Sie können das Autorisierungs-Token wie unten gezeigt abrufen.
+
++
+[source, text]
+----
+{"expires_in":21600,"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjJlMGFiZjRiIn0eyJzdWIiOiJvY2NtYXV0aHwxIiwiYXVkIjpbImh0dHBzOi8vYXBpLmNsb3VkLm5ldGFwcC5jb20iXSwiaHR0cDovL2Nsb3VkLm5ldGFwcC5jb20vZnVsbF9uYW1lIjoiYWRtaW4iLCJodHRwOi8vY2xvdWQubmV0YXBwLmNvbS9lbWFpbCI6ImFkbWluQG5ldGFwcC5jb20iLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIiwiaWF0IjoxNjcyNzM2MDIzLCJleHAiOjE2NzI3NTc2MjMsImlzcyI6Imh0dHA6Ly9vY2NtYXV0aDo4NDIwLyJ9CJtRpRDY23PokyLg1if67bmgnMcYxdCvBOY-ZUYWzhrWbbY_hqUH4T-114v_pNDsPyNDyWqHaKizThdjjHYHxm56vTz_Vdn4NqjaBDPwN9KAnC6Z88WA1cJ4WRQqj5ykODNDmrv5At_f9HHp0-xVMyHqywZ4nNFalMvAh4xESc5jfoKOZc-IOQdWm4F4LHpMzs4qFzCYthTuSKLYtqSTUrZB81-o-ipvrOqSo1iwIeHXZJJV-UsWun9daNgiYd_wX-4WWJViGEnDzzwOKfUoUoe1Fg3ch--7JFkFl-rrXDOjk1sUMumN3WHV9usp1PgBE5HAcJPrEBm0ValSZcUbiA"}
+----
+. Extrahieren Sie die ID der Arbeitsumgebung und die X-Agent-ID mithilfe der Tenancy/External/Resource API.
++
+[source, http]
+----
+curl -X GET http://10.193.192.202/tenancy/external/resource?account=account-DARKSITE1 -H 'accept: application/json' -H 'authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjJlMGFiZjRiIn0eyJzdWIiOiJvY2NtYXV0aHwxIiwiYXVkIjpbImh0dHBzOi8vYXBpLmNsb3VkLm5ldGFwcC5jb20iXSwiaHR0cDovL2Nsb3VkLm5ldGFwcC5jb20vZnVsbF9uYW1lIjoiYWRtaW4iLCJodHRwOi8vY2xvdWQubmV0YXBwLmNvbS9lbWFpbCI6ImFkbWluQG5ldGFwcC5jb20iLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIiwiaWF0IjoxNjcyNzIyNzEzLCJleHAiOjE2NzI3NDQzMTMsImlzcyI6Imh0dHA6Ly9vY2NtYXV0aDo4NDIwLyJ9X_cQF8xttD0-S7sU2uph2cdu_kN-fLWpdJJX98HODwPpVUitLcxV28_sQhuopjWobozPelNISf7KvMqcoXc5kLDyX-yE0fH9gr4XgkdswjWcNvw2rRkFzjHpWrETgfqAMkZcAukV4DHuxogHWh6-DggB1NgPZT8A_szHinud5W0HJ9c4AaT0zC-sp81GaqMahPf0KcFVyjbBL4krOewgKHGFo_7ma_4mF39B1LCj7Vc2XvUd0wCaJvDMjwp19-KbZqmmBX9vDnYp7SSxC1hHJRDStcFgJLdJHtowweNH2829KsjEGBTTcBdO8SvIDtctNH_GAxwSgMT3zUfwaOimPw'
+----
++
+Diese API gibt eine Antwort wie die folgende zurück. Der Wert unter der "resourceIdentifier" bezeichnet die _WorkingEnvironment ID_ und der Wert unter "AGENTID" bezeichnet _x-Agent-id_.
+
+. Aktualisieren Sie die Cloud Backup-Datenbank mit den Details des StorageGRID-Systems, das den Arbeitsumgebungen zugeordnet ist. Stellen Sie sicher, dass Sie den vollständig qualifizierten Domänennamen der StorageGRID sowie den Zugriffsschlüssel und den Speicherschlüssel wie unten dargestellt eingeben:
++
+[source, http]
+----
+curl -X POST 'http://10.193.192.202/account/account-DARKSITE1/providers/cloudmanager_cbs/api/v1/sg/credentials/working-environment/OnPremWorkingEnvironment-pMtZND0M' \
+> --header 'authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjJlMGFiZjRiIn0eyJzdWIiOiJvY2NtYXV0aHwxIiwiYXVkIjpbImh0dHBzOi8vYXBpLmNsb3VkLm5ldGFwcC5jb20iXSwiaHR0cDovL2Nsb3VkLm5ldGFwcC5jb20vZnVsbF9uYW1lIjoiYWRtaW4iLCJodHRwOi8vY2xvdWQubmV0YXBwLmNvbS9lbWFpbCI6ImFkbWluQG5ldGFwcC5jb20iLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIiwiaWF0IjoxNjcyNzIyNzEzLCJleHAiOjE2NzI3NDQzMTMsImlzcyI6Imh0dHA6Ly9vY2NtYXV0aDo4NDIwLyJ9X_cQF8xttD0-S7sU2uph2cdu_kN-fLWpdJJX98HODwPpVUitLcxV28_sQhuopjWobozPelNISf7KvMqcoXc5kLDyX-yE0fH9gr4XgkdswjWcNvw2rRkFzjHpWrETgfqAMkZcAukV4DHuxogHWh6-DggB1NgPZT8A_szHinud5W0HJ9c4AaT0zC-sp81GaqMahPf0KcFVyjbBL4krOewgKHGFo_7ma_4mF39B1LCj7Vc2XvUd0wCaJvDMjwp19-KbZqmmBX9vDnYp7SSxC1hHJRDStcFgJLdJHtowweNH2829KsjEGBTTcBdO8SvIDtctNH_GAxwSgMT3zUfwaOimPw' \
+> --header 'x-agent-id: vB_1xShPpBtUosjD7wfBlLIhqDgIPA0wclients' \
+> -d '
+> { "storage-server" : "sr630ip15.rtp.eng.netapp.com:10443", "access-key": "2ZMYOAVAS5E70MCNH9", "secret-password": "uk/6ikd4LjlXQOFnzSzP/T0zR4ZQlG0w1xgWsB" }'
+----
+
+
+
+
+=== Überprüfen der Cloud-Backup-Einstellungen
+
 . Wählen Sie jede ONTAP Arbeitsumgebung aus und klicken Sie auf *Backups anzeigen* neben dem Backup- und Recovery-Service im rechten Fenster.
 +
 Sie sollten in der Lage sein alle Backups zu sehen, die für Ihre Volumes erstellt wurden.
 
 . Klicken Sie im Dashboard wiederherstellen im Abschnitt Suchen & Wiederherstellen auf *Indexing-Einstellungen*.
 +
-Vergewissern Sie sich, dass die Arbeitsumgebungen, in denen die Indexierung bereits in aktiviert war, weiterhin aktiviert sind.
+Stellen Sie sicher, dass die Arbeitsumgebungen, in denen die Indexierung bereits aktiviert war, zuvor aktiviert bleiben.
 
 . Führen Sie auf der Seite Suchen & Wiederherstellen einige Katalogsuchen aus, um zu bestätigen, dass die Wiederherstellung des indizierten Katalogs erfolgreich abgeschlossen wurde.
 

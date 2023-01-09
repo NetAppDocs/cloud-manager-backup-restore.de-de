@@ -43,7 +43,7 @@ Wiederherstellungsfunktionen:
 * Wiederherstellung von Daten aus einem bestimmten Zeitpunkt
 * Stellen Sie ein Volume, einen Ordner oder einzelne Dateien auf dem Quellsystem oder einem anderen System wieder her.
 * Wiederherstellung von Daten in einer Arbeitsumgebung mit einem anderen Abonnement/Konto oder in einer anderen Region.
-* Stellt Daten auf Blockebene wieder her, indem die Daten direkt an dem von Ihnen angegebenen Speicherort platziert werden, während gleichzeitig die ursprünglichen ACLs beibehalten werden.
+* Daten werden auf Blockebene wiederhergestellt und die Daten direkt an dem von Ihnen angegebenen Speicherort platziert, während die ursprünglichen ACLs beibehalten werden.
 * Durchsuchbare und durchsuchbare Dateikataloge zur Auswahl einzelner Ordner und Dateien für die Wiederherstellung einzelner Dateien.
 
 
@@ -379,6 +379,9 @@ Wenn Ihr On-Prem-Cluster ONTAP 9.12.1 oder höher verwendet, können Sie nach ei
 endif::gcp[]
 
 * In StorageGRID sind Backups der Klasse _Standard_ Storage zugeordnet.
++
+Wenn Ihr On-Premises-Cluster ONTAP 9.12.1 oder höher verwendet und Ihr StorageGRID System mindestens 11.3 nutzt, können Sie ältere Backup-Dateien im Public-Cloud-Archiv-Storage archivieren. Archiv-Storage wird derzeit nur für AWS S3-Storage-Klassen unterstützt. Darüber hinaus können Sie Backups nach einer bestimmten Anzahl von Tagen in AWS _S3 Glacier_ oder _S3 Glacier Deep Archive_ Storage verlagern. link:task-backup-onprem-private-cloud.html#preparing-to-archive-older-backup-files-to-public-cloud-storage["Weitere Informationen zur Archivierung von Backup-Dateien aus StorageGRID"^].
+
 
 
 Siehe link:concept-cloud-backup-policies.html#archival-storage-settings["Einstellungen für Archiv-Storage"] Weitere Informationen zur Archivierung älterer Backup-Dateien.

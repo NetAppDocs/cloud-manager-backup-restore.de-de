@@ -62,6 +62,9 @@ image:screenshot_backup_provider_settings_storagegrid.png["Ein Screenshot, der d
 Die Standardrichtlinie sichert Volumes täglich und speichert die letzten 30 Backup-Kopien jedes Volumes. Änderung zu stündlichen, täglichen, wöchentlichen, monatlichen oder jährlichen Backups Oder wählen Sie eine der systemdefinierten Richtlinien aus, die mehr Optionen bieten. Sie können auch die Anzahl der zu behaltenden Backup-Kopien ändern.
 
 [role="quick-margin-para"]
+Wenn in Ihrem Cluster ONTAP 9.12.1 oder höher verwendet wird und Sie StorageGRID 11.3 oder höher verwenden, können Sie ältere Backups nach einer bestimmten Anzahl von Tagen entweder auf AWS S3 Glacier oder in den Deep Archive Storage von S3 Glacier verschieben, um die Kosten weiter zu optimieren.
+
+[role="quick-margin-para"]
 Optional können Sie bei Verwendung von ONTAP 9.11.1 und höher Ihre Backups vor dem Löschen und Ransomware-Angriffen schützen, indem Sie eine der Einstellungen _DataLock und Ransomware Protection_ konfigurieren. link:concept-cloud-backup-policies.html["Weitere Informationen über die verfügbaren Konfigurationseinstellungen für Cloud Backup-Richtlinien"^].
 
 [role="quick-margin-para"]
@@ -80,11 +83,11 @@ Ein S3-Bucket wird automatisch in dem Service-Konto erstellt, das durch den S3-Z
 
 Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen, bevor Sie mit dem Backup von On-Premises-Volumes in StorageGRID beginnen.
 
-Das folgende Bild zeigt jede Komponente beim Backup eines On-Prem-ONTAP-Systems in StorageGRID und den Verbindungen, die zwischen ihnen vorbereitet werden müssen:
+Das folgende Bild zeigt jede Komponente beim Backup eines On-Prem-ONTAP-Systems auf StorageGRID sowie die Verbindungen, die zwischen ihnen vorbereitet werden müssen.
 
 image:diagram_cloud_backup_onprem_storagegrid.png["Eine Grafik zeigt, wie Cloud Backup mit den Volumes der Quellsysteme und dem Ziel-Storage kommuniziert, auf dem sich die Backup-Dateien befinden."]
 
-Wenn der Connector und das lokale ONTAP-System an einem lokalen Standort ohne Internetzugang installiert werden, muss sich das StorageGRID-System im selben On-Premises-Datacenter befinden.
+Wenn der Connector und das lokale ONTAP System an einem lokalen Standort ohne Internetzugang (ein „dunkler Standort“) installiert werden, muss sich das StorageGRID System im selben On-Premises-Datacenter befinden. Die Archivierung älterer Backup-Dateien in der Public Cloud wird nicht in dunklen Site-Konfigurationen unterstützt.
 
 
 
@@ -144,6 +147,8 @@ Unterstützte StorageGRID-Versionen:: StorageGRID 10.3 und höher wird unterstü
 --
 Damit Sie für Ihre Backups DataLock & Ransomware Protection verwenden können, müssen Ihre StorageGRID Systeme ab Version 11.6.0.3 laufen.
 
+Für das Tiering älterer Backups in einen Cloud-Archiv-Storage müssen Ihre StorageGRID Systeme Version 11.3 oder höher ausführen.
+
 --
 S3-Anmeldedaten:: Sie müssen ein S3-Mandantenkonto erstellt haben, um den Zugriff auf Ihren StorageGRID Storage zu kontrollieren. https://docs.netapp.com/us-en/storagegrid-116/admin/creating-tenant-account.html["Weitere Informationen finden Sie in der StorageGRID Dokumentation"^].
 +
@@ -180,6 +185,8 @@ Beim Daten-Backup in StorageGRID muss am Standort ein Connector verfügbar sein.
 
 NOTE: Die Funktion Cloud Backup ist in BlueXP Connector integriert. Wenn Sie auf einer Website ohne Internetverbindung installiert sind, müssen Sie die Connector-Software regelmäßig aktualisieren, um Zugang zu neuen Funktionen zu erhalten. Prüfen Sie die link:whats-new.html["Cloud Backup Was ist neu"] Um die neuen Funktionen in jeder Cloud Backup Version anzuzeigen, gehen Sie folgendermaßen vor https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-managing-connectors.html#upgrade-the-connector-on-prem-without-internet-access["Aktualisieren Sie die Connector-Software"^] Wann Sie neue Funktionen nutzen möchten.
 
+Wir empfehlen Ihnen, regelmäßig lokale Backups der Cloud Backup-Konfigurationsdaten zu erstellen, wenn der Connector auf einer Website ohne Internetverbindung installiert ist. link:reference-backup-cbs-db-in-dark-site.html["Daten-Backups von Cloud Backups werden an einem dunklen Standort erstellt"^].
+
 
 
 === Vorbereiten der Vernetzung für den Connector
@@ -195,6 +202,31 @@ Stellen Sie sicher, dass der Connector über die erforderlichen Netzwerkverbindu
 
 
 
+
+
+
+=== Die Archivierung älterer Backup-Dateien in Public-Cloud-Storage wird vorbereitet
+
+Durch das Tiering älterer Backup-Dateien im Archiv-Storage sparen Sie Kosten, da Sie für Backups, die Sie möglicherweise nicht benötigen, eine kostengünstigere Storage-Klasse verwenden. StorageGRID ist eine lokale (Private Cloud) Lösung, die keinen Archiv-Storage bietet, aber Sie können ältere Backup-Dateien in einen Public Cloud-Archiv-Storage verschieben.
+
+Anforderungen::
++
+--
+* Ihr Cluster muss ONTAP 9.12.1 oder höher verwenden
+* Ihr StorageGRID muss 11.3 oder höher verwenden
+* Ihr StorageGRID muss sein https://docs.netapp.com/us-en/cloud-manager-storagegrid/task-discover-storagegrid.html["Entdeckt und verfügbar im BlueXP Canvas"^]
+* Archiv-Storage wird derzeit nur für AWS S3-Storage-Klassen unterstützt. Zudem stehen für das Tiering von Backups AWS S3 Glacier oder S3 Glacier Deep Archive Storage zur Verfügung. link:reference-aws-backup-tiers.html["Weitere Informationen zu AWS Archivierungs-Tiers"^].
+* Sie müssen sich für ein AWS S3 Abonnement anmelden, um den Speicherplatz zu nutzen, auf dem sich Ihre Backups befinden.
+
+
+--
+
+
+Wenn Sie die Archivierungseinstellungen für die Backup-Richtlinie für Ihren Cluster definieren, geben Sie Ihre Zugangsdaten für den Cloud-Provider ein und wählen die gewünschte Storage-Klasse aus. Cloud Backup erstellt bei der Aktivierung des Backups für den Cluster den Cloud-Bucket. Nachfolgend sind die für AWS Archiv-Storage benötigten Informationen aufgeführt.
+
+image:screenshot_sg_archive_to_aws.png["Einen Screenshot der Informationen, die Sie zur Archivierung von Backup-Dateien von StorageGRID in AWS S3 benötigen"]
+
+Die von Ihnen ausgewählten Archivierungsrichtlinien-Einstellungen generieren eine Information Lifecycle Management (ILM)-Richtlinie in StorageGRID und fügen die Einstellungen als „Regeln“ ein. Wenn bereits eine aktive ILM-Richtlinie vorhanden ist, werden der ILM-Richtlinie neue Regeln hinzugefügt, um die Daten auf die Archiv-Tier zu verschieben. Wenn eine ILM-Richtlinie bereits im Status „vorgeschlagen“ vorhanden ist, ist die Erstellung und Aktivierung einer neuen ILM-Richtlinie nicht möglich. https://docs.netapp.com/us-en/storagegrid-116/ilm/index.html["Erfahren Sie mehr über StorageGRID ILM-Richtlinien und -Regeln"^].
 
 
 
@@ -239,7 +271,8 @@ image:screenshot_backup_provider_settings_storagegrid.png["Ein Screenshot, der d
 +
 .. Geben Sie den Namen für die Standardrichtlinie ein. Sie müssen den Namen nicht ändern.
 .. Legen Sie den Backup-Zeitplan fest und wählen Sie die Anzahl der zu behaltenden Backups aus. link:concept-ontap-backup-to-cloud.html#customizable-backup-schedule-and-retention-settings["Die Liste der vorhandenen Richtlinien, die Sie auswählen können, wird angezeigt"^].
-.. Optional können Sie bei der Verwendung von ONTAP 9.11.1 und höher Ihre Backups vor dem Löschen und Ransomware-Angriffen schützen, indem Sie _DataLock und Ransomware Protection_ konfigurieren. _DataLock_ schützt Ihre Backup-Dateien vor Modified oder Deleted, und _Ransomware Protection_ scannt Ihre Backup-Dateien, um nach Anzeichen für einen Ransomware-Angriff in Ihren Backup-Dateien zu suchen. link:concept-cloud-backup-policies.html#datalock-and-ransomware-protection["Erfahren Sie mehr über die verfügbaren DataLock-Einstellungen"^].
+.. Wenn Ihr Cluster ONTAP 9.11.1 oder höher verwendet, können Sie Ihre Backups vor dem Löschen und Ransomware-Angriffen schützen, indem Sie _DataLock und Ransomware Protection_ konfigurieren. _DataLock_ schützt Ihre Backup-Dateien vor Modified oder Deleted, und _Ransomware Protection_ scannt Ihre Backup-Dateien, um nach Anzeichen für einen Ransomware-Angriff in Ihren Backup-Dateien zu suchen. link:concept-cloud-backup-policies.html#datalock-and-ransomware-protection["Erfahren Sie mehr über die verfügbaren DataLock-Einstellungen"^].
+.. Wenn in Ihrem Cluster ONTAP 9.12.1 oder höher verwendet wird und Sie StorageGRID 11.3 oder höher verwenden, können Sie ältere Backups nach einer bestimmten Anzahl von Tagen entweder auf AWS S3 Glacier oder in den Deep Archive Storage von S3 Glacier verschieben, um die Kosten weiter zu optimieren. <<Die Archivierung älterer Backup-Dateien in Public-Cloud-Storage wird vorbereitet,Lesen Sie, wie Sie Ihre Systeme für diese Funktion konfigurieren>>.
 +
 image:screenshot_backup_onprem_policy.png["Ein Screenshot mit den Cloud Backup-Einstellungen, in dem Sie Ihren Backup-Zeitplan und den Aufbewahrungszeitraum auswählen können."]
 

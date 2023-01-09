@@ -18,6 +18,36 @@ Alles zum Thema Cloud Backup:
 
 
 
+== 9 Januar 2023
+
+
+
+=== Möglichkeit, ältere Backup-Dateien in AWS S3 Archiv-Storage von StorageGRID Systemen zu verschieben
+
+Jetzt können Sie ältere Backup-Dateien von StorageGRID Systemen auf Archiv-Storage in AWS S3 verschieben. So können Sie auf Ihren StorageGRID Systemen Speicherplatz freigeben und Kosten sparen, indem Sie eine kostengünstige Storage-Klasse für alte Backup-Dateien verwenden. Zudem stehen für das Tiering von Backups AWS S3 Glacier oder S3 Glacier Deep Archive Storage zur Verfügung.
+
+Diese Funktion ist verfügbar, wenn Ihr Cluster ONTAP 9.12.1 oder höher verwendet und Ihr StorageGRID System mindestens 11.3 verwendet. https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html#preparing-to-archive-older-backup-files-to-public-cloud-storage["Hier erfahren Sie mehr"].
+
+
+
+=== Möglichkeit, Ihre eigenen vom Kunden gemanagten Schlüssel zur Datenverschlüsselung auf Google Cloud auszuwählen
+
+Beim Backup von Daten aus Ihren ONTAP-Systemen auf Google Cloud Storage können Sie nun im Aktivierungsassistenten Ihre eigenen, vom Kunden gemanagten Schlüssel zur Datenverschlüsselung auswählen und nicht die von Google gemanagten Standardschlüssel verwenden. Legen Sie zuerst die von Kunden gemanagten Schlüssel fest und geben Sie bei der Aktivierung von Cloud Backup Details ein.
+
+
+
+=== Die Rolle „Storage-Admin“ wird für das Servicekonto zur Erstellung von Backups in Google Cloud Storage nicht mehr benötigt
+
+In früheren Versionen war die Rolle „Storage Admin“ für das Service-Konto erforderlich, mit dem Cloud Backup auf Google Cloud Storage Buckets zugreifen kann. Jetzt können Sie eine benutzerdefinierte Rolle mit einem reduzierten Satz von Berechtigungen erstellen, die dem Servicekonto zugewiesen werden sollen. https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-backup-onprem-to-gcp.html#preparing-google-cloud-storage-for-backups["So bereiten Sie Ihren Google Cloud Storage auf Backups vor"].
+
+
+
+=== Die Seite Ergebnisse der Jobüberwachung kann als CSV-Bericht heruntergeladen werden
+
+Nachdem Sie die Seite Jobüberwachung gefiltert haben, um die gewünschten Jobs und Aktionen anzuzeigen, können Sie nun eine .csv-Datei dieser Daten generieren und herunterladen. Anschließend können Sie die Informationen analysieren oder den Bericht an andere Personen in Ihrem Unternehmen senden. https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-monitor-backup-jobs.html#download-job-monitoring-results-as-a-report["Erfahren Sie, wie Sie einen Bericht zur Jobüberwachung erstellen"].
+
+
+
 == Bis 19. Dezember 2022
 
 
@@ -45,7 +75,7 @@ Alles zum Thema Cloud Backup:
 
 
 
-=== Erweiterungen für Cloud Backup
+=== Verbesserungen bei Cloud Backup für Virtual Machines
 
 * Virtual Machines
 +
@@ -159,7 +189,7 @@ Die folgenden Aktualisierungen wurden an der vorgenommen https://docs.netapp.com
 * Es steht eine Spalte für „Workload“ zur Verfügung, damit Sie die Seite filtern können, um Jobs für die folgenden Backup-Services anzuzeigen: Volumes, Applikationen, Virtual Machines und Kubernetes.
 * Sie können neue Spalten für „Benutzername“ und „Jobtyp“ hinzufügen, wenn Sie diese Details für einen bestimmten Backup-Job anzeigen möchten.
 * Auf der Seite Jobdetails werden alle untergeordneten Jobs angezeigt, die ausgeführt werden, um den Hauptjob abzuschließen.
-* Die Seite wird automatisch alle 15 Minuten aktualisiert, so dass Sie immer die aktuellsten Ergebnisse des Jobstatus sehen. Und Sie können auf die Schaltfläche *Aktualisieren* klicken, um die Seite sofort zu aktualisieren.
+* Die Seite wird automatisch alle 15 Minuten aktualisiert, sodass Sie immer die aktuellsten Ergebnisse des Jobstatus sehen. Und Sie können auf die Schaltfläche *Aktualisieren* klicken, um die Seite sofort zu aktualisieren.
 
 
 
@@ -284,7 +314,7 @@ Für Amazon S3 Buckets ist diese Funktion bereits vorhanden.
 
 === SnapLock Enterprise Volumes werden jetzt zusätzlich unterstützt
 
-Mit Cloud Backup lassen sich jetzt SnapLock Enterprise Volumes in Public und Private Clouds sichern. Für diese Funktion muss auf Ihrem ONTAP System ONTAP 9.11.1 oder höher ausgeführt werden. SnapLock-Compliance-Volumes werden derzeit jedoch nicht unterstützt.
+Mit Cloud Backup lassen sich jetzt SnapLock Enterprise Volumes in Public und Private Clouds sichern. Für diese Funktion muss auf Ihrem ONTAP System ONTAP 9.11.1 oder höher ausgeführt werden. SnapLock Compliance Volumes werden derzeit jedoch nicht unterstützt.
 
 
 

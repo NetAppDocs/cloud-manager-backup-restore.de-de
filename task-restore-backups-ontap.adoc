@@ -85,7 +85,7 @@ Siehe Anforderungen und Wiederherstellungsschritte für den Typ der Wiederherste
 
 Bevor Sie mit der Wiederherstellung eines Volumes, Ordners oder einer Datei beginnen, sollten Sie den Namen des Volumes, aus dem Sie wiederherstellen möchten, den Namen der Arbeitsumgebung, in der sich das Volume befindet, sowie das ungefähre Datum der Sicherungsdatei, aus der Sie wiederherstellen möchten, kennen.
 
-*Hinweis:* Wenn die Sicherungsdatei für das wiederherzustellende Volume im Archiv-Speicher liegt (beginnend mit ONTAP 9.10.1), dauert der Wiederherstellungsvorgang länger und es entstehen Kosten. Darüber hinaus muss auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Restores, 9.11.1 für die Dateiwiederherstellung und 9.12.1 für Google Archive ausgeführt werden.
+*Hinweis:* Wenn die Sicherungsdatei, die die wiederherzustellenden Daten enthält, im Archiv-Speicher liegt (beginnend mit ONTAP 9.10.1), dauert der Wiederherstellungsvorgang länger und kostet. Darüber hinaus muss das Ziel-Cluster im Hinblick auf Volume-Wiederherstellung auch ONTAP 9.10.1 oder höher, 9.11.1 für die Dateiwiederherstellung und 9.12.1 für Google Archive und StorageGRID ausgeführt werden.
 
 ifdef::aws[]
 
@@ -422,13 +422,13 @@ Sie haben ein paar Optionen für den Speicherort beim Wiederherstellen von Ordne
 
 Sie können ein Volume, einen Ordner oder Dateien aus einer ONTAP-Sicherungsdatei mithilfe von Suchen und Wiederherstellen wiederherstellen wiederherstellen. Mit Search & Restore lassen sich anhand aller im Cloud Storage gespeicherten Backups nach einem bestimmten Volume, Ordner oder Datei suchen und anschließend eine Wiederherstellung durchführen. Sie müssen nicht den genauen Namen der Arbeitsumgebung oder den Namen des Volumes kennen - die Suche durchsucht alle Volume-Backup-Dateien.
 
-Der Suchvorgang sieht auch alle lokalen Snapshot-Kopien aus, die auch für Ihre ONTAP Volumes vorhanden sind. Da das Wiederherstellen von Daten aus einer lokalen Snapshot-Kopie schneller und kostengünstiger ist als die Wiederherstellung aus einer Backup-Datei, möchten Sie möglicherweise Daten aus dem Snapshot wiederherstellen. Sie können den Snapshot als neues Volume von der Seite Volume Details auf dem Bildschirm wiederherstellen.
+Der Suchvorgang sieht auch alle lokalen Snapshot-Kopien aus, die auch für Ihre ONTAP Volumes vorhanden sind. Da das Wiederherstellen von Daten aus einer lokalen Snapshot-Kopie schneller und kostengünstiger ist als die Wiederherstellung aus einer Backup-Datei, möchten Sie möglicherweise Daten aus dem Snapshot wiederherstellen. Sie können den Snapshot als ein neues Volume von der Seite Volume Details auf dem Bildschirm wiederherstellen (nicht aus Cloud Backup).
 
 Wenn Sie ein Volume aus einer Backup-Datei wiederherstellen, erstellt Cloud Backup ein _neues_ Volume, wobei die Daten aus dem Backup verwendet werden. Sie können die Daten als Volume in der ursprünglichen Arbeitsumgebung oder in einer anderen Arbeitsumgebung wiederherstellen, die sich in demselben Cloud-Konto wie die Arbeitsumgebung der Quelle befindet. Sie können Volumes auch in einem ONTAP System vor Ort wiederherstellen.
 
 Sie können Ordner oder Dateien auf dem ursprünglichen Volume-Speicherort, auf einem anderen Volume in derselben Arbeitsumgebung oder in einer anderen Arbeitsumgebung wiederherstellen, die dasselbe Cloud-Konto verwendet. Ordner und Dateien können auch auf einem Volume auf einem lokalen ONTAP System wiederhergestellt werden.
 
-Wenn die Backup-Datei für das wiederherzustellende Volume im Archiv-Storage (ab ONTAP 9.10.1 verfügbar) gespeichert ist, dauert der Restore-Vorgang länger und es entstehen zusätzliche Kosten. Beachten Sie, dass auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Wiederherstellung, 9.11.1 für Dateiwiederherstellung und 9.12.1 für Google Archive ausgeführt werden muss.
+Wenn die Backup-Datei für das wiederherzustellende Volume im Archiv-Storage (ab ONTAP 9.10.1 verfügbar) gespeichert ist, dauert der Restore-Vorgang länger und es entstehen zusätzliche Kosten. Beachten Sie, dass auf dem Ziel-Cluster ONTAP 9.10.1 oder höher für Volume-Wiederherstellung, 9.11.1 für Dateiwiederherstellung und 9.12.1 für Google Archive und StorageGRID ausgeführt werden muss.
 
 ifdef::aws[]
 
@@ -518,8 +518,8 @@ Beachten Sie, dass Verweise auf „On-Premises ONTAP Systeme“ Systeme mit FAS,
 +
 ** Die ONTAP-Version muss 9.8 oder höher sein.
 ** Die Storage-VM (SVM), auf der sich das Volume befindet, muss über eine konfigurierte Daten-LIF verfügen.
-** NFS muss auf dem Volume aktiviert sein.
-** Der SnapDiff RPC Server muss auf der SVM aktiviert sein. BlueXP führt diese Funktion automatisch aus, wenn Sie die Indexierung in der Arbeitsumgebung aktivieren.
+** NFS muss auf dem Volume aktiviert sein (NFS und SMB/CIFS Volumes werden unterstützt).
+** Der SnapDiff RPC Server muss auf der SVM aktiviert sein. BlueXP führt diese Funktion automatisch aus, wenn Sie die Indexierung in der Arbeitsumgebung aktivieren. (SnapDiff ist die Technologie, die die Datei- und Verzeichnisunterschiede zwischen zwei Snapshot Kopien schnell identifiziert.)
 
 
 

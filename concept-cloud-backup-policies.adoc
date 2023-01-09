@@ -255,7 +255,7 @@ endif::azure[]
 
 ifdef::gcp[]
 
-* In GCP werden Backups standardmäßig der Storage-Klasse _Standard_ zugeordnet.
+* In GCP werden Backups der Klasse _Standard_ Storage zugeordnet.
 +
 Wenn Ihr On-Prem-Cluster ONTAP 9.12.1 oder höher verwendet, können Sie nach einer bestimmten Anzahl von Tagen ältere Backups als _Archive_ Storage in der Cloud Backup UI verschieben, um die Kosten weiter zu optimieren. (Diese Funktion ist derzeit für Cloud Volumes ONTAP Systeme nicht verfügbar.) link:reference-google-backup-tiers.html["Erfahren Sie mehr über Google Archivspeicher"^].
 
@@ -265,6 +265,6 @@ endif::gcp[]
 
 * In StorageGRID sind Backups der Klasse _Standard_ Storage zugeordnet.
 +
-Derzeit ist kein Archiv-Tier verfügbar.
+Wenn Ihr On-Premises-Cluster ONTAP 9.12.1 oder höher verwendet und Ihr StorageGRID System mindestens 11.3 nutzt, können Sie ältere Backup-Dateien im Public-Cloud-Archiv-Storage archivieren. Archiv-Storage wird derzeit nur für AWS S3-Storage-Klassen unterstützt. Darüber hinaus können Sie Backups nach einer bestimmten Anzahl von Tagen in AWS _S3 Glacier_ oder _S3 Glacier Deep Archive_ Storage verlagern. link:task-backup-onprem-private-cloud.html#preparing-to-archive-older-backup-files-to-public-cloud-storage["Weitere Informationen zur Archivierung von Backup-Dateien aus StorageGRID"^].
 
 
