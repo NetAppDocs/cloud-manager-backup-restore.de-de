@@ -855,6 +855,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1386,6 +1388,13 @@
         Unterstützte Google-Archiv-Storage Tiers
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie die Cloud Backup-Datenbank an einem dunklen Standort"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/aws/reference-backup-cbs-db-in-dark-site.html">
+        Sichern Sie die Cloud Backup-Datenbank an einem dunklen Standort
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1492,7 +1501,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-19 11:34:26 +0000">12/19/2022</time>
+    <time datetime="2023-01-09 16:27:00 +0000">01/09/2023</time>
     
   
 
@@ -1508,6 +1517,38 @@
 <div class="sectionbody">
 <div class="paragraph lead">
 <p>Alles zum Thema Cloud Backup:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="9-januar-2023">9 Januar 2023</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="möglichkeit-ältere-backup-dateien-in-aws-s3-archiv-storage-von-storagegrid-systemen-zu-verschieben">Möglichkeit, ältere Backup-Dateien in AWS S3 Archiv-Storage von StorageGRID Systemen zu verschieben</h3>
+<div class="paragraph">
+<p>Jetzt können Sie ältere Backup-Dateien von StorageGRID Systemen auf Archiv-Storage in AWS S3 verschieben. So können Sie auf Ihren StorageGRID Systemen Speicherplatz freigeben und Kosten sparen, indem Sie eine kostengünstige Storage-Klasse für alte Backup-Dateien verwenden. Zudem stehen für das Tiering von Backups AWS S3 Glacier oder S3 Glacier Deep Archive Storage zur Verfügung.</p>
+</div>
+<div class="paragraph">
+<p>Diese Funktion ist verfügbar, wenn Ihr Cluster ONTAP 9.12.1 oder höher verwendet und Ihr StorageGRID System mindestens 11.3 verwendet. <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-backup-onprem-private-cloud.html#preparing-to-archive-older-backup-files-to-public-cloud-storage">"Hier erfahren Sie mehr"</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="möglichkeit-ihre-eigenen-vom-kunden-gemanagten-schlüssel-zur-datenverschlüsselung-auf-google-cloud-auszuwählen">Möglichkeit, Ihre eigenen vom Kunden gemanagten Schlüssel zur Datenverschlüsselung auf Google Cloud auszuwählen</h3>
+<div class="paragraph">
+<p>Beim Backup von Daten aus Ihren ONTAP-Systemen auf Google Cloud Storage können Sie nun im Aktivierungsassistenten Ihre eigenen, vom Kunden gemanagten Schlüssel zur Datenverschlüsselung auswählen und nicht die von Google gemanagten Standardschlüssel verwenden. Legen Sie zuerst die von Kunden gemanagten Schlüssel fest und geben Sie bei der Aktivierung von Cloud Backup Details ein.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="die-rolle-storage-admin-wird-für-das-servicekonto-zur-erstellung-von-backups-in-google-cloud-storage-nicht-mehr-benötigt">Die Rolle „Storage-Admin“ wird für das Servicekonto zur Erstellung von Backups in Google Cloud Storage nicht mehr benötigt</h3>
+<div class="paragraph">
+<p>In früheren Versionen war die Rolle „Storage Admin“ für das Service-Konto erforderlich, mit dem Cloud Backup auf Google Cloud Storage Buckets zugreifen kann. Jetzt können Sie eine benutzerdefinierte Rolle mit einem reduzierten Satz von Berechtigungen erstellen, die dem Servicekonto zugewiesen werden sollen. <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-backup-onprem-to-gcp.html#preparing-google-cloud-storage-for-backups">"So bereiten Sie Ihren Google Cloud Storage auf Backups vor"</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="die-seite-ergebnisse-der-jobüberwachung-kann-als-csv-bericht-heruntergeladen-werden">Die Seite Ergebnisse der Jobüberwachung kann als CSV-Bericht heruntergeladen werden</h3>
+<div class="paragraph">
+<p>Nachdem Sie die Seite Jobüberwachung gefiltert haben, um die gewünschten Jobs und Aktionen anzuzeigen, können Sie nun eine .csv-Datei dieser Daten generieren und herunterladen. Anschließend können Sie die Informationen analysieren oder den Bericht an andere Personen in Ihrem Unternehmen senden. <a href="https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-monitor-backup-jobs.html#download-job-monitoring-results-as-a-report">"Erfahren Sie, wie Sie einen Bericht zur Jobüberwachung erstellen"</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1563,7 +1604,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="erweiterungen-für-cloud-backup">Erweiterungen für Cloud Backup</h3>
+<h3 id="verbesserungen-bei-cloud-backup-für-virtual-machines">Verbesserungen bei Cloud Backup für Virtual Machines</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1734,7 +1775,7 @@
 <p>Auf der Seite Jobdetails werden alle untergeordneten Jobs angezeigt, die ausgeführt werden, um den Hauptjob abzuschließen.</p>
 </li>
 <li>
-<p>Die Seite wird automatisch alle 15 Minuten aktualisiert, so dass Sie immer die aktuellsten Ergebnisse des Jobstatus sehen. Und Sie können auf die Schaltfläche <strong>Aktualisieren</strong> klicken, um die Seite sofort zu aktualisieren.</p>
+<p>Die Seite wird automatisch alle 15 Minuten aktualisiert, sodass Sie immer die aktuellsten Ergebnisse des Jobstatus sehen. Und Sie können auf die Schaltfläche <strong>Aktualisieren</strong> klicken, um die Seite sofort zu aktualisieren.</p>
 </li>
 </ul>
 </div>
@@ -1782,7 +1823,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="verbesserungen-bei-cloud-backup-für-virtual-machines">Verbesserungen bei Cloud Backup für Virtual Machines</h3>
+<h3 id="verbesserungen-bei-cloud-backup-für-virtual-machines-2">Verbesserungen bei Cloud Backup für Virtual Machines</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1890,7 +1931,7 @@
 <div class="sect2">
 <h3 id="snaplock-enterprise-volumes-werden-jetzt-zusätzlich-unterstützt">SnapLock Enterprise Volumes werden jetzt zusätzlich unterstützt</h3>
 <div class="paragraph">
-<p>Mit Cloud Backup lassen sich jetzt SnapLock Enterprise Volumes in Public und Private Clouds sichern. Für diese Funktion muss auf Ihrem ONTAP System ONTAP 9.11.1 oder höher ausgeführt werden. SnapLock-Compliance-Volumes werden derzeit jedoch nicht unterstützt.</p>
+<p>Mit Cloud Backup lassen sich jetzt SnapLock Enterprise Volumes in Public und Private Clouds sichern. Für diese Funktion muss auf Ihrem ONTAP System ONTAP 9.11.1 oder höher ausgeführt werden. SnapLock Compliance Volumes werden derzeit jedoch nicht unterstützt.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2119,7 +2160,7 @@
         <div class="n-footer__copyright">
           <ul class="n-footer__copyright-list">
             <li class="n-footer__copyright-link">
-              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2023 NetApp, Inc.</a>
             </li>
             <li class="n-footer__copyright-link">
               <a href="https://www.netapp.com/company/legal/terms-of-use/">Allgemeine Geschäftsbedingungen</a>

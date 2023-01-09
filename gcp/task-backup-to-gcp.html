@@ -855,6 +855,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1386,6 +1388,13 @@
         Unterstützte Google-Archiv-Storage Tiers
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie die Cloud Backup-Datenbank an einem dunklen Standort"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/gcp/reference-backup-cbs-db-in-dark-site.html">
+        Sichern Sie die Cloud Backup-Datenbank an einem dunklen Standort
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1492,7 +1501,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2023-01-09 16:27:00 +0000">01/09/2023</time>
     
   
 
@@ -1519,7 +1528,7 @@
 <div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Eins"></span> Überprüfen Sie die Unterstützung Ihrer Konfiguration</div>
 <ul>
 <li>
-<p>In GCP wird Cloud Volumes ONTAP 9.7P5 oder höher verwendet.</p>
+<p>Sie verwenden Cloud Volumes ONTAP 9.7P5 oder höher in GCP (ONTAP 9.8P13 und höher wird empfohlen).</p>
 </li>
 <li>
 <p>Sie verfügen über ein gültiges GCP-Abonnement für den Speicherplatz, in dem sich Ihre Backups befinden.</p>
@@ -1548,7 +1557,7 @@
 </div>
 <div class="paragraph quick-margin-para">
 <div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Drittens"></span> Geben Sie die Anbieterdetails ein</div>
-<p>Wählen Sie das Google Cloud Projekt aus, in dem der Google Cloud Storage-Bucket für Backups erstellt werden soll.</p>
+<p>Wählen Sie das Google Cloud Projekt und die Region aus, in der der Google Cloud Storage-Bucket für Backups erstellt werden soll. Sie haben auch die Wahl zwischen Ihren eigenen, vom Kunden gemanagten Schlüsseln für die Datenverschlüsselung, anstatt den von Google administrierten Standardschlüssel zu verwenden.</p>
 </div>
 <div class="paragraph quick-margin-para">
 <p><span class="image"><img src="./media/screenshot_backup_provider_settings_gcp.png" alt="In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."></span></p>
@@ -1650,6 +1659,51 @@ bigquery.tables.create</code></pre>
 </div>
 </div>
 </dd>
+<dt class="hdlist1">Erforderliche Informationen zur Nutzung von vom Kunden gemanagten Verschlüsselungsschlüsseln (CMEK)</dt>
+<dd>
+<p>Sie können Ihre eigenen, von Kunden gemanagten Schlüssel zur Datenverschlüsselung verwenden, statt die von Google standardmäßig gemanagten Verschlüsselungsschlüssel zu verwenden. In diesem Fall benötigen Sie den Schlüsselring und den Schlüsselnamen, damit Sie diese Informationen in den Aktivierungsassistenten einfügen können. <a href="https://cloud.google.com/kms/docs/cmek" target="_blank" rel="noopener">"Erfahren Sie mehr über vom Kunden verwaltete Verschlüsselungsschlüssel"</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Außerdem müssen Sie diese erforderlichen Berechtigungen in der Rolle hinzufügen, damit der Connector für CMEK funktioniert:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">cloudkms.cryptoKeys.get
+cloudkms.cryptoKeys.getIamPolicy
+cloudkms.cryptoKeys.list
+cloudkms.cryptoKeys.setIamPolicy
+cloudkms.keyRings.get
+cloudkms.keyRings.getIamPolicy
+cloudkms.keyRings.list
+cloudkms.keyRings.setIamPolicy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>CMEK-Überlegungen:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Es werden sowohl HSM (Hardware-gesichert) als auch softwaregenerierte Schlüssel unterstützt.</p>
+</li>
+<li>
+<p>Es werden sowohl neu erstellte als auch importierte Cloud KMS-Schlüssel unterstützt.</p>
+</li>
+<li>
+<p>Es werden nur regionale Schlüssel unterstützt, globale Schlüssel werden nicht unterstützt.</p>
+</li>
+<li>
+<p>Derzeit wird nur der Zweck „symmetrische Verschlüsselung/Entschlüsselung“ unterstützt.</p>
+</li>
+<li>
+<p>Dem mit dem Speicherkonto verknüpften Service-Agent wird die IAM-Rolle „CryptoKey-Verschlüsselung/Dekrypter (Rollen/cloudkms.KryptoKeyVerschlüsseler)“ von Cloud Backup zugewiesen.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</dd>
 </dl>
 </div>
 </div>
@@ -1739,9 +1793,19 @@ bigquery.tables.create</code></pre>
 </div>
 </li>
 <li>
-<p>Wählen Sie das Google Cloud Projekt und die Region aus, in der der Google Cloud Storage Bucket für Backups erstellt werden soll, und klicken Sie auf <strong>Weiter</strong>.</p>
+<p>Wählen Sie die Provider-Details aus und klicken Sie auf <strong>Weiter</strong>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Das Google Cloud Projekt und die Region, in der der Google Cloud Storage-Bucket für Backups erstellt werden soll.</p>
+</li>
+<li>
+<p>Unabhängig davon, ob Sie den von Google gemanagten Standardschlüssel verwenden oder Ihren eigenen, vom Kunden gemanagten Schlüssel zum Management der Verschlüsselung Ihrer Daten wählen möchten. Um einen CMEK zu verwenden, müssen Sie den Schlüsselring und den Schlüsselnamen haben. <a href="https://cloud.google.com/kms/docs/cmek" target="_blank" rel="noopener">"Erfahren Sie mehr über vom Kunden verwaltete Verschlüsselungsschlüssel"</a>.</p>
 <div class="paragraph">
 <p><span class="image"><img src="./media/screenshot_backup_provider_settings_gcp.png" alt="In diesem Screenshot wird der Cloud-Provider-Details dargestellt, wenn ein Backup von Volumes eines auf GCP installierten Cloud Volumes ONTAP Systems in einem Google Cloud Storage Bucket erstellt wird."></span></p>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Beachten Sie, dass das Projekt über ein Servicekonto verfügt, das über die vordefinierte Rolle „Speicheradministrator“ verfügt.</p>
@@ -1833,7 +1897,7 @@ bigquery.tables.create</code></pre>
         <div class="n-footer__copyright">
           <ul class="n-footer__copyright-list">
             <li class="n-footer__copyright-link">
-              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2023 NetApp, Inc.</a>
             </li>
             <li class="n-footer__copyright-link">
               <a href="https://www.netapp.com/company/legal/terms-of-use/">Allgemeine Geschäftsbedingungen</a>

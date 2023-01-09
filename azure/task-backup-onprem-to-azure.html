@@ -855,6 +855,8 @@
 
 
 
+
+
         </li>
       </ul>
     
@@ -1430,6 +1432,13 @@
         Unterstützte Google-Archiv-Storage Tiers
       </a></li><li 
       data-pdf-exists="true" 
+      data-pdf-filename="Sichern Sie die Cloud Backup-Datenbank an einem dunklen Standort"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/cloud-manager-backup-restore/azure/reference-backup-cbs-db-in-dark-site.html">
+        Sichern Sie die Cloud Backup-Datenbank an einem dunklen Standort
+      </a></li><li 
+      data-pdf-exists="true" 
       data-pdf-filename="Backup für Multi-Account-Zugriff in Azure konfigurieren"
       data-li-level="2#" 
       class=" "
@@ -1536,7 +1545,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-06 17:35:25 +0000">12/06/2022</time>
+    <time datetime="2023-01-09 16:27:00 +0000">01/09/2023</time>
     
   
 
@@ -1570,7 +1579,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Auf dem Cluster läuft ONTAP 9.7P5 oder höher.</p>
+<p>Auf dem Cluster wird ONTAP 9.7P5 oder höher ausgeführt (ONTAP 9.8P13 und höher wird empfohlen).</p>
 </li>
 <li>
 <p>Das Cluster verfügt über eine SnapMirror Lizenz – es ist im Premium Bundle oder in der Datensicherungs-Bundle enthalten.</p>
@@ -1787,6 +1796,9 @@
 <p>Eine HTTPS-Verbindung über Port 443 an Ihre ONTAP-Cluster-Management-LIF</p>
 </li>
 <li>
+<p>Damit die Funktionalität Cloud Backup Search &amp; Restore funktioniert, muss Port 1433 für die Kommunikation zwischen dem Connector und den Azure Synapse SQL-Diensten geöffnet sein.</p>
+</li>
+<li>
 <p>Für Implementierungen von Azure und Azure Government sind weitere Regeln für eingehende Sicherheitsgruppen erforderlich. Siehe <a href="https://docs.netapp.com/us-en/cloud-manager-setup-admin/reference-ports-azure.html" target="_blank" rel="noopener">"Regeln für den Connector in Azure"</a> Entsprechende Details.</p>
 </li>
 </ul>
@@ -1862,9 +1874,11 @@
 "Microsoft.Synapse/register/action",
 "Microsoft.Synapse/checkNameAvailability/action",
 "Microsoft.Synapse/workspaces/operationStatuses/read",
+"Microsoft.Synapse/workspaces/firewallRules/write",
 "Microsoft.Synapse/workspaces/firewallRules/read",
 "Microsoft.Synapse/workspaces/replaceAllIpFirewallRules/action",
-"Microsoft.Synapse/workspaces/operationResults/read"</code></pre>
+"Microsoft.Synapse/workspaces/operationResults/read",
+"Microsoft.Synapse/workspaces/privateEndpointConnectionsApproval/action"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2072,7 +2086,7 @@
         <div class="n-footer__copyright">
           <ul class="n-footer__copyright-list">
             <li class="n-footer__copyright-link">
-              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2023 NetApp, Inc.</a>
             </li>
             <li class="n-footer__copyright-link">
               <a href="https://www.netapp.com/company/legal/terms-of-use/">Allgemeine Geschäftsbedingungen</a>
